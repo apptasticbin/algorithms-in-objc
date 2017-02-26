@@ -795,6 +795,8 @@ Given a singly linked list where elements are sorted in ascending order, convert
 // Ask interviewer: type of value? size of linked list? duplicates?
 // NOTICE: DO NOT change the original list.
 // [1, 2, 3, 4, 5, 6, 7]
+// https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/?tab=Solutions
+// http://www.jiuzhang.com/solutions/convert-sorted-list-to-binary-search-tree/
 - (Tree *)sortedListToBST:(ListNode *)head {
     if (head == nil) return nil;
     return [self toBST:head tail:nil];
@@ -816,5 +818,41 @@ Given a singly linked list where elements are sorted in ascending order, convert
     return root;
 }
 
+==============================================================================
 
+Question 19: Coin Change
 
+You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+Example 1:
+coins = [1, 2, 5], amount = 11
+return 3 (11 = 5 + 5 + 1)
+
+Example 2:
+coins = [2], amount = 3
+return -1.
+
+Note:
+You may assume that you have an infinite number of each kind of coin.
+
+// Traditional Dynamic Programming question
+// Tricky part:
+// - the index of DP[] stands for the target total amount; 
+// - the value of DP[] stands for the minimum count of coins
+// Ask interviewer: coins sorted? coin value type? target amount size?
+// https://leetcode.com/problems/coin-change/?tab=Solutions
+- (NSInteger)coinChange:(NSArray<NSNumber *> *)coins amount:(NSUInteger)amount {
+    // NOTICE: how about amount == NSUIntegerMax ? discuss with interviewer
+    // variable length C array should not be initialized with "{ value }";
+    NSUInteger dp[amount+1];
+    memset(dp, amount+1, amount+1);
+    dp[0] = 0;
+    for (NSUInteger i=1; i<=amount; i++) {
+        NSUInteger n = coins.count;
+        for (NSUInteger j=0; j<n; j++) {
+            NSUInteger curC = coins[j].unsignedIntegerValue;
+            if (curC <= i) dp[i] = MIN(dp[i], dp[i-curC]+1);
+        }
+    }
+    return dp[amount] <= amount ?: -1;
+}
