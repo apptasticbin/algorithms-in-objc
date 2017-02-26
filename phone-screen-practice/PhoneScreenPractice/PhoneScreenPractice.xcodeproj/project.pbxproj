@@ -11,6 +11,7 @@
 		791C30E01E63118D00E90ED7 /* ConvertSortedListToBST.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30DF1E63118D00E90ED7 /* ConvertSortedListToBST.m */; };
 		791C30E31E6311B100E90ED7 /* ListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30E21E6311B100E90ED7 /* ListNode.m */; };
 		791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30E61E6319E700E90ED7 /* CoinChange.m */; };
+		791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -49,6 +50,8 @@
 		791C30E21E6311B100E90ED7 /* ListNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListNode.m; sourceTree = "<group>"; };
 		791C30E51E6319E700E90ED7 /* CoinChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinChange.h; sourceTree = "<group>"; };
 		791C30E61E6319E700E90ED7 /* CoinChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinChange.m; sourceTree = "<group>"; };
+		791C30E91E63595D00E90ED7 /* DivideTwoIntegers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DivideTwoIntegers.h; sourceTree = "<group>"; };
+		791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DivideTwoIntegers.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -119,6 +122,15 @@
 			name = CoinChange;
 			sourceTree = "<group>";
 		};
+		791C30E81E63594500E90ED7 /* DivideTwoIntegers */ = {
+			isa = PBXGroup;
+			children = (
+				791C30E91E63595D00E90ED7 /* DivideTwoIntegers.h */,
+				791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */,
+			);
+			name = DivideTwoIntegers;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +156,7 @@
 				791C30E41E6319D600E90ED7 /* CoinChange */,
 				791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */,
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
+				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
@@ -352,6 +365,7 @@
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
 				79BD499D1E61E4FA00405D6A /* RemoveInvalidParentheses.m in Sources */,
 				793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */,
+				791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */,
 				793CFF051E5DEF2500AB1B78 /* main.m in Sources */,
 				793CFF1F1E5E2CF200AB1B78 /* Tree.m in Sources */,
 				79BD49991E61896B00405D6A /* SortColors.m in Sources */,

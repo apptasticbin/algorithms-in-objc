@@ -856,3 +856,41 @@ You may assume that you have an infinite number of each kind of coin.
     }
     return dp[amount] <= amount ?: -1;
 }
+
+==============================================================================
+
+Question 20: Divide Two Integers
+
+Divide two integers without using multiplication, division and mod operator.
+If it is overflow, return MAX_INT.
+
+// Ask interviewer: positive or negative? zero?
+// Naive solution: minus dividend and dividor and count times.
+// Better solution: binary search. dividor << 1, which means dividend * 2, until dividend < dividor
+// each time we double the dividor => binary search => Log(N)
+// Treat dividers as sorted array
+// NOTICE: we need to handle corner cases 1) zero dividor 2) minus integer
+// 25 / 3 -> 25 / 6 -> 25 / 12 -> 25 / 24
+
+- (NSInteger)divide:(NSInteger)dividend dividor:(NSInteger)dividor {
+ 	// overflow cases
+	if (dividor == 0 || (dividend == NSIntegerMin && dividor == -1)) return NSIntegerMax;
+	// using XOR to shorten this checking
+	NSInteger sign = (dividend > 0) ^ (dividor > 0) ? -1 : 1;
+	NSUInteger dvd = ABS(dividend);
+	NSUInteger dvs = ABS(dividor);
+	NSUInteger result = 0;
+	while(dvd >= dvs) {
+		NSInteger tmp = dvs;
+		// when dividend > dividor, the result is at lease 1
+		NSUInteger multiple = 1;
+		// times dividor by 2, also times the multiple by 2
+		while(dvd >= (tmp << 1)) {
+			tmp <<= 1;
+			multiple <<= 1;
+		}
+		dvd -= tmp;
+		result += multiple;
+	}
+	return sign == 1 ? result : -result;
+}
