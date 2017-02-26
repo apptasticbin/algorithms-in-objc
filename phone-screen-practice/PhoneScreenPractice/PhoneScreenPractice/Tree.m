@@ -10,4 +10,10 @@
 
 @implementation Tree
 
++ (instancetype)nodeWithValue:(NSInteger)value {
+    Tree *node = [self new];
+    node.value = value;
+    return node;
+}
+
 @end

@@ -14,4 +14,6 @@
 @property (nonatomic, strong) Tree *right;
 @property (nonatomic, assign) NSInteger value;
 
++ (instancetype)nodeWithValue:(NSInteger)value;
+
 @end

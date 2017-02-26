@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30DB1E62E93200E90ED7 /* PaintHouses.m */; };
+		791C30E01E63118D00E90ED7 /* ConvertSortedListToBST.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30DF1E63118D00E90ED7 /* ConvertSortedListToBST.m */; };
+		791C30E31E6311B100E90ED7 /* ListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30E21E6311B100E90ED7 /* ListNode.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -40,6 +42,10 @@
 /* Begin PBXFileReference section */
 		791C30DA1E62E93200E90ED7 /* PaintHouses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintHouses.h; sourceTree = "<group>"; };
 		791C30DB1E62E93200E90ED7 /* PaintHouses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintHouses.m; sourceTree = "<group>"; };
+		791C30DE1E63118D00E90ED7 /* ConvertSortedListToBST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertSortedListToBST.h; sourceTree = "<group>"; };
+		791C30DF1E63118D00E90ED7 /* ConvertSortedListToBST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertSortedListToBST.m; sourceTree = "<group>"; };
+		791C30E11E6311B100E90ED7 /* ListNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListNode.h; sourceTree = "<group>"; };
+		791C30E21E6311B100E90ED7 /* ListNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListNode.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -92,6 +98,15 @@
 			name = PaintHouses;
 			sourceTree = "<group>";
 		};
+		791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */ = {
+			isa = PBXGroup;
+			children = (
+				791C30DE1E63118D00E90ED7 /* ConvertSortedListToBST.h */,
+				791C30DF1E63118D00E90ED7 /* ConvertSortedListToBST.m */,
+			);
+			name = ConvertSortedListToBST;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +129,7 @@
 				793CFF181E5E2C9F00AB1B78 /* AllPathsOfTree */,
 				799F30CE1E5F8BEE0010365B /* BinaryTreeToDLL */,
 				793CFF141E5E22C100AB1B78 /* BinaryTreeLayerAverage */,
+				791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */,
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
@@ -172,6 +188,8 @@
 			children = (
 				793CFF1D1E5E2CF200AB1B78 /* Tree.h */,
 				793CFF1E1E5E2CF200AB1B78 /* Tree.m */,
+				791C30E11E6311B100E90ED7 /* ListNode.h */,
+				791C30E21E6311B100E90ED7 /* ListNode.m */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -328,9 +346,11 @@
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
+				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
 				799F30C91E5F63710010365B /* VerifyPreorderBST.m in Sources */,
 				79BD49A11E62132600405D6A /* NumberIsland.m in Sources */,
+				791C30E01E63118D00E90ED7 /* ConvertSortedListToBST.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

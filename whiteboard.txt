@@ -777,3 +777,44 @@ http://www.jiuzhang.com/solutions/paint-house-ii/
     }
     return now[0].cost;
 }
+
+==============================================================================
+
+Question 18: Convert Sorted List to Binary Search Tree
+
+Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+
+@interface ListNode : NSObject
+
+@property(nonatomic, strong) ListNode *next;
+@property(nonatomic, assign) NSInteger value;
+
+@end
+
+// Idea: double runner, find middle value, then split the linked list into two parts, recursion
+// Ask interviewer: type of value? size of linked list? duplicates?
+// NOTICE: DO NOT change the original list.
+// [1, 2, 3, 4, 5, 6, 7]
+- (Tree *)sortedListToBST:(ListNode *)head {
+    if (head == nil) return nil;
+    return [self toBST:head tail:nil];
+}
+
+- (Tree *)toBST:(ListNode *)head tail:(ListNode *)tail {
+    if (head.next == tail) return [Tree nodeWithValue:head.value];
+    // create runners
+    ListNode *slow = head;
+    ListNode *fast = head;
+    while (fast != tail && fast.next != tail) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    // now slow is the root of the BST
+    Tree *root = [Tree nodeWithValue:slow.value];
+    root.left = [self toBST:head tail:slow];
+    root.right = [self toBST:slow.next tail:tail];
+    return root;
+}
+
+
+
