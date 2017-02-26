@@ -12,6 +12,7 @@
 		791C30E31E6311B100E90ED7 /* ListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30E21E6311B100E90ED7 /* ListNode.m */; };
 		791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30E61E6319E700E90ED7 /* CoinChange.m */; };
 		791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */; };
+		791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30EE1E635FCB00E90ED7 /* MoveZeros.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -52,6 +53,8 @@
 		791C30E61E6319E700E90ED7 /* CoinChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinChange.m; sourceTree = "<group>"; };
 		791C30E91E63595D00E90ED7 /* DivideTwoIntegers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DivideTwoIntegers.h; sourceTree = "<group>"; };
 		791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DivideTwoIntegers.m; sourceTree = "<group>"; };
+		791C30ED1E635FCB00E90ED7 /* MoveZeros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveZeros.h; sourceTree = "<group>"; };
+		791C30EE1E635FCB00E90ED7 /* MoveZeros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveZeros.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -131,6 +134,15 @@
 			name = DivideTwoIntegers;
 			sourceTree = "<group>";
 		};
+		791C30EC1E635FB500E90ED7 /* MoveZeros */ = {
+			isa = PBXGroup;
+			children = (
+				791C30ED1E635FCB00E90ED7 /* MoveZeros.h */,
+				791C30EE1E635FCB00E90ED7 /* MoveZeros.m */,
+			);
+			name = MoveZeros;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +174,7 @@
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
 				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
 				793CFF101E5E13D200AB1B78 /* MaximumNumber */,
+				791C30EC1E635FB500E90ED7 /* MoveZeros */,
 				79BD499E1E62131400405D6A /* NumberIsland */,
 				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
 				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
@@ -362,6 +375,7 @@
 				793CFF171E5E22DD00AB1B78 /* BinaryTreeLayerAverage.m in Sources */,
 				79BD49A51E62539900405D6A /* FindMinimumInRotatedSortedArray.m in Sources */,
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
+				791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */,
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
 				79BD499D1E61E4FA00405D6A /* RemoveInvalidParentheses.m in Sources */,
 				793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */,
