@@ -918,3 +918,174 @@ Note: You must do this in-place without making a copy of the array. Minimize the
         }
     }
 }
+
+Question 22: Add and Search Word - Data structure design
+
+Design a data structure that supports the following two operations:
+
+void addWord(word)
+bool search(word)
+
+search(word) can search a literal word or a regular expression string containing only letters a-z or '.'. A '.' means it can represent any one letter.
+
+For example:
+
+addWord("bad")
+addWord("dad")
+addWord("mad")
+search("pad") -> false
+search("bad") -> true
+search(".ad") -> true
+search("b..") -> true
+
+Note: You may assume that all words are consist of lowercase letters a-z.
+
+// Ask interviewer: how many words? how offen APIs get called?
+// Naive solution: use hash set to keep each word. If there are too many words, this solution is not scalable.
+// Better solution: When we meet "add string" or "search string", "Trie" is the data structure to use
+// We need to create TrieNode and Trie helper class
+// https://leetcode.com/problems/add-and-search-word-data-structure-design/?tab=Solutions
+
+#pragma mark - TrieNode
+
+@interface TrieNode : NSObject
+
+@property(nonatomic, assign) BOOL isWord;
+
++ (instancetype)node;
+- (BOOL)hasChild:(unichar)c;
+- (TrieNode *)getChild:(unichar)c;
+- (void)setChild:(unichar)c withNode:(TrieNode *)node;
+
+@end
+
+@interface TrieNode ()
+
+@property(nonatomic, strong) NSMutableDictionary<NSString *, TrieNode *> *children;
+
+@end
+
+@implementation TrieNode
+
++ (instancetype)node {
+    TrieNode *node = [self new];
+    return node;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _children = [NSMutableDictionary dictionary];
+        _isWord = NO;
+    }
+    return self;
+}
+
+- (BOOL)hasChild:(unichar)c {
+    NSString *key = [self stringWithUnichar:c];
+    return [self.children objectForKey:key] != nil;
+}
+
+- (TrieNode *)getChild:(unichar)c {
+    NSString *key = [self stringWithUnichar:c];
+    return [self.children objectForKey:key];
+}
+
+- (void)setChild:(unichar)c withNode:(TrieNode *)node {
+    NSString *key = [self stringWithUnichar:c];
+    [self.children setObject:node forKey:key];
+}
+
+- (NSString *)stringWithUnichar:(unichar)c {
+    return [NSString stringWithFormat:@"%C", c];
+}
+
+@end
+
+#pragma mark - Trie
+
+@interface Trie : NSObject
+
+@property (nonatomic, strong) TrieNode *root;
+
++ (instancetype)trie;
+- (void)addWord:(NSString *)word;
+- (BOOL)search:(NSString *)word;
+
+@end
+
+@implementation Trie
+
++ (instancetype)trie {
+    Trie *theTrie = [self new];
+    theTrie.root = [TrieNode node];
+    return theTrie;
+}
+
+- (void)addWord:(NSString *)word {
+    if (!word) return;
+    // insert word characters one by one, change current node following the path
+    TrieNode *curNode = self.root;
+    for (NSUInteger i=0; i<word.length; i++) {
+        unichar c = [word characterAtIndex:i];
+        // if there isn't word with this character, create new node.
+        // otherwise, just get the existing node.
+        if (![curNode hasChild:c]) {
+            TrieNode *newNode = [TrieNode node];
+            [curNode setChild:c withNode:newNode];
+        }
+        curNode = [curNode getChild:c];
+    }
+    // mark this node as the end of a complete word.
+    curNode.isWord = YES;
+}
+
+- (BOOL)search:(NSString *)word {
+    if (!word) return NO;
+    return [self search:word root:self.root];
+}
+
+- (BOOL)search:(NSString *)word root:(TrieNode *)root {
+    if (word.length == 0 && root.isWord) return YES;
+    unichar c = [word characterAtIndex:0];
+    if (c != '.' && [root hasChild:c]) {
+        [self search:[word substringWithRange:NSMakeRange(0,1)] root:[root getChild:c]];
+    } else if (c == '.') {
+        for (NSUInteger i=0; i<26; i++) {
+            c = 'a'+i;
+            BOOL found = [self search:[word substringWithRange:NSMakeRange(0,1)] root:[root getChild:c]];
+            if (found) return YES;
+        }
+    }
+    return NO;
+}
+
+@end
+
+#pragma mark - WordDictionary
+
+@interface WordDictionary : NSObject
+
+@property (nonatomic, strong) Trie *trie;
+
+@end
+
+@implementation WordDictionary
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _trie = [Trie trie];
+    }
+    return self;
+}
+
+- (void)addWord:(NSString *)word {
+    [self.trie addWord:word];
+}
+
+- (BOOL)search:(NSString *)word {
+    return [self.trie search:word];
+}
+
+@end

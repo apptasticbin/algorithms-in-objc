@@ -13,6 +13,9 @@
 		791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30E61E6319E700E90ED7 /* CoinChange.m */; };
 		791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */; };
 		791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30EE1E635FCB00E90ED7 /* MoveZeros.m */; };
+		791C30F71E63839200E90ED7 /* Trie.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30F61E63839200E90ED7 /* Trie.m */; };
+		791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30F91E6383BA00E90ED7 /* TrieNode.m */; };
+		791C30FD1E63856F00E90ED7 /* AddAndSearchWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30FC1E63856F00E90ED7 /* AddAndSearchWord.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -55,6 +58,12 @@
 		791C30EA1E63595D00E90ED7 /* DivideTwoIntegers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DivideTwoIntegers.m; sourceTree = "<group>"; };
 		791C30ED1E635FCB00E90ED7 /* MoveZeros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveZeros.h; sourceTree = "<group>"; };
 		791C30EE1E635FCB00E90ED7 /* MoveZeros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveZeros.m; sourceTree = "<group>"; };
+		791C30F51E63839200E90ED7 /* Trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
+		791C30F61E63839200E90ED7 /* Trie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trie.m; sourceTree = "<group>"; };
+		791C30F81E6383BA00E90ED7 /* TrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrieNode.h; sourceTree = "<group>"; };
+		791C30F91E6383BA00E90ED7 /* TrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrieNode.m; sourceTree = "<group>"; };
+		791C30FB1E63856F00E90ED7 /* AddAndSearchWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAndSearchWord.h; sourceTree = "<group>"; };
+		791C30FC1E63856F00E90ED7 /* AddAndSearchWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAndSearchWord.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -143,6 +152,44 @@
 			name = MoveZeros;
 			sourceTree = "<group>";
 		};
+		791C30F01E63834900E90ED7 /* AddAndSearchWord */ = {
+			isa = PBXGroup;
+			children = (
+				791C30FB1E63856F00E90ED7 /* AddAndSearchWord.h */,
+				791C30FC1E63856F00E90ED7 /* AddAndSearchWord.m */,
+			);
+			name = AddAndSearchWord;
+			sourceTree = "<group>";
+		};
+		791C30F21E63836600E90ED7 /* Tree */ = {
+			isa = PBXGroup;
+			children = (
+				793CFF1D1E5E2CF200AB1B78 /* Tree.h */,
+				793CFF1E1E5E2CF200AB1B78 /* Tree.m */,
+			);
+			name = Tree;
+			sourceTree = "<group>";
+		};
+		791C30F31E63836F00E90ED7 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				791C30E11E6311B100E90ED7 /* ListNode.h */,
+				791C30E21E6311B100E90ED7 /* ListNode.m */,
+			);
+			name = List;
+			sourceTree = "<group>";
+		};
+		791C30F41E63837A00E90ED7 /* Trie */ = {
+			isa = PBXGroup;
+			children = (
+				791C30F51E63839200E90ED7 /* Trie.h */,
+				791C30F61E63839200E90ED7 /* Trie.m */,
+				791C30F81E6383BA00E90ED7 /* TrieNode.h */,
+				791C30F91E6383BA00E90ED7 /* TrieNode.m */,
+			);
+			name = Trie;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +209,7 @@
 		793CFF031E5DEF2500AB1B78 /* PhoneScreenPractice */ = {
 			isa = PBXGroup;
 			children = (
+				791C30F01E63834900E90ED7 /* AddAndSearchWord */,
 				793CFF181E5E2C9F00AB1B78 /* AllPathsOfTree */,
 				799F30CE1E5F8BEE0010365B /* BinaryTreeToDLL */,
 				793CFF141E5E22C100AB1B78 /* BinaryTreeLayerAverage */,
@@ -225,10 +273,9 @@
 		793CFF1C1E5E2CDB00AB1B78 /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
-				793CFF1D1E5E2CF200AB1B78 /* Tree.h */,
-				793CFF1E1E5E2CF200AB1B78 /* Tree.m */,
-				791C30E11E6311B100E90ED7 /* ListNode.h */,
-				791C30E21E6311B100E90ED7 /* ListNode.m */,
+				791C30F41E63837A00E90ED7 /* Trie */,
+				791C30F31E63836F00E90ED7 /* List */,
+				791C30F21E63836600E90ED7 /* Tree */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -383,12 +430,15 @@
 				793CFF051E5DEF2500AB1B78 /* main.m in Sources */,
 				793CFF1F1E5E2CF200AB1B78 /* Tree.m in Sources */,
 				79BD49991E61896B00405D6A /* SortColors.m in Sources */,
+				791C30FD1E63856F00E90ED7 /* AddAndSearchWord.m in Sources */,
 				793CFF231E5E36E400AB1B78 /* RunLengthEncoding.m in Sources */,
 				799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */,
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
+				791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
+				791C30F71E63839200E90ED7 /* Trie.m in Sources */,
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
 				799F30C91E5F63710010365B /* VerifyPreorderBST.m in Sources */,
 				79BD49A11E62132600405D6A /* NumberIsland.m in Sources */,
