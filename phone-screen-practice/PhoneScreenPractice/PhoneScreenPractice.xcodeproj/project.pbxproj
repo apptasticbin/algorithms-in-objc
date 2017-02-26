@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30DB1E62E93200E90ED7 /* PaintHouses.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -37,6 +38,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		791C30DA1E62E93200E90ED7 /* PaintHouses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintHouses.h; sourceTree = "<group>"; };
+		791C30DB1E62E93200E90ED7 /* PaintHouses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintHouses.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -80,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		791C30D91E62E8CA00E90ED7 /* PaintHouses */ = {
+			isa = PBXGroup;
+			children = (
+				791C30DA1E62E93200E90ED7 /* PaintHouses.h */,
+				791C30DB1E62E93200E90ED7 /* PaintHouses.m */,
+			);
+			name = PaintHouses;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -99,20 +111,21 @@
 		793CFF031E5DEF2500AB1B78 /* PhoneScreenPractice */ = {
 			isa = PBXGroup;
 			children = (
-				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
-				79BD499E1E62131400405D6A /* NumberIsland */,
-				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
-				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
-				799F30CE1E5F8BEE0010365B /* BinaryTreeToDLL */,
-				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
-				799F30C61E5F63570010365B /* VerifyPreorderBST */,
 				793CFF181E5E2C9F00AB1B78 /* AllPathsOfTree */,
+				799F30CE1E5F8BEE0010365B /* BinaryTreeToDLL */,
 				793CFF141E5E22C100AB1B78 /* BinaryTreeLayerAverage */,
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
+				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
+				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
+				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
 				793CFF101E5E13D200AB1B78 /* MaximumNumber */,
+				79BD499E1E62131400405D6A /* NumberIsland */,
+				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
+				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
+				799F30C61E5F63570010365B /* VerifyPreorderBST */,
 				793CFF041E5DEF2500AB1B78 /* main.m */,
 			);
 			path = PhoneScreenPractice;
@@ -313,6 +326,7 @@
 				793CFF231E5E36E400AB1B78 /* RunLengthEncoding.m in Sources */,
 				799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */,
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
+				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
 				799F30C91E5F63710010365B /* VerifyPreorderBST.m in Sources */,
