@@ -1,0 +1,700 @@
+Facebook Phone Screen Questions:
+
+==============================================================================
+
+Question 1:
+
+we have a git vertion control
+   
+        base
+       commit1
+       commit2
+   commit3 commit3'
+   commit4 commit4'
+   
+commit2 is parent of commit3, etc. Now give you two commits, 
+find out the lowest common ancestor of these two commits.
+
+for example, commit2 is the LCA of commit4 and commit3'
+
+@interface Commit : NSObject<NSCopying>
+
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, strong) Commit *parent;
+
+@end
+
+@implementation Commit
+
+// ask interviewer if the class conform to NSCopying as a key of NSDictionary
+- (id)copyWithZone:(NSZone *)zone {
+	id copy = [[Commit allocWithZone:zone] init];
+	return copy;
+}
+
+@end
+
+// Ask interviewer: are these ids unique?
+// Improvement: http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-ii/
+// find the height of each node, then first iterate the deeper one until they are at same level
+- (Commit *)findAncestorOfCommit:(Commit *) c1 andCommit:(Commit *)c2 {
+	/* - after analyzing, I think this is a graph traversal + hash table question.
+	   - we move two commits up together, and mark every commit on this path as visited
+	   - if the commit meets the base commit, then we stop there
+	   - if we find a commit that has already been visited before we meet the base commit,
+	   	 then that commit is the LCA commit
+	*/
+	NSMutableDictionary<Commit *, NSNumber *> *visited = [NSMutableDictionary dictionary];
+	while (c1 || c2) {
+		if (c1 && visited[c1] != nil) return c1;
+		if (c2 && visited[c2] != nil) return c2;
+		if (c1) visited[c1] = @(YES);
+		if (c2) visited[c2] = @(YES);
+		c1 = c1.parent;
+		c2 = c2.parent;
+	}
+	return nil;
+}
+
+==============================================================================
+
+Question 2:
+
+Give you a array of digits, only swap it once, in order to maximum the the number
+that can be combined by these digits.
+
+NOTICE: digits here are 0 to 9
+
+For example, [4, 2, 1, 3, 5] is 42135, maximum number after one swap is 52134
+
+// Ask interviewer: are these numbers unique or have duplicates
+// Idea: sort the array first in decsend order; then compare digits one by one;
+// when find the first digit not same, then find the "last" index of the digit, then swap
+- (NSInteger)maximumNumberAfterOneSwap:(NSArray<NSNumber *> *)numbers {
+    // sort number in descending order
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil
+                                                                     ascending:NO
+                                                                      selector:@selector(compare:)];
+    NSArray *sortedNumbers = [numbers sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    // find the first number not same
+    __block NSUInteger index = numbers.count;
+    [numbers enumerateObjectsUsingBlock:^(NSNumber *num, NSUInteger idx, BOOL *stop) {
+        if (num != sortedNumbers[idx]) {
+            *stop = YES;
+            index = idx;
+        }
+    }];
+    
+    __block NSUInteger swapIndex = numbers.count;
+    NSNumber *destinationNumber = sortedNumbers[index];
+    
+    if (index != numbers.count) {
+        [numbers enumerateObjectsWithOptions:NSEnumerationReverse
+                                  usingBlock:^(NSNumber *num, NSUInteger idx, BOOL *stop) {
+                                      if ([num isEqualToNumber:destinationNumber]) {
+                                          swapIndex = idx;
+                                          *stop = YES;
+                                      }
+                                  }];
+    }
+    NSMutableArray *mutableNumbers = [numbers mutableCopy];
+    [mutableNumbers exchangeObjectAtIndex:index withObjectAtIndex:swapIndex];
+    // combine numbers into a string
+    NSString *maximumNumberStr = [mutableNumbers componentsJoinedByString:@""];
+    return maximumNumberStr.integerValue;
+}
+
+
+==============================================================================
+
+Question 3:
+
+Give you a binary tree, each node keeps a integer value, calculate the average value of each layer.
+
+@interface Tree : NSObject
+
+@property (nonatomic, strong) Tree *left;
+@property (nonatomic, strong) Tree *right;
+@property (nonatomic, assign) NSInteger value;
+
+@end
+
+// Ask interviewer: sort output? binary search tree? fraction number?
+- (NSArray *)averageValuesOfLayers:(Tree *)root {
+    if (root == nil) return nil;
+    // using NSMutableArray to simulate queue operations
+    NSMutableArray<NSNumber *> *averageValues = [NSMutableArray array];
+    NSMutableArray<Tree *> *queue = [NSMutableArray array];
+    [queue addObject:root];
+    
+    while (queue.count) {
+        // store the size of each layer
+        NSUInteger size = queue.count;
+        NSMutableArray *layer = [NSMutableArray array];
+        for (NSUInteger i=0; i<size; i++) {
+            Tree *node = queue[i];
+            [layer addObject:@(node.value)];
+        }
+        // http://nshipster.com/kvc-collection-operators/
+        NSNumber *layerAverageValue = [layer valueForKeyPath:@"@avg.doubleValue"];
+        [averageValues addObject:layerAverageValue];
+    }
+    
+    return averageValues;
+}
+
+==============================================================================
+
+Question 4:
+
+Output ALL paths of a binary tree
+
+// Ask interviewer: binary search tree? balanced? from root to leaf or from leaf to root? output format?
+- (NSArray<NSArray *> *)allPathsOfTree:(Tree *)root {
+	if (root == nil) return [NSArray array];
+	NSArray *leftPaths = [self allPathsOfTree:root.left];
+	NSArray *rightPaths = [self allPathsOfTree:root.right];
+	NSArray *subPaths = [leftPaths arrayByAddingObjectsFromArray:rightPaths];
+	NSMutableArray *paths = [NSMutableArray array];
+	for (NSArray *subPath in subPaths) {
+		NSArray *path = [subPath arrayByAddingObject:@(root.value)];
+		[paths addObject:path];
+	}
+	// NOTICE: this path is from "leaf" to "root"
+	return paths;
+}
+
+==============================================================================
+
+Question 5: Run Length Encoding
+
+Given an input string, write a function that returns the Run Length Encoded string for the input string.
+
+For example, if the input string is “wwwwaaadexxxxxx”, then the function should return “w4a3d1e1x6”.
+
+// Ask interviewer: size of the string? capital letters? white spaces? how about single short letters?
+- (NSString *)runLengthEncoding:(NSString *)input {
+    if (!input || !input.length) return nil;
+    NSString *encoded = [NSString string];
+    unichar preC = [input characterAtIndex:0];
+    NSInteger count = 1;
+    for (NSUInteger i=1; i<input.length; i++) {
+        unichar curC = [input characterAtIndex:i];
+        if (preC == curC) count++;
+        else {
+            encoded = [encoded stringByAppendingFormat:@"%C", preC];
+            encoded = [encoded stringByAppendingString:@(count).stringValue];
+            // reset counter and previous character value
+            count = 1;
+            preC = curC;
+        }
+    }
+    // append last one to the result string
+    encoded = [encoded stringByAppendingFormat:@"%C", preC];
+    encoded = [encoded stringByAppendingString:@(count).stringValue];
+    return encoded;
+}
+
+==============================================================================
+
+Question 6: Preorder verification question -> stack or in place
+
+Given two pre-order traversal arrays of two "binary search tree" respectively, find first pair of non-matching leaves. Follow Up: If they are general binary trees instead of BSTs, could you solve it? give out your reason.
+
+	 5
+  3     7
+1   4 6
+
+5, 3, 1, 4, 7, 6 -> 5,[3, 1, 4],[7, 6] -> 5,[3, [1, 4]] [7 [6]] -> 5,[3, [[1], [4]]],[7, [6]]
+
+// Similar to question 7
+// Find the first "leaf" of first tree, and first "leaf" of second tree, then compare them
+
+==============================================================================
+
+Question 7:
+
+Given an array of numbers, verify whether it is the correct preorder traversal sequence of a binary search tree.
+You may assume each number in the sequence is unique.
+
+Follow up:
+Could you do it using only constant space complexity?
+
+// Idea: http://buttercola.blogspot.fi/2015/09/leetcode-verify-preorder-sequence-in.html
+// Ask interviewer: what's the separator? size of array? balanced? Length 0, YES or NO?
+// O(N^2), O(N)
+- (BOOL)verifyPreorderBST:(NSArray *)bst {
+    if (!bst || !bst.count) return NO;
+    return [self verifyPreorderBST:bst start:0 end:bst.count-1];
+}
+
+- (BOOL)verifyPreorderBST:(NSArray *)bst start:(NSInteger)start end:(NSInteger)end {
+    if (start >= end) return YES;
+    NSNumber *root = bst[start];
+    NSInteger i = start + 1;
+    while (i < end && [root compare:bst[i]] == NSOrderedDescending) i++;
+    NSInteger j = i;
+    while (j < end && [root compare:bst[j]] == NSOrderedAscending) {
+        j++;
+    }
+    if (j <= end ) return NO;
+    return [self verifyPreorderBST:bst start:start+1 end:i-1] &&
+    [self verifyPreorderBST:bst start:i end:end];
+}
+
+- (BOOL)verifyPreorderBSTWithStack:(NSArray<NSNumber *> *)preorder {
+    if (!preorder || !preorder.count) return NO;
+    
+    NSMutableArray<NSNumber *> *stack = [NSMutableArray array];
+    NSInteger max = NSIntegerMin;
+    for (NSInteger i=0; i<preorder.count; i++) {
+        NSInteger num = preorder[i].integerValue;
+        if (num < max) return NO;
+        
+        while (stack.count > 0 && num > stack.lastObject.integerValue) {
+            max = stack.lastObject.integerValue;
+            [stack removeLastObject];
+        }
+        
+        [stack addObject:@(num)];
+    }
+    return YES;
+}
+
+==============================================================================
+
+Question 8: K Cloest Points
+
+Given an array containing N points find the K closest points to the origin in the 2D plane. You can assume K is much smaller than N and N is very large.
+
+// Traditional Quick Select question 
+// https://en.wikipedia.org/wiki/Quickselect
+// http://www.knowstack.com/sorting-algorithms-in-objective-c/
+// Quick Select O(N), worse O(N^2)
+
+/*
+Quickselect uses the same overall approach as quicksort, choosing one element as a pivot and partitioning the data in two based on the pivot, accordingly as less than or greater than the pivot. However, instead of recursing into both sides, as in quicksort, quickselect only recurses into one side – the side with the element it is searching for. This reduces the average complexity from O(n log n) to O(n), with a worst case of O(n^2).
+*/
+// Ask Interviewer: point format? how about k = 0? how about k > points.count? how to select pivot, random or last // one?
+
+- (NSArray<NSValue *> *)kCloestPoints:(NSUInteger)k fromPoints:(NSMutableArray<NSValue *> *)points {
+    if (!points || !points.count || points.count < k) return nil;
+    return [self kCloestPoints:k fromPoints:points start:0 end:points.count-1];
+}
+
+- (NSArray<NSValue *> *)kCloestPoints:(NSUInteger)k fromPoints:(NSMutableArray<NSValue *> *)points
+                                start:(NSUInteger)start end:(NSUInteger)end {
+	if (start == end) return [points copy];
+    // http://stackoverflow.com/questions/35758588/maximum-return-value-of-arc4random
+    NSUInteger selectedPivot = arc4random() % (end-start+1);
+    NSUInteger pivotIndex = [self partition:points start:start end:end pivot:selectedPivot];
+    if (pivotIndex == k) return [points subarrayWithRange:NSMakeRange(0, k)];
+    if (pivotIndex > k) return [self kCloestPoints:k fromPoints:points
+                                             start:start end:pivotIndex-1];
+    else return [self kCloestPoints:k fromPoints:points
+                              start:pivotIndex+1 end:end];
+}
+
+- (NSUInteger)partition:(NSMutableArray<NSValue *> *)points
+                  start:(NSUInteger)start end:(NSUInteger)end
+                  pivot:(NSUInteger)pivot {
+    // choose last one as the pivot value
+    NSUInteger pivotIndex = pivot;
+    NSUInteger pivotDistance = [self distanceToOriginFromPoint:points[pivotIndex].pointValue];
+    // move pivot value to end
+    [points exchangeObjectAtIndex:pivotIndex withObjectAtIndex:end];
+    for (NSUInteger i=start; i<end-1; i++) {
+        // NOTICE: we should use CGPointValue for iOS
+        NSUInteger distance = [self distanceToOriginFromPoint:points[i].pointValue];
+        if (distance < pivotDistance) {
+            [points exchangeObjectAtIndex:pivotIndex withObjectAtIndex:i];
+            pivotIndex++;
+        }
+    }
+    [points exchangeObjectAtIndex:pivotIndex withObjectAtIndex:end];
+    return pivotIndex;
+}
+
+- (NSUInteger)distanceToOriginFromPoint:(CGPoint)point {
+    return point.x*point.x + point.y*point.y;
+}
+
+==============================================================================
+
+Question 9: Convert a given Binary Tree to Doubly Linked List
+
+// About __autoreleasing:
+// http://stackoverflow.com/questions/8814718/handling-pointer-to-pointer-ownership-issues-in-arc
+
+// http://www.geeksforgeeks.org/convert-a-given-binary-tree-to-doubly-linked-list-set-4/
+
+/* Given a Binary Tree (Bt), convert it to a Doubly Linked List(DLL). The left and right pointers in nodes are to be used as previous and next pointers respectively in converted DLL. The order of nodes in DLL must be same as "In-Order" of the given Binary Tree. The first node of Inorder traversal (left most node in BT) must be head node of the DLL. */
+
+- (Tree *)doubleLinkedListFromBinaryTree:(Tree *)root {
+	if (root == nil) return nil;
+	if (root.left) {
+		Tree *left = [self doubleLinkedListFromBinaryTree:root.left];
+		Tree *leftTail = [self findTailOfList:left];
+		leftTail.right = root;
+		root.left = leftTail;
+	}
+	if (root.right) {
+		Tree *right = [self doubleLinkedListFromBinaryTree:root.right];
+		Tree *rightHead = [self findHeadOfList:right];
+		root.right = rightHead;
+		rightHead.left = root;
+	}
+	return root;
+}
+
+- (Tree *)findHeadOfList:(Tree *)node {
+	if (!node) return nil;
+	while(node->left) node = node->left;
+	return node;
+}
+
+- (Tree *)findTailOfList:(Tree *)node {
+	if (!node) return nil;
+	while(node->right) node = node->right;
+	return node;
+}
+
+- (Tree *)simpleDoubleLinkedListFromBinaryTree:(Tree *)root {
+	Tree *head = nil;
+	[self rightToLeftBuilder:root head:&head];
+	return head;
+}
+
+- (void)rightToLeftBuilder:(Tree *)root head:(Tree * __autoreleasing *)head {
+	// base case
+	if (root == nil) return nil;
+	[self rightToLeftBuilder:root.right head:head];
+	
+	root.right = *head;
+	if (*head != nil) (*head).left = root;
+	*head = root;
+	
+	[self rightToLeftBuilder:root.left head:head];
+}
+
+==============================================================================
+
+Question 10: Lowest Common Ancestor of a Binary Tree
+http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-i/
+
+Given a binary tree, find the lowest common ancestor of two given nodes in the tree.
+
+// Ask interviewer: general binary tree or BST? size? LCA of NULL and non-NULL? value unique?
+// O(N^2) for worst case
+- (Tree *)LCAOfBinaryTree:(Tree *)root node1:(Tree *)node1 node2:(Tree *)node2 {
+	if (!root || !node1 || !node2) return nil;
+	if (root == node1 || root == node2) return root;
+	BOOL node1InLeft = [self findNode:node1 inTree:root.left];
+	BOOL node2InLeft = [self findNode:node2 inTree:root.left];
+	if (node1InLeft != node2InLeft) return root;
+	if (node1InLeft) return [self LCAOfBinaryTree:root.left node1:node1 node2:node2];
+	return [self LCAOfBinaryTree:root.right node1:node1 node2:node2];
+}
+
+- (BOOL)findNode:(Tree *)node inTree:(Tree *)root {
+	if (root == nil || node == nil) return NO;
+	if (node == root) return YES;
+	return [self findNode:node inTree:root.left] ||
+		   [self findNode:node inTree:root.right];
+}
+
+// O(N) worst case
+- (Tree *)bottomUpLCAOfBinaryTree:(Tree *)root node1:(Tree *)node1 node2:(Tree *)node2 {
+	if (root == nil) return nil;
+	if (root == node1 || root == node2) return root;
+	Tree *foundL = [self bottomUpLCAOfBinaryTree:root.left node1:node1 node2:node2];
+	Tree *foundR = [self bottomUpLCAOfBinaryTree:root.right node1:node1 node2:node2];
+	if (foundL && foundR) return root;
+	return foundL ? foundL : foundR;
+}
+
+==============================================================================
+
+Question 11: Sort Colors I
+
+https://leetcode.com/problems/sort-colors/?tab=Solutions
+
+Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue.
+
+Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+
+Note:
+You are not suppose to use the library's sort function for this problem.
+
+// we can write quick sort. 
+// Two Pass Solution: counting sort
+- (void)twoPassSortColors:(NSMutableArray<NSNumber *> *)colors {
+    NSUInteger counter[3];
+    for (NSUInteger i=0; i<colors.count; i++) {
+        counter[colors[i].unsignedIntegerValue]++;
+    }
+    for (NSUInteger i=0, j=0; i<colors.count && j<3; i++) {
+        if (counter[j] > 0) {
+            colors[i] = @(j);
+            counter[j]--;
+        } else {
+            j++;
+        }
+    }
+}
+
+// One Pass In-Place Solution: three pointer, similar to move zeros, but with three pointers
+// 0 2 1 2 0 2 1 2
+- (void)onePassSortColors:(NSMutableArray<NSNumber *> *)colors {
+    NSUInteger zero = 0, one = 0, two = colors.count-1;
+    for (; one <= two; one++) {
+        if ([colors[one] isEqualToNumber:@(0)]) {
+            [colors exchangeObjectAtIndex:zero withObjectAtIndex:one];
+            zero++;
+        } else if ([colors[one] isEqualToNumber:@(2)]) {
+            [colors exchangeObjectAtIndex:two withObjectAtIndex:one];
+            // NOTICE: when color is 2, then go back one index. the index will come back in next loop and stay here
+            one--;
+            two--;
+        }
+    }
+}
+
+// One Pass Tricky In-Place Solution
+- (void)onePassTrickySortColors:(NSMutableArray<NSNumber *> *)colors {
+    NSInteger zero = -1, one = -1, two = -1;
+    for (NSUInteger i=0; i<colors.count; i++) {
+        if ([colors[i] isEqualToNumber:@(0)]) {
+            colors[++two] = @(2); colors[++one] = @(1); colors[++zero] = @(0);
+        } else if ([colors[i] isEqualToNumber:@(1)]) {
+            colors[++two] = @(2); colors[++one] = @(1);
+        } else if ([colors[i] isEqualToNumber:@(2)]) {
+            colors[++two] = @(2);
+        }
+    }
+}
+
+==============================================================================
+
+Question 12: Sort Colors II
+
+Given an array of n objects with k different colors (numbered from 1 to k), sort them so that objects of the same color are adjacent, with the colors in the order 1, 2, ... k.
+
+Notice: You are not suppose to use the library's sort function for this problem.
+
+// Best solution, O(NLog(k))
+- (void)sortColors2:(NSMutableArray<NSNumber *> *)colors k:(NSUInteger)k {
+	// key idea: binary 
+	if (!colors) return;
+	[self rainbowSort:colors start:0 end:colors.count-1 colorFrom:1 colorTo:k];
+}
+
+- (void)rainbowSort:(NSMutableArray<NSNumber *> *)colors
+			  start:(NSUInteger)start end:(NSUInteger)end 
+		  colorFrom:(NSUInteger)colorFrom colorTo:(NSUInteger)colorTo {
+	if (start >= end) return;
+	if (colorFrom == colorTo) return;
+	// find the middle value
+	NSUInteger colorMid = colorFrom + (colorTo-colorFrom)/2;
+	NSUInteger s=start, e=end;
+	while (s <= e) {
+		while (s<=e && colors[s].unsignedIntegerValue <= colorMid) s++;
+		while (s<=e && colors[e].unsignedIntegerValue > colorMid) e--;
+		if (s <= e) {
+			[colors exchangeObjectAtIndex:s withObjectAtIndex:e];
+			s++;
+			e--;
+		}
+	}
+	[self rainbowSort:colors start:start end:e colorFrom:colorFrom colorTo:colorMid];
+	[self rainbowSort:colors start:s end:end colorFrom:colorMid+1 colorTo:colorTo];
+}
+
+==============================================================================
+
+Question 13: Remove Invalid Parentheses
+
+Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Examples:
+"()())()" -> ["()()()", "(())()"]
+"(a)())()" -> ["(a)()()", "(a())()"]
+")(" -> [""]
+
+// BFS thinking: check current level is valid or not.
+// - if YES, then add to result and mark this level to be "found". 
+// (Here we need to be careful that there maybe other valid string in this level, we need to add them all) 
+// - if NO, go deeper level
+// http://www.geeksforgeeks.org/remove-invalid-parentheses/
+// https://leetcode.com/problems/remove-invalid-parentheses/?tab=Solutions
+// Ask interviewer: input format? is input valid?
+- (NSArray<NSString *> *)removeInvalidParentheses:(NSString *)s {
+    if (s == nil) return nil;
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    NSMutableArray<NSString *> *queue = [NSMutableArray array];
+    NSMutableSet<NSString *> *visited = [NSMutableSet set];
+    BOOL found = NO;
+    [queue addObject:s];
+    while (queue.count) {
+        NSString *front = queue.firstObject;
+        [queue removeObjectAtIndex:0];
+        if ([self isValid:front]) {
+            found = YES;
+            [results addObject:front];
+        }
+        // if this node is valid, it's children MUST be invalid, due to removing one more parenthese.
+        if (found) continue;
+        for (NSUInteger i=0; i<front.length; i++) {
+            if (![self isParenthesis:[front characterAtIndex:i]]) continue;
+            NSMutableString *mutableFront = [front mutableCopy];
+            [mutableFront deleteCharactersInRange:NSMakeRange(i,1)];
+            if (![visited containsObject:mutableFront]) {
+                [visited addObject:mutableFront];
+                [queue addObject:mutableFront];
+            }
+        }
+    }
+    return results;
+}
+
+- (BOOL)isValid:(NSString *)s {
+    NSInteger count = 0;
+    for (NSUInteger i=0; i<s.length; i++) {
+        if ([s characterAtIndex:i] == '(') {
+            count++;
+        } else if ([s characterAtIndex:i] == ')') {
+            count--;
+        }
+        if (count < 0) return NO;
+    }
+    return YES;
+}
+
+- (BOOL)isParenthesis:(unichar)c {
+    return c == '(' || c == ')';
+}
+
+==============================================================================
+
+Question 14: Number Of Islands
+
+Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+Example 1:
+
+11110
+11010
+11000
+00000
+Answer: 1
+
+Example 2:
+
+11000
+11000
+00100
+00011
+Answer: 3
+
+// Very tradiional DFS question.
+// find '1's, each time we find unvisited '1', do DFS to mark all neighbour '1's as visited, and count++
+// http://www.jiuzhang.com/solutions/number-of-islands/
+-(NSUInteger)dfsNumIslands:(NSArray<NSArray<NSNumber *> *> *)grid {
+    NSUInteger m = grid.count;
+    if (m == 0) return 0;
+    NSUInteger n = grid[0].count;
+    NSUInteger count = 0;
+    NSMutableSet<NSValue *> *visited = [NSMutableSet set];
+    for (NSUInteger i=0; i<m; i++) {
+        for (NSUInteger j=0; j<n; j++) {
+            // NOTICE: should be valueWithCGPoint in iOS
+            NSValue *pos = [NSValue valueWithPoint:CGPointMake(i, j)];
+            if (![visited containsObject:pos]) {
+                count++;
+                [self DFS:grid i:i j:j m:m n:n visited:visited];
+            }
+        }
+    }
+    return count;
+}
+
+// https://www.tutorialspoint.com/objective_c/objective_c_passing_arrays_to_functions.htm
+-(void)DFS:(NSArray<NSArray<NSNumber *> *> *)grid i:(NSInteger)i j:(NSInteger)j
+         m:(NSUInteger)m n:(NSUInteger)n visited:(NSMutableSet<NSValue *> *) visited {
+    if (i<0 || i>m-1 || j<0 || j>n-1) return;
+    if ([grid[i][j] isEqualToNumber:@(0)]) return;
+    // check if this land has been visited or not
+    // NOTICE: should be valueWithCGPoint in iOS
+    NSValue *pos = [NSValue valueWithPoint:CGPointMake(i, j)];
+    if ([visited containsObject:pos]) return;
+    // if not visited yet, mark it as visited
+    [visited addObject:pos];
+    // now go deeper to it's neighbors: up, down, left, right
+    [self DFS:grid i:i+1 j:j m:m n:m visited:visited];
+    [self DFS:grid i:i j:j+1 m:m n:m visited:visited];
+    [self DFS:grid i:i-1 j:j m:m n:m visited:visited];
+    [self DFS:grid i:i j:j-1 m:m n:m visited:visited];
+}
+
+==============================================================================
+
+Question 15: Find Minimum in Rotated Sorted Array I && II
+
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).Find the minimum element.
+
+NOTICE: You may assume no duplicate exists in the array.
+FOLLOW UP: What if duplicates are allowed? Would this affect the run-time complexity? How and why?
+
+// Traditional binary search question
+// Ask interviewer: duplicates? all positive? how about nil pointer handling?
+// Check two element case [2, 1] and [1, 2]
+// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/?tab=Solutions
+- (NSNumber *)findMin:(NSArray<NSNumber *> *)nums {
+    NSParameterAssert(nums);	// prevent nums to be nil
+    NSUInteger left = 0, right = nums.count-1;
+    while (left < right) {
+        NSUInteger mid = left + (right-left) / 2;
+        if ([nums[mid] compare:nums[right]] == NSOrderedDescending ||
+            [nums[mid] compare:nums[right]] == NSOrderedSame) {
+            left = mid+1;
+        } else {
+            right = mid;
+        }
+    }
+    return nums[left];
+}
+
+// [1, 2, 2, 2, 3, 1, 1, 1]
+// worst case: [1, 1, 1, 1, 1, 1, ...., 1], from O(Log(N)) drops to O(N)
+// http://www.jiuzhang.com/solutions/find-minimum-in-rotated-sorted-array-ii/
+- (NSNumber *)findMinWithDuplicates:(NSArray<NSNumber *> *)nums {
+    NSParameterAssert(nums);
+    NSUInteger left = 0, right = nums.count-1;
+    while (left < right) {
+        NSUInteger mid = left + (right - left)/2;
+        if ([nums[mid] compare:nums[right]] == NSOrderedDescending) {
+            left = mid+1;
+        } else if ([nums[mid] compare:nums[right]] == NSOrderedAscending){
+            right = mid;
+        } else { // equal
+            right--; // when middle value equals to right value, just move right to left by 1
+        }
+    }
+    return nums[left];
+}
+
+==============================================================================
+
+Question 16: Paint House I && II
+ 
+There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
+
+The cost of painting each house with a certain color is represented by a n x 3 cost matrix. For example, costs[0][0] is the cost of painting house 0 with color red; costs[1][2] is the cost of painting house 1 with color green, and so on... Find the minimum cost to paint all houses.
+
+- (NSUInteger)minCost:(NSUInteger [][3])costs n:(NSUInteger)n {
+	
+}
