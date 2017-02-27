@@ -1516,3 +1516,63 @@ Note: You may assume that nums1 has enough space (size that is greater or equal 
         }
     }
 }
+
+==============================================================================
+
+Question 29: Balance parentheses in a string 
+
+For example:
+"(a)()" -> "(a)()"
+"((bc)" -> "(bc)"
+")))a((" -> "a"
+"(a(b)" ->"(ab)" or "a(b)"
+"(a(((b"
+")))a((b)"
+
+Follow up: do without using Stack
+
+// http://www.1point3acres.com/bbs/thread-192179-1-1.html
+// We can use stack for this question. Also, we can solve it without stack, by using counter.
+// Ask interviewer: do we add to balance parentheses, or only remove? special cases? memory limitation?
+// white space? input valid -> "(a(((b"? character set?
+// Usually, "pair, unpair" question can be solved by counter easily.
+// For this question, we need to remove redundent '(' and ')' seperately.
+// So we iterate the string L -> R, and R -> L.
+// TODO: one pass solution?
+
+- (NSString *)balanceParentheses:(NSString *)input {
+    // use stack to mark the index of '('. pop top when meeting ')'
+    NSString *result = [self removeRightParentheses:input];
+    result = [self removeLeftParentheses:result];
+    return result;
+}
+
+- (NSString *)removeRightParentheses:(NSString *)input {
+    NSInteger count = 0;
+    NSMutableString *result = [NSMutableString string];
+    for (NSInteger i=0; i<input.length; i++) {
+        unichar c = [input characterAtIndex:i];
+        [result appendFormat:@"%C", c];
+        if (c == '(') count++;
+        else if (c == ')') {
+            if (count > 0) count--;
+            else [result deleteCharactersInRange:NSMakeRange(input.length-1, 1)];
+        }
+    }
+    return result;
+}
+
+- (NSString *)removeLeftParentheses:(NSString *)input {
+    NSInteger count = 0;
+    NSMutableString *result = [NSMutableString string];
+    for (NSInteger i=input.length-1; i>=0; i--) {
+        unichar c = [input characterAtIndex:i];
+        [result insertString:[NSString stringWithFormat:@"%C", c] atIndex:0];
+        if (c == ')') count++;
+        else if (c == '(') {
+            if (count > 0) count--;
+            else [result deleteCharactersInRange:NSMakeRange(0, 1)];
+        }
+    }
+    return result;
+}
