@@ -1266,9 +1266,9 @@ The two tuples are:
 
 ==============================================================================
 
-Question 26: Print the pretty json strings
+Question 26: Print the pretty JSON strings
 
-Pretty print a json object using proper indentation.
+Pretty print a JSON object using proper indentation.
 
 Every inner brace should increase one indentation to the following lines.
 Every close brace should decrease one indentation to the same line and the following lines.
@@ -1281,27 +1281,28 @@ Output :
 { 
     A:"B",
     C: 
-    { 
+    {
         D:"E",
-        F: 
-        { 
+        F:
+        {
             G:"H",
             I:"J"
-        } 
-    }     
+        }
+    }
 }
+
 Example 2:
 
 Input : ["foo", {"bar":["baz",null,1.0,2]}]
 Output : 
 [
-    "foo", 
+    "foo",
     {
         "bar":
         [
-            "baz", 
-            null, 
-            1.0, 
+            "baz",
+            null,
+            1.0,
             2
         ]
     }
@@ -1310,4 +1311,45 @@ Output :
 
 Assume for this problem that space characters can be done away with.
 
-Your solution should return a list of strings, where each entry corresponds to a single line. The strings should not have “\n” character in them.
+Your solution should return a list of strings, where each entry corresponds to a single line. 
+The strings should not have “\n” character in them.
+
+// When we see string parsing question, stack is a good data structure to use.
+// For this question, we don't use stack. we iterate from left to right, 
+// increase indent for '{' or '[', create new line for ',', decrease indent for '}' and ']'
+// Ask interviewers: is input valid? white space?
+// http://qa.geeksforgeeks.org/3734/print-the-pretty-json-strings-facebook-microsoft
+// One improvement is replacing all ' ' with '' at beginning.
+
+- (NSArray<NSString *> *)prettyJSONString:(NSString *)json {
+    if (!json) return nil;
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    NSString *indent = [NSString string];
+    
+    for (NSUInteger i=0; i<json.length; i++) {
+        unichar c = [json characterAtIndex:i];
+        NSString *line = [NSString string];
+        if (c == ' ') continue;
+        if (c == '{' && c == '[') {
+            line = [NSString stringWithFormat:@"%@%C", indent, c];
+            indent = [indent stringByAppendingFormat:@"%c", '\t'];	// append new indent
+        } else if (c == '}' && c == ']') {
+            // A new string containing the characters of the receiver up to,
+            // but not including, the one at anIndex.
+            indent = [indent substringToIndex:indent.length-1];	// remove last indent
+            line = [NSString stringWithFormat:@"%@%C", indent, c];
+        } else if (c == ',' || c == ':') {
+            line = [line stringByAppendingFormat:@"%C", c];
+            line = [NSString stringWithFormat:@"%@%@,", indent, line];
+        } else {
+            // if the current character is non of above ones, then append it to line, and continue
+            line = [line stringByAppendingFormat:@"%C", c];
+            continue;
+        }
+        
+        [results addObject:line];
+        line = [NSString string];
+    }
+    return results;
+}

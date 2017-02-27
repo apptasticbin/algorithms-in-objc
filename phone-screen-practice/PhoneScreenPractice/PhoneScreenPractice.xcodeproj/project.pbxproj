@@ -18,6 +18,7 @@
 		791C30FD1E63856F00E90ED7 /* AddAndSearchWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30FC1E63856F00E90ED7 /* AddAndSearchWord.m */; };
 		792B24AA1E641FEE0084EFBD /* ThreeSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24A91E641FEE0084EFBD /* ThreeSum.m */; };
 		792B24AE1E6435580084EFBD /* FourSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24AD1E6435580084EFBD /* FourSum.m */; };
+		792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B11E64808E0084EFBD /* PrettyJSONString.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -70,6 +71,8 @@
 		792B24A91E641FEE0084EFBD /* ThreeSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeSum.m; sourceTree = "<group>"; };
 		792B24AC1E6435580084EFBD /* FourSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourSum.h; sourceTree = "<group>"; };
 		792B24AD1E6435580084EFBD /* FourSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourSum.m; sourceTree = "<group>"; };
+		792B24B01E64808E0084EFBD /* PrettyJSONString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrettyJSONString.h; sourceTree = "<group>"; };
+		792B24B11E64808E0084EFBD /* PrettyJSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrettyJSONString.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -214,6 +217,15 @@
 			name = FourSum;
 			sourceTree = "<group>";
 		};
+		792B24AF1E6480750084EFBD /* PrettyJSONString */ = {
+			isa = PBXGroup;
+			children = (
+				792B24B01E64808E0084EFBD /* PrettyJSONString.h */,
+				792B24B11E64808E0084EFBD /* PrettyJSONString.m */,
+			);
+			name = PrettyJSONString;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +262,7 @@
 				791C30EC1E635FB500E90ED7 /* MoveZeros */,
 				79BD499E1E62131400405D6A /* NumberIsland */,
 				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
+				792B24AF1E6480750084EFBD /* PrettyJSONString */,
 				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
@@ -463,6 +476,7 @@
 				799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */,
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
+				792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */,
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
 				791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
