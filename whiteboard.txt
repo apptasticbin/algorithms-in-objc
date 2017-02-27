@@ -1353,3 +1353,94 @@ The strings should not have “\n” character in them.
     }
     return results;
 }
+
+==============================================================================
+
+Question 26: Flatten Nested List Iterator
+
+Given a nested list of integers, implement an iterator to flatten it.
+Each element is either an integer, or a list -- whose elements may also be integers or other lists.
+
+Example 1:
+Given the list [[1,1],2,[1,1]],
+
+By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
+
+Example 2:
+Given the list [1,[4,[6]]],
+
+By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
+
+// Ask interviewer: if no next, what to return?
+// For this question, we can use Queue or Stack to solve. My solution is Queue solution.
+// For Stack solution: http://www.jiuzhang.com/solutions/flatten-nested-list-iterator/
+
+@interface NestedInteger : NSObject
+
+- (BOOL)isInteger;
+- (NSNumber *)getInteger;
+- (NSArray<NestedInteger *> *)getList;
+
+@end
+
+@interface NestedInteractor : NSObject
+
+- (NSNumber *)next;
+- (BOOL)hasNext;
+
+@end
+
+@interface NestedInteractor ()
+
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *queue;
+@property (nonatomic, strong) NSArray<NestedInteger *> *nums;
+@property (nonatomic, assign) NSUInteger idx;
+
+@end
+
+@implementation NestedInteractor
+
+- (instancetype)initWithNums:(NSArray<NestedInteger *> *)nums {
+    self = [super init];
+    if (self) {
+        _queue = [NSMutableArray array];
+        _nums = nums;
+        _idx = 0;
+    }
+    return self;
+}
+
+- (NSNumber *)next {
+    if ([self hasNext]) {
+        if (self.queue.count) {
+            NSNumber *front = self.queue.firstObject;
+            [self.queue removeObjectAtIndex:0];
+            return front;
+        } else {
+            [self push:self.nums[self.idx++]];
+            return [self next];
+        }
+    }
+    return nil;
+}
+
+
+- (BOOL)hasNext {
+    return self.idx < self.nums.count || self.queue.count > 0;
+}
+
+#pragma mark - Private
+
+- (void)push:(NestedInteger *)nestedInteger {
+    if ([nestedInteger isInteger]) {
+        [self.queue addObject:[nestedInteger getInteger]];
+    } else {
+        NSArray<NestedInteger *> *list = [nestedInteger getList];
+        for (NSUInteger i=0; i<list.count; i++) {
+            [self push:list[i]];
+        }
+    }
+}
+
+@end
+@end

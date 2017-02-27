@@ -19,6 +19,7 @@
 		792B24AA1E641FEE0084EFBD /* ThreeSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24A91E641FEE0084EFBD /* ThreeSum.m */; };
 		792B24AE1E6435580084EFBD /* FourSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24AD1E6435580084EFBD /* FourSum.m */; };
 		792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B11E64808E0084EFBD /* PrettyJSONString.m */; };
+		792B24B61E64A6540084EFBD /* FlattenNestedListIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B51E64A6540084EFBD /* FlattenNestedListIterator.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -73,6 +74,8 @@
 		792B24AD1E6435580084EFBD /* FourSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourSum.m; sourceTree = "<group>"; };
 		792B24B01E64808E0084EFBD /* PrettyJSONString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrettyJSONString.h; sourceTree = "<group>"; };
 		792B24B11E64808E0084EFBD /* PrettyJSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrettyJSONString.m; sourceTree = "<group>"; };
+		792B24B41E64A6540084EFBD /* FlattenNestedListIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlattenNestedListIterator.h; sourceTree = "<group>"; };
+		792B24B51E64A6540084EFBD /* FlattenNestedListIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlattenNestedListIterator.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -226,6 +229,15 @@
 			name = PrettyJSONString;
 			sourceTree = "<group>";
 		};
+		792B24B31E64A6270084EFBD /* FlattenNestedListIterator */ = {
+			isa = PBXGroup;
+			children = (
+				792B24B41E64A6540084EFBD /* FlattenNestedListIterator.h */,
+				792B24B51E64A6540084EFBD /* FlattenNestedListIterator.m */,
+			);
+			name = FlattenNestedListIterator;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +266,7 @@
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
 				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
+				792B24B31E64A6270084EFBD /* FlattenNestedListIterator */,
 				792B24AB1E6435460084EFBD /* FourSum */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
@@ -479,6 +492,7 @@
 				792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */,
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
 				791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */,
+				792B24B61E64A6540084EFBD /* FlattenNestedListIterator.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
 				791C30F71E63839200E90ED7 /* Trie.m in Sources */,
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
