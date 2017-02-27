@@ -1443,4 +1443,50 @@ By calling next repeatedly until hasNext returns false, the order of elements re
 }
 
 @end
-@end
+
+==============================================================================
+
+Question 27: Binary Tree Level Order Traversal
+
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+
+// Basic BFS question
+
+- (NSArray<NSArray<NSNumber *> *> *)levelOrder:(Tree *)root {
+	if (root == nil) return nil;
+	
+	NSMutableArray<Tree *> *queue = [NSMutableArray array];
+	NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+	
+	[queue addObject:root];
+	while (queue.count) {
+		NSMutableArray<NSNumber *> *level = [NSMutableArray array];
+		NSUInteger size = queue.count;
+		for (NSUInteger i=0; i<size; i++) {
+			Tree *node = queue.firstObject;
+			[level addObject:@(node.value)];
+			if (node.left) [queue addObject:node.left];
+			if (node.right) [queue addObject:node.right];
+		}
+		// NOTICE: because NSMutableArray is not Queue, 
+		// we CAN NOT remove object at index during iterating the array.
+		// instead, we remove them together later.
+		[queue removeObjectsInRange:NSMakeRange(0,size)];
+		[results addObject:level];
+	}
+	return results;
+}

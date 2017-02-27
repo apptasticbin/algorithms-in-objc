@@ -20,6 +20,7 @@
 		792B24AE1E6435580084EFBD /* FourSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24AD1E6435580084EFBD /* FourSum.m */; };
 		792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B11E64808E0084EFBD /* PrettyJSONString.m */; };
 		792B24B61E64A6540084EFBD /* FlattenNestedListIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B51E64A6540084EFBD /* FlattenNestedListIterator.m */; };
+		792B24BA1E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B91E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -76,6 +77,8 @@
 		792B24B11E64808E0084EFBD /* PrettyJSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrettyJSONString.m; sourceTree = "<group>"; };
 		792B24B41E64A6540084EFBD /* FlattenNestedListIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlattenNestedListIterator.h; sourceTree = "<group>"; };
 		792B24B51E64A6540084EFBD /* FlattenNestedListIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlattenNestedListIterator.m; sourceTree = "<group>"; };
+		792B24B81E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryTreeLevelOrderTraversal.h; sourceTree = "<group>"; };
+		792B24B91E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreeLevelOrderTraversal.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -238,6 +241,15 @@
 			name = FlattenNestedListIterator;
 			sourceTree = "<group>";
 		};
+		792B24B71E64B2A10084EFBD /* BinaryTreeLevelOrderTraversal */ = {
+			isa = PBXGroup;
+			children = (
+				792B24B81E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.h */,
+				792B24B91E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m */,
+			);
+			name = BinaryTreeLevelOrderTraversal;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +272,7 @@
 				791C30F01E63834900E90ED7 /* AddAndSearchWord */,
 				793CFF181E5E2C9F00AB1B78 /* AllPathsOfTree */,
 				799F30CE1E5F8BEE0010365B /* BinaryTreeToDLL */,
+				792B24B71E64B2A10084EFBD /* BinaryTreeLevelOrderTraversal */,
 				793CFF141E5E22C100AB1B78 /* BinaryTreeLayerAverage */,
 				791C30E41E6319D600E90ED7 /* CoinChange */,
 				791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */,
@@ -471,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792B24BA1E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m in Sources */,
 				793CFF171E5E22DD00AB1B78 /* BinaryTreeLayerAverage.m in Sources */,
 				792B24AE1E6435580084EFBD /* FourSum.m in Sources */,
 				79BD49A51E62539900405D6A /* FindMinimumInRotatedSortedArray.m in Sources */,
