@@ -16,6 +16,8 @@
 		791C30F71E63839200E90ED7 /* Trie.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30F61E63839200E90ED7 /* Trie.m */; };
 		791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30F91E6383BA00E90ED7 /* TrieNode.m */; };
 		791C30FD1E63856F00E90ED7 /* AddAndSearchWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C30FC1E63856F00E90ED7 /* AddAndSearchWord.m */; };
+		792B24AA1E641FEE0084EFBD /* ThreeSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24A91E641FEE0084EFBD /* ThreeSum.m */; };
+		792B24AE1E6435580084EFBD /* FourSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24AD1E6435580084EFBD /* FourSum.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -64,6 +66,10 @@
 		791C30F91E6383BA00E90ED7 /* TrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrieNode.m; sourceTree = "<group>"; };
 		791C30FB1E63856F00E90ED7 /* AddAndSearchWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAndSearchWord.h; sourceTree = "<group>"; };
 		791C30FC1E63856F00E90ED7 /* AddAndSearchWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAndSearchWord.m; sourceTree = "<group>"; };
+		792B24A81E641FEE0084EFBD /* ThreeSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeSum.h; sourceTree = "<group>"; };
+		792B24A91E641FEE0084EFBD /* ThreeSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeSum.m; sourceTree = "<group>"; };
+		792B24AC1E6435580084EFBD /* FourSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourSum.h; sourceTree = "<group>"; };
+		792B24AD1E6435580084EFBD /* FourSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourSum.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -190,6 +196,24 @@
 			name = Trie;
 			sourceTree = "<group>";
 		};
+		792B24A41E641FB60084EFBD /* ThreeSum */ = {
+			isa = PBXGroup;
+			children = (
+				792B24A81E641FEE0084EFBD /* ThreeSum.h */,
+				792B24A91E641FEE0084EFBD /* ThreeSum.m */,
+			);
+			name = ThreeSum;
+			sourceTree = "<group>";
+		};
+		792B24AB1E6435460084EFBD /* FourSum */ = {
+			isa = PBXGroup;
+			children = (
+				792B24AC1E6435580084EFBD /* FourSum.h */,
+				792B24AD1E6435580084EFBD /* FourSum.m */,
+			);
+			name = FourSum;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +242,7 @@
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
 				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
+				792B24AB1E6435460084EFBD /* FourSum */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
 				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
@@ -228,6 +253,7 @@
 				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
+				792B24A41E641FB60084EFBD /* ThreeSum */,
 				799F30C61E5F63570010365B /* VerifyPreorderBST */,
 				793CFF041E5DEF2500AB1B78 /* main.m */,
 			);
@@ -420,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				793CFF171E5E22DD00AB1B78 /* BinaryTreeLayerAverage.m in Sources */,
+				792B24AE1E6435580084EFBD /* FourSum.m in Sources */,
 				79BD49A51E62539900405D6A /* FindMinimumInRotatedSortedArray.m in Sources */,
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
 				791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */,
@@ -432,6 +459,7 @@
 				79BD49991E61896B00405D6A /* SortColors.m in Sources */,
 				791C30FD1E63856F00E90ED7 /* AddAndSearchWord.m in Sources */,
 				793CFF231E5E36E400AB1B78 /* RunLengthEncoding.m in Sources */,
+				792B24AA1E641FEE0084EFBD /* ThreeSum.m in Sources */,
 				799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */,
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,

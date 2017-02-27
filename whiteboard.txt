@@ -919,6 +919,8 @@ Note: You must do this in-place without making a copy of the array. Minimize the
     }
 }
 
+==============================================================================
+
 Question 22: Add and Search Word - Data structure design
 
 Design a data structure that supports the following two operations:
@@ -1089,3 +1091,223 @@ Note: You may assume that all words are consist of lowercase letters a-z.
 }
 
 @end
+
+==============================================================================
+
+Question 23: 3Sum
+
+Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+Note: The solution set must not contain duplicate triplets.
+
+For example, given array S = [-1, 0, 1, 2, -1, -4],
+
+A solution set is:
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+
+Similar Questions:
+- 3Sum Cloest: https://leetcode.com/problems/3sum-closest/?tab=Solutions
+- 3Sum Small: http://www.cnblogs.com/grandyang/p/5235086.html
+- NOTICE: 1) for 3Sum Cloest and 3Sum Small, we don't need to remove duplicates
+- 2)for 3Sum Cloest, remember to use "ABS" for calculating the value
+
+// By brute force, this question can be solved with O(N^3)
+// Better idea: we sort the array first, then using three pointers (one head, one tail, and one mid)
+// Then we reduce the time complexity into O(N^2 + NLog(N))
+// NOTICE: remove duplicates by moving pointers until no duplicates, then calculate
+// Ask interviewer: duplicates in array? order of output?
+// http://www.jiuzhang.com/solutions/3sum/
+// https://leetcode.com/problems/3sum/?tab=Solutions
+
+- (NSArray<NSArray<NSNumber *> *> *)threeSum:(NSArray<NSNumber *> *)nums {
+	if (!nums) return nil;
+
+    NSMutableArray<NSNumber *> *sortedNums = [NSMutableArray arrayWithArray:nums];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
+    [sortedNums sortUsingDescriptors:@[descriptor]];
+    
+    NSUInteger size = nums.count;
+    NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+    
+    for (NSUInteger start=0; start<size-2; start++) {
+        // if found duplicates, ignore and continue
+        if (start > 0 && [sortedNums[start] isEqualToNumber:sortedNums[start-1]]) continue;
+        NSUInteger mid = start+1;
+        NSUInteger end = size-1;
+        NSInteger target = -sortedNums[start].integerValue;
+        while (mid < end) {
+            if (sortedNums[mid].integerValue + sortedNums[end].integerValue == target) {
+                [results addObject:@[sortedNums[start], sortedNums[mid], sortedNums[end]]];
+                mid++; end--;
+                // now skip duplicates
+                while (mid < end && sortedNums[mid] == sortedNums[mid-1]) mid++;
+                while (mid < end && sortedNums[end] == sortedNums[end+1]) end--;
+            } else if (sortedNums[mid].integerValue + sortedNums[end].integerValue < target) {
+                mid++;
+            } else {
+                end--;
+            }
+        }
+    }
+    return results;
+}
+
+==============================================================================
+
+Question 24: 4Sum I
+
+Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+
+Note: The solution set must not contain duplicate quadruplets.
+
+For example, given array S = [1, 0, -1, 0, -2, 2], and target = 0.
+
+A solution set is:
+[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
+
+// Similar to 3Sum, but now we use two front points instead of one
+// Brute Force: O(N^4)
+// Better idea: sort and reach N^3 + NLog(N)
+// http://www.jiuzhang.com/solutions/4sum/
+
+- (NSArray<NSArray<NSNumber *> *> *)fourSum:(NSArray<NSNumber *> *)nums target:(NSInteger)target {
+    if (!nums) return nil;
+    
+    NSMutableArray<NSNumber *> *sortedNums = [NSMutableArray arrayWithArray:nums];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
+    [sortedNums sortUsingDescriptors:@[descriptor]];
+    
+    NSMutableArray<NSArray *> *results = [NSMutableArray array];
+    NSUInteger size = nums.count;
+    for (NSUInteger first=0; first<size-3; first++) {
+        if (first > 0 && [sortedNums[first] isEqualToNumber:sortedNums[first-1]]) continue;
+        for (NSUInteger second = first+1; second < size-2; second++) {
+            if (second > first+1 && [sortedNums[second] isEqualToNumber:sortedNums[second-1]]) continue;
+            NSInteger sum = target - sortedNums[first].integerValue - sortedNums[second].integerValue;
+            NSUInteger third = second+1;
+            NSUInteger fourth = size-1;
+            while (third < fourth) {
+                if (sortedNums[third].integerValue + sortedNums[fourth].integerValue == sum) {
+                    [results addObject:@[sortedNums[first], sortedNums[second],
+                                         sortedNums[third], sortedNums[fourth]]];
+                    third++; fourth--;
+                    while (third < fourth && [sortedNums[third] isEqualToNumber:sortedNums[third-1]]) third++;
+                    while (third < fourth && [sortedNums[fourth] isEqualToNumber:sortedNums[fourth-1]]) fourth--;
+                } else if (sortedNums[third].integerValue + sortedNums[fourth].integerValue < sum) {
+                    third++;
+                } else {
+                    fourth--;
+                }
+            }
+        }
+    }
+    return results;
+}
+
+==============================================================================
+
+Question 25: 4Sum II
+
+Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that A[i] + B[j] + C[k] + D[l] is zero.
+
+To make problem a bit easier, all A, B, C, D have same length of N where 0 ≤ N ≤ 500. All integers are in the range of -2^28 to 2^28 - 1 and the result is guaranteed to be at most 2^31 - 1.
+
+Example:
+
+Input:
+A = [ 1, 2]
+B = [-2,-1]
+C = [-1, 2]
+D = [ 0, 2]
+
+Output:
+2
+
+Explanation:
+The two tuples are:
+1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
+2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
+
+// Brute force: O(N^4) -> too slow
+// Better idea: we change this to 2Sum question. first get sum of A and B, and count them in a hash table
+// Then calculate C + D, and find if target-(C+D) exists in hash table
+// O(N^2)
+
+- (NSUInteger) fourSumCountAmongA:(NSArray<NSNumber *> *)A B:(NSArray<NSNumber *> *)B
+                              C:(NSArray<NSNumber *> *)C D:(NSArray<NSNumber *> *)D {
+    NSParameterAssert(A && B && C && D);
+    NSMutableDictionary<NSNumber *, NSNumber *> *count = [NSMutableDictionary dictionary];
+    for (NSUInteger i=0; i<A.count; i++) {
+        for (NSUInteger j=0; j<B.count; j++) {
+            NSInteger sum = A[i].integerValue + B[j].integerValue;
+            count[@(sum)] = @(count[@(sum)].integerValue + 1);
+        }
+    }
+    
+    NSUInteger result = 0;
+    for (NSUInteger i=0; i<C.count; i++) {
+        for (NSUInteger j=0; j<D.count; j++) {
+            NSInteger sum = C[i].integerValue + D[j].integerValue;
+            if (count[@(-sum)] && count[@(-sum)].integerValue > 0) {
+                result++;
+                count[@(-sum)] = @(count[@(-sum)].integerValue-1);
+            }
+        }
+    }
+    return result;
+}
+
+==============================================================================
+
+Question 26: Print the pretty json strings
+
+Pretty print a json object using proper indentation.
+
+Every inner brace should increase one indentation to the following lines.
+Every close brace should decrease one indentation to the same line and the following lines.
+The indents can be increased with an additional ‘\t’
+
+Example 1:
+
+Input : {A:"B",C:{D:"E",F:{G:"H",I:"J"}}}
+Output : 
+{ 
+    A:"B",
+    C: 
+    { 
+        D:"E",
+        F: 
+        { 
+            G:"H",
+            I:"J"
+        } 
+    }     
+}
+Example 2:
+
+Input : ["foo", {"bar":["baz",null,1.0,2]}]
+Output : 
+[
+    "foo", 
+    {
+        "bar":
+        [
+            "baz", 
+            null, 
+            1.0, 
+            2
+        ]
+    }
+]
+[] and {} are only acceptable braces in this case.
+
+Assume for this problem that space characters can be done away with.
+
+Your solution should return a list of strings, where each entry corresponds to a single line. The strings should not have “\n” character in them.
