@@ -1959,6 +1959,23 @@ By using the read4 API, implement the function int read(char *buf, int n) that r
 Note: The read function will only be called once for each test case.
 
 http://bangbingsyb.blogspot.fi/2014/11/leetcode-read-n-characters-given-read4.html
+http://www.jiuzhang.com/solutions/read-n-characters-given-read4/
+
+NSUInteger read4(char *buf);
+
+@implementation Read4
+
+- (NSUInteger)read:(char *)buf n:(NSUInteger)n {
+    char buf4[4];
+    NSUInteger size = 0;
+    while (true) {
+        NSUInteger actual = read4(buf4);
+        for (NSUInteger i=0; i<actual && size < n; i++) {
+            buf[size++] = buf4[i];
+        }
+        if (actual == 0 || size == n) return size;
+    }
+}
 
 ==============================================================================
 

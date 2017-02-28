@@ -31,6 +31,7 @@
 		792B24DB1E65FCF90084EFBD /* SubmatrixSumToK.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24DA1E65FCF90084EFBD /* SubmatrixSumToK.m */; };
 		792B24DF1E6611980084EFBD /* StrStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24DE1E6611980084EFBD /* StrStr.m */; };
 		792B24E31E6619360084EFBD /* MinimumDepth.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24E21E6619360084EFBD /* MinimumDepth.m */; };
+		792B24E71E661EB60084EFBD /* Read4.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24E61E661EB60084EFBD /* Read4.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -109,6 +110,8 @@
 		792B24DE1E6611980084EFBD /* StrStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StrStr.m; sourceTree = "<group>"; };
 		792B24E11E6619360084EFBD /* MinimumDepth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumDepth.h; sourceTree = "<group>"; };
 		792B24E21E6619360084EFBD /* MinimumDepth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinimumDepth.m; sourceTree = "<group>"; };
+		792B24E51E661EB60084EFBD /* Read4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Read4.h; sourceTree = "<group>"; };
+		792B24E61E661EB60084EFBD /* Read4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Read4.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -370,6 +373,15 @@
 			name = MinimumDepth;
 			sourceTree = "<group>";
 		};
+		792B24E41E661EA20084EFBD /* Read4 */ = {
+			isa = PBXGroup;
+			children = (
+				792B24E51E661EB60084EFBD /* Read4.h */,
+				792B24E61E661EB60084EFBD /* Read4.m */,
+			);
+			name = Read4;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +428,7 @@
 				79BD499E1E62131400405D6A /* NumberIsland */,
 				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
 				792B24AF1E6480750084EFBD /* PrettyJSONString */,
+				792B24E41E661EA20084EFBD /* Read4 */,
 				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
@@ -648,6 +661,7 @@
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
 				792B24CB1E658C2A0084EFBD /* LongestConsecutive.m in Sources */,
 				799F30C91E5F63710010365B /* VerifyPreorderBST.m in Sources */,
+				792B24E71E661EB60084EFBD /* Read4.m in Sources */,
 				79BD49A11E62132600405D6A /* NumberIsland.m in Sources */,
 				792B24D31E65C9000084EFBD /* SubarraySumToK.m in Sources */,
 				792B24CF1E65B9480084EFBD /* BSTFromPreorder.m in Sources */,
