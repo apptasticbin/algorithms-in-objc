@@ -23,6 +23,7 @@
 		792B24BA1E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24B91E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m */; };
 		792B24BE1E64C2E40084EFBD /* MergeSortedArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24BD1E64C2E40084EFBD /* MergeSortedArrays.m */; };
 		792B24C21E64E2270084EFBD /* BalanceParentheses.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24C11E64E2270084EFBD /* BalanceParentheses.m */; };
+		792B24C61E658A490084EFBD /* DecodeWays.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24C51E658A490084EFBD /* DecodeWays.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -85,6 +86,8 @@
 		792B24BD1E64C2E40084EFBD /* MergeSortedArrays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeSortedArrays.m; sourceTree = "<group>"; };
 		792B24C01E64E2270084EFBD /* BalanceParentheses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceParentheses.h; sourceTree = "<group>"; };
 		792B24C11E64E2270084EFBD /* BalanceParentheses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceParentheses.m; sourceTree = "<group>"; };
+		792B24C41E658A490084EFBD /* DecodeWays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecodeWays.h; sourceTree = "<group>"; };
+		792B24C51E658A490084EFBD /* DecodeWays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecodeWays.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -274,6 +277,15 @@
 			name = BalanceParentheses;
 			sourceTree = "<group>";
 		};
+		792B24C31E658A2B0084EFBD /* DecodeWays */ = {
+			isa = PBXGroup;
+			children = (
+				792B24C41E658A490084EFBD /* DecodeWays.h */,
+				792B24C51E658A490084EFBD /* DecodeWays.m */,
+			);
+			name = DecodeWays;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +314,7 @@
 				791C30E41E6319D600E90ED7 /* CoinChange */,
 				791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */,
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
+				792B24C31E658A2B0084EFBD /* DecodeWays */,
 				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				792B24B31E64A6270084EFBD /* FlattenNestedListIterator */,
@@ -525,6 +538,7 @@
 				79BD49991E61896B00405D6A /* SortColors.m in Sources */,
 				791C30FD1E63856F00E90ED7 /* AddAndSearchWord.m in Sources */,
 				793CFF231E5E36E400AB1B78 /* RunLengthEncoding.m in Sources */,
+				792B24C61E658A490084EFBD /* DecodeWays.m in Sources */,
 				792B24AA1E641FEE0084EFBD /* ThreeSum.m in Sources */,
 				799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */,
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
