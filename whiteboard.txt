@@ -2030,3 +2030,36 @@ Follow up: How about is the left/right tree is much deeper than right/left tree?
     return depth;
 }
 
+==============================================================================
+
+Question 42: Best Time to Buy and Sell Stock
+
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+Example 1:
+Input: [7, 1, 5, 3, 6, 4]
+Output: 5
+
+max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
+Example 2:
+Input: [7, 6, 4, 3, 1]
+Output: 0
+
+In this case, no transaction is done, i.e. max profit = 0.
+
+// Idea: keep tracking the minimum price of the stock. Then sell on highest price after it.
+// Ask interviewer: prices are positive or negative or both? All integers? handling 0 count or 1 count
+
+- (NSInteger)maxProfit:(NSArray<NSNumber *> *)prices {
+	if (prices == nil || prices.count == 0) return NSIntegerMin;
+	NSInteger maxProfit = NSIntegerMin;
+	NSInteger minPrice = NSIntegerMax;
+	for (NSInteger i=0; i<prices.count; i++) {
+		NSInteger price = prices[i].integerValue;
+		minPrice = MIN(price, minPrice);
+		maxProfit = MAX(maxProfit, price-minPrice);
+	}
+	return maxProfit;
+}
