@@ -18,7 +18,7 @@
         sum += nums[i].integerValue;
         if (sum == k) maxSize = MAX(maxSize, i+1);
         if (preSums[@(sum-k)]) maxSize = MAX(maxSize, i-preSums[@(sum-k)].integerValue);
-        if (preSums[@(sum)]) preSums[@(sum)] = @(i);
+        if (!preSums[@(sum)]) preSums[@(sum)] = @(i);
     }
     return maxSize;
 }

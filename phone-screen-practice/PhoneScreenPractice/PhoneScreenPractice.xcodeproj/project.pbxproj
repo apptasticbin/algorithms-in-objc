@@ -28,6 +28,7 @@
 		792B24CF1E65B9480084EFBD /* BSTFromPreorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24CE1E65B9480084EFBD /* BSTFromPreorder.m */; };
 		792B24D31E65C9000084EFBD /* SubarraySumToK.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24D21E65C9000084EFBD /* SubarraySumToK.m */; };
 		792B24D71E65DB270084EFBD /* MaximumSubarraySizeSumToK.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24D61E65DB270084EFBD /* MaximumSubarraySizeSumToK.m */; };
+		792B24DB1E65FCF90084EFBD /* SubmatrixSumToK.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24DA1E65FCF90084EFBD /* SubmatrixSumToK.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -100,6 +101,8 @@
 		792B24D21E65C9000084EFBD /* SubarraySumToK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubarraySumToK.m; sourceTree = "<group>"; };
 		792B24D51E65DB270084EFBD /* MaximumSubarraySizeSumToK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaximumSubarraySizeSumToK.h; sourceTree = "<group>"; };
 		792B24D61E65DB270084EFBD /* MaximumSubarraySizeSumToK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaximumSubarraySizeSumToK.m; sourceTree = "<group>"; };
+		792B24D91E65FCF90084EFBD /* SubmatrixSumToK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmatrixSumToK.h; sourceTree = "<group>"; };
+		792B24DA1E65FCF90084EFBD /* SubmatrixSumToK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmatrixSumToK.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -334,6 +337,15 @@
 			name = MaximumSubarraySizeSumToK;
 			sourceTree = "<group>";
 		};
+		792B24D81E65FCC50084EFBD /* SubmatrixSumToK */ = {
+			isa = PBXGroup;
+			children = (
+				792B24D91E65FCF90084EFBD /* SubmatrixSumToK.h */,
+				792B24DA1E65FCF90084EFBD /* SubmatrixSumToK.m */,
+			);
+			name = SubmatrixSumToK;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +395,7 @@
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
 				792B24D01E65C8E00084EFBD /* SubarraySumToK */,
+				792B24D81E65FCC50084EFBD /* SubmatrixSumToK */,
 				792B24A41E641FB60084EFBD /* ThreeSum */,
 				799F30C61E5F63570010365B /* VerifyPreorderBST */,
 				793CFF041E5DEF2500AB1B78 /* main.m */,
@@ -611,6 +624,7 @@
 				792B24D31E65C9000084EFBD /* SubarraySumToK.m in Sources */,
 				792B24CF1E65B9480084EFBD /* BSTFromPreorder.m in Sources */,
 				791C30E01E63118D00E90ED7 /* ConvertSortedListToBST.m in Sources */,
+				792B24DB1E65FCF90084EFBD /* SubmatrixSumToK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

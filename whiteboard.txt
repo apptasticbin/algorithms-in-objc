@@ -1854,7 +1854,7 @@ return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
         sum += nums[i].integerValue;
         if (sum == k) maxSize = MAX(maxSize, i+1);
         if (preSums[@(sum-k)]) maxSize = MAX(maxSize, i-preSums[@(sum-k)].integerValue);
-        if (preSums[@(sum)]) preSums[@(sum)] = @(i);
+        if (!preSums[@(sum)]) preSums[@(sum)] = @(i);
     }
     return maxSize;
 }
@@ -1866,3 +1866,56 @@ Question 36: Submatrix with sum equals to K
 Given a n×nn×n matrix A[0...m-1][0....n-1] where all entries are non-negative integers, and a non-negative integer K, find whether there is submatrix with sum to K
 
 http://www.1point3acres.com/bbs/thread-206502-1-1.html
+CC150 page 492
+
+// Naive solution: O(M^2*N^2) -> O(N^4)
+// - we make two outer for loops to traverse all nodes in the matrix left to right
+// - then we use two inner for loops to traverse sub matrixes from current node left to right,
+//   and calculate sum for each sub matrix. If sum equals to K, we return YES.
+// Better solution: O(N^3)
+// - We all know the solution of "Question 34: Subarray with sum equals to K", which works well for 1-dimension
+//   array.
+// - Now we have a two dimension matrix. So we need to think "how to downgrade it into 1-dimension question."
+// - We calculate sum for each column from "start row" to "end row" column by column
+// - Then we use "subarray with sum equals to K" solution for this "column sum array" between "start row" and 	  //   "end row"
+// NOTICE: we MUST make sure that all matrix node should be non-negative numbers
+
+- (BOOL)subMatrixOfMatrix:(NSArray<NSArray<NSNumber *> *> *)matrix k:(NSUInteger)k {
+    if (matrix == nil) return NO;
+    NSUInteger m = matrix.count;
+    if (m == 0) return NO;
+    NSUInteger n = matrix[0].count;
+    NSMutableArray<NSNumber *> *partialSums = [NSMutableArray array];
+    for (NSInteger rowStart=0; rowStart<m; rowStart++) {
+        // remove all objects for each iteration
+        [partialSums removeAllObjects];
+        for (NSInteger rowEnd=rowStart; rowEnd<m; rowEnd++) {
+            for (NSInteger col=0; col<n; col++) {
+                partialSums[col] = @(partialSums[col].integerValue + matrix[rowEnd][col].integerValue);
+            }
+            BOOL found = [self subArrayInArray:partialSums sum:k];
+            if (found) return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)subArrayInArray:(NSArray<NSNumber *> *)nums sum:(NSUInteger)k {
+    if (nums == nil || nums.count == 0) return NO;
+    NSInteger sum = 0;
+    NSUInteger start = 0;
+    for (NSInteger end = 0; end<nums.count; end++) {
+        sum += nums[end].integerValue;
+        if (sum == k) {
+            return YES;
+        }
+        while (sum > k && start <= end) {
+            sum -= nums[start++].integerValue;
+        }
+    }
+    return NO;
+}
+
+
+
+
