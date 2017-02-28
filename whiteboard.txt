@@ -1916,6 +1916,71 @@ CC150 page 492
     return NO;
 }
 
+==============================================================================
 
+Question 37: Implement strStr()
 
+Implement strStr().
 
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+// Basic solution: Brute Force, O(N*k), check from beginning to end-needle.count-1, 
+// start comparing needle and haystack at index i when haystack[i] == needle[i]
+// KMP solution: http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/
+// https://leetcode.com/problems/implement-strstr/?tab=Solutions
+// Ask interviewer: handle nil?
+
+- (NSUInteger)strStr:(NSString *)haystack needle:(NSString *)needle {
+    if (haystack == nil || needle == nil) return -1;
+    for (NSInteger i=0; i<haystack.length-needle.length; i++) {
+        NSInteger j=0;
+        for (; j<needle.length; j++) {
+            if ([haystack characterAtIndex:i+j] != [needle characterAtIndex:j]) break;
+        }
+        if (j == needle.length) return i;
+    }
+    return -1;
+}
+
+==============================================================================
+
+Question 38: Implement strStr() II
+
+TODO: find this question
+
+==============================================================================
+
+Question 39: Read N Characters Given Read4
+
+The API: int read4(char *buf) reads 4 characters at a time from a file.
+The return value is the actual number of characters read. 
+For example, it returns 3 if there is only 3 characters left in the file.
+By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
+Note: The read function will only be called once for each test case.
+
+http://bangbingsyb.blogspot.fi/2014/11/leetcode-read-n-characters-given-read4.html
+
+==============================================================================
+
+Question 40: Merge K Sorted Arrays/Linked Lists
+
+Merge k sorted Arrays/Linked Lists and return it as one sorted Array/List
+
+http://www.programcreek.com/2014/05/merge-k-sorted-arrays-in-java/
+
+// Priority Queue question.
+// Also can be done by Binary Search Tree in my opinion
+
+==============================================================================
+
+Question 41: Minimum Depth of Binary Tree
+
+Given a binary tree, find its minimum depth.
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+Follow up: How about is the left/right tree is much deeper than right/left tree?
+
+// Basic solution: Traditional DFS question. Also similar to "Maximum Depth of Binary Tree" question.
+// Ask interviewer: binary tree balanced? size of the tree?
+
+- (NSUInteger)
