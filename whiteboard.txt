@@ -1981,6 +1981,35 @@ The minimum depth is the number of nodes along the shortest path from the root n
 Follow up: How about is the left/right tree is much deeper than right/left tree?
 
 // Basic solution: Traditional DFS question. Also similar to "Maximum Depth of Binary Tree" question.
-// Ask interviewer: binary tree balanced? size of the tree?
+// Ask interviewer: binary tree balanced? size of the tree? depth of nil, 0 or 1?
+// NOTICE: be careful of special cases: all left nodes, or all right nodes
 
-- (NSUInteger)
+- (NSUInteger)minDepthDFS:(Tree *)root {
+    if (root == nil) return 0;
+    if (!root.left) return [self minDepthDFS:root.right]+1;
+    if (!root.right) return [self minDepthDFS:root.left]+1;
+    return MIN([self minDepthDFS:root.left], [self minDepthDFS:root.right])+1;
+}
+
+// Idea: return when first time meeting a "leaf node"
+- (NSUInteger)minDepthBFS:(Tree *)root {
+    if (root == nil) return 0;
+    NSUInteger depth = 0;
+    NSMutableArray<Tree *> *queue = [NSMutableArray array];
+    [queue addObject:root];
+    while (queue.count) {
+        depth += 1;
+        NSUInteger size = queue.count;
+        NSMutableArray<Tree *> *newNodes = [NSMutableArray array];
+        for (NSInteger i=0; i<size; i++) {
+            Tree *node = queue[i];
+            if (node.left == nil && node.right == nil) return depth;
+            if (node.left) [newNodes addObject:node.left];
+            if (node.right) [newNodes addObject:node.right];
+        }
+        [queue removeAllObjects];
+        [queue addObjectsFromArray:newNodes];
+    }
+    return depth;
+}
+
