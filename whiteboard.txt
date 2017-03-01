@@ -2066,7 +2066,7 @@ In this case, no transaction is done, i.e. max profit = 0.
 
 ==============================================================================
 
-Question 42: Binary Tree Paths
+Question 43: Binary Tree Paths
 
 Given a binary tree, return all root-to-leaf paths.
 For example, given the following binary tree:
@@ -2128,7 +2128,7 @@ All root-to-leaf paths are:
 
 ==============================================================================
 
-Question 43: Contains Duplicate III
+Question 44: Contains Duplicate III
 
 Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
 
@@ -2177,7 +2177,7 @@ Given an array of integers, find out whether there are two distinct indices i an
 
 ==============================================================================
 
-Question 44: Check Duplicate Numbers In Window k
+Question 45: Check Duplicate Numbers In Window k
 http://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/
 
 Given an unsorted array that may contain duplicates. Also given a number k which is smaller than size of array. Write a function that returns true if array contains duplicates within k distance.
@@ -2215,7 +2215,7 @@ Output: true
 
 ==============================================================================
 
-Question 45: Find All Anagrams in a String
+Question 46: Find All Anagrams in a String
 
 Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
 Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
@@ -2299,7 +2299,7 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 
 ==============================================================================
 
-Question 45: First Bad Version
+Question 47: First Bad Version
 
 You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
 
@@ -2321,4 +2321,37 @@ BOOL isBadVersion(NSUInteger version);
         else right = mid;
     }
     return left;
+}
+
+==============================================================================
+
+Question 47: Valid Palindrome
+
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+For example,
+"A man, a plan, a canal: Panama" is a palindrome.
+"race a car" is not a palindrome.
+
+Note:
+Have you consider that the string might be empty? This is a good question to ask during an interview.
+
+For the purpose of this problem, we define empty string as valid palindrome.
+
+// Traditional double pointer question.
+// be careful about "whitespaces"
+// use NSCharacterSet to check if current character is alphanumeric
+
+- (BOOL)isPalindrome:(NSString *)s {
+    NSInteger left = 0, right = s.length-1;
+    NSCharacterSet *alphanumeric = [NSCharacterSet alphanumericCharacterSet];
+    while (left < right) {
+        while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:left]]) left++;
+        while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:right]]) right--;
+        unichar lc = [s characterAtIndex:left];
+        unichar lr = [s characterAtIndex:right];
+        if (lc != lr) return NO;
+        left++; right--;
+    }
+    return YES;
 }

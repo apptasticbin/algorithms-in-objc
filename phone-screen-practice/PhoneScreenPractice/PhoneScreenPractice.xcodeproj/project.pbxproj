@@ -37,6 +37,7 @@
 		792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24F21E66D8090084EFBD /* ContainsDuplicate.m */; };
 		792B24F71E66FFD50084EFBD /* FindAllAnagrams.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24F61E66FFD50084EFBD /* FindAllAnagrams.m */; };
 		792B24FB1E6705250084EFBD /* FirstBadVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24FA1E6705250084EFBD /* FirstBadVersion.m */; };
+		792B24FF1E6713760084EFBD /* ValidatePalindrome.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24FE1E6713760084EFBD /* ValidatePalindrome.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -127,6 +128,8 @@
 		792B24F61E66FFD50084EFBD /* FindAllAnagrams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindAllAnagrams.m; sourceTree = "<group>"; };
 		792B24F91E6705250084EFBD /* FirstBadVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstBadVersion.h; sourceTree = "<group>"; };
 		792B24FA1E6705250084EFBD /* FirstBadVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstBadVersion.m; sourceTree = "<group>"; };
+		792B24FD1E6713760084EFBD /* ValidatePalindrome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidatePalindrome.h; sourceTree = "<group>"; };
+		792B24FE1E6713760084EFBD /* ValidatePalindrome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidatePalindrome.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -442,6 +445,15 @@
 			name = FirstBadVersion;
 			sourceTree = "<group>";
 		};
+		792B24FC1E67135E0084EFBD /* ValidatePalindrome */ = {
+			isa = PBXGroup;
+			children = (
+				792B24FD1E6713760084EFBD /* ValidatePalindrome.h */,
+				792B24FE1E6713760084EFBD /* ValidatePalindrome.m */,
+			);
+			name = ValidatePalindrome;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +513,7 @@
 				792B24D01E65C8E00084EFBD /* SubarraySumToK */,
 				792B24D81E65FCC50084EFBD /* SubmatrixSumToK */,
 				792B24A41E641FB60084EFBD /* ThreeSum */,
+				792B24FC1E67135E0084EFBD /* ValidatePalindrome */,
 				799F30C61E5F63570010365B /* VerifyPreorderBST */,
 				793CFF041E5DEF2500AB1B78 /* main.m */,
 			);
@@ -706,6 +719,7 @@
 				793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */,
 				792B24EF1E66354F0084EFBD /* BinaryTreePaths.m in Sources */,
 				791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */,
+				792B24FF1E6713760084EFBD /* ValidatePalindrome.m in Sources */,
 				793CFF051E5DEF2500AB1B78 /* main.m in Sources */,
 				793CFF1F1E5E2CF200AB1B78 /* Tree.m in Sources */,
 				79BD49991E61896B00405D6A /* SortColors.m in Sources */,
