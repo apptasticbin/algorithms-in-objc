@@ -35,6 +35,7 @@
 		792B24EB1E66277D0084EFBD /* BestTimeBuySellStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24EA1E66277D0084EFBD /* BestTimeBuySellStock.m */; };
 		792B24EF1E66354F0084EFBD /* BinaryTreePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24EE1E66354F0084EFBD /* BinaryTreePaths.m */; };
 		792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24F21E66D8090084EFBD /* ContainsDuplicate.m */; };
+		792B24F71E66FFD50084EFBD /* FindAllAnagrams.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24F61E66FFD50084EFBD /* FindAllAnagrams.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -121,6 +122,8 @@
 		792B24EE1E66354F0084EFBD /* BinaryTreePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreePaths.m; sourceTree = "<group>"; };
 		792B24F11E66D8090084EFBD /* ContainsDuplicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainsDuplicate.h; sourceTree = "<group>"; };
 		792B24F21E66D8090084EFBD /* ContainsDuplicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainsDuplicate.m; sourceTree = "<group>"; };
+		792B24F51E66FFD50084EFBD /* FindAllAnagrams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindAllAnagrams.h; sourceTree = "<group>"; };
+		792B24F61E66FFD50084EFBD /* FindAllAnagrams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindAllAnagrams.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -418,6 +421,15 @@
 			name = ContainsDuplicate;
 			sourceTree = "<group>";
 		};
+		792B24F41E66FFAF0084EFBD /* FindAllAnagrams */ = {
+			isa = PBXGroup;
+			children = (
+				792B24F51E66FFD50084EFBD /* FindAllAnagrams.h */,
+				792B24F61E66FFD50084EFBD /* FindAllAnagrams.m */,
+			);
+			name = FindAllAnagrams;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +464,7 @@
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
 				792B24C31E658A2B0084EFBD /* DecodeWays */,
 				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
+				792B24F41E66FFAF0084EFBD /* FindAllAnagrams */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				792B24B31E64A6270084EFBD /* FlattenNestedListIterator */,
 				792B24AB1E6435460084EFBD /* FourSum */,
@@ -674,6 +687,7 @@
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
 				791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */,
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
+				792B24F71E66FFD50084EFBD /* FindAllAnagrams.m in Sources */,
 				79BD499D1E61E4FA00405D6A /* RemoveInvalidParentheses.m in Sources */,
 				793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */,
 				792B24EF1E66354F0084EFBD /* BinaryTreePaths.m in Sources */,

@@ -2213,3 +2213,87 @@ Output: true
     return NO;
 }
 
+==============================================================================
+
+Question 45: Find All Anagrams in a String
+
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+The order of output does not matter.
+
+Example 1:
+
+Input:
+s: "cbaebabacd" p: "abc"
+
+Output:
+[0, 6]
+
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input:
+s: "abab" p: "ab"
+
+Output:
+[0, 1, 2]
+
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+// When we meet anagram, we can think of using hash table + counter to reach O(N) time complexity
+// Ask interviewer: what kind of character containing in the string? all letters?
+// is the input always valid? how about nil? s.length > p.length?
+// Naive solution: hash table + counter + Brute Force
+// Better solution: hash table + counter + Slide Window
+
+- (NSArray<NSNumber *> *)findAnagrams:(NSString *)s p:(NSString *)p {
+	NSMutableDictionary<NSString *, NSNumber *> *hashTable = [NSMutableDictionary dictionary];
+	NSMutableArray<NSNumber *> *results = [NSMutableArray array];
+	
+	// put all letters in p into hash table, count them
+	for (NSInteger i=0; i<p.length; i++) {
+		NSString *c = [p substringInRange:NSMakeRange(i,1)];
+		if (!hashTable[c]) hashTable[c] = @(1);
+		else hashTable[c] = @(hashTable[c].integerValue+1);
+	}
+	
+	// now we iterate s from beginning to end
+	NSInteger count = p.length;
+	NSInteger start = 0, end = 0;
+	while (end < s.length) {
+		NSString *c = [s substringInRange:NSMakeRange(i,1)];
+		
+		// if current character is not in p, we still add them into hash table
+		if (!hashTable[c]) hashTable[c] = @(0);
+		
+		// decrease the total count and letter count by 1
+		if (hashTable[c].integerValue > 0) count--;
+		
+		hashTable[c] = @(hashTable[c].integerValue-1);
+		// move the end pointer to next one
+		end++;
+		
+		// if count == 0, then we find a anagram of p.
+		if (count == 0) [results addObject:@(start)];
+		
+		if (end - start == p.length) {
+			NSString *sc = [p substringInRange:NSMakeRange(start, 1)];
+			// here we filter out all non-anagram letters, whose count is -1.
+			if (hashTable[sc].integerValue >= 0) count++;
+			hashTable[sc] = @(hashTable[sc].integerValue+1);
+			start++;
+		}
+	}
+	// http://stackoverflow.com/questions/27389591/best-practice-return-mutablearray-copy-or-mutablearray-if-return-type-is-nsarra
+	/* Generally speaking:
+	   If your caller is following these guidelines, just return the mutable array since it's slightly cheaper, 	   and the caller won't mutate it.
+       If you're not sure whether caller might not follow these guidelines, and you want to code defensively, 	   return an immutable copy using array.copy.
+	**/
+	return [results copy];
+}
+
