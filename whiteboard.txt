@@ -2137,7 +2137,7 @@ Given an array of integers, find out whether there are two distinct indices i an
 // For this question, there are "Heap" solution and "Bucket" solution
 // For objective-c, "binary search" solution is more straight forward.
 // NSOrderedSet is a great class for handling order of hashed unique objects
-// Idea:
+// Idea: https://leetcode.com/problems/contains-duplicate-iii/?tab=Solutions
 // - keep a "Window set" which tracking at most k recent numbers
 // - insert each number into window set by binary search, in order to keep the set sorted
 // - we know that "|x - nums[i]| <= t" means "-t <= x - nums[i] <= t"
@@ -2147,31 +2147,69 @@ Given an array of integers, find out whether there are two distinct indices i an
 // - if loop completes, we return NO
 
 - (BOOL)containsNearbyAlmostDuplicate:(NSArray<NSNumber *> *)nums k:(NSInteger)k t:(NSInteger)t {
-	NSMutableOrderedSet<NSNumber *> *window = [NSMutableOrderedSet orderedSet];
-	for (NSInteger i=0; i<nums.count; i++) {
-		// i == k -> k-1 elements
-		if (i>k) [window removeObjectAtIndex:i-k-1];
-		NSInteger num = nums[i].integerValue;
-		// find the insertion index of num-t
-		NSUInteger pos = [window indexOfObject:@(num - t) 
-								 inSortedRange:NSMakeRange(0,window.count) 
-							           options:NSBinarySearchingInsertionIndex
-							   usingComparator:NSComparisonResult^(NSNumber *num1, NSNumber *num2) {
-							   		return [num1 compare:num2];
-							   }];
-		// if there are numbers larger than num - t, also that number is smaller or equal than num+t
-		// then we find the result, and return
-		if ((pos != window.count-1) && (windows[pos].integerValue - num <= t)) return YES;
-		// if not found any result, then we insert the number into the sorted ordered set
-		// in this way, we can always keep the window set sorted
-		NSUInteger pos = [window indexOfObject:@(num) 
-								 inSortedRange:NSMakeRange(0,window.count) 
-							           options:NSBinarySearchingInsertionIndex
-							   usingComparator:NSComparisonResult^(NSNumber *num1, NSNumber *num2) {
-							   		return [num1 compare:num2];
-							   }];
-		[window insertObject:@(num) atIndex:pos];
-	}
+    NSMutableOrderedSet<NSNumber *> *window = [NSMutableOrderedSet orderedSet];
+    for (NSInteger i=0; i<nums.count; i++) {
+        // i == k -> k-1 elements
+        if (i>k) [window removeObjectAtIndex:i-k-1];
+        NSInteger num = nums[i].integerValue;
+        // find the insertion index of num-t
+        NSUInteger pos = [window indexOfObject:@(num - t)
+                                 inSortedRange:NSMakeRange(0,window.count)
+                                       options:NSBinarySearchingInsertionIndex
+                               usingComparator:^NSComparisonResult(NSNumber *num1, NSNumber *num2) {
+                                   return [num1 compare:num2];
+                               }];
+        // if there are numbers larger than num - t, also that number is smaller or equal than num+t
+        // then we find the result, and return
+        if ((pos != window.count-1) && (window[pos].integerValue - num <= t)) return YES;
+        // if not found any result, then we insert the number into the sorted ordered set
+        // in this way, we can always keep the window set sorted
+        pos = [window indexOfObject:@(num)
+                      inSortedRange:NSMakeRange(0,window.count)
+                            options:NSBinarySearchingInsertionIndex
+                    usingComparator:^NSComparisonResult(NSNumber *num1, NSNumber *num2) {
+                        return [num1 compare:num2];
+                    }];
+        [window insertObject:@(num) atIndex:pos];
+    }
+    return NO;
 }
 
+==============================================================================
+
+Question 44: Check Duplicate Numbers In Window k
+http://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/
+
+Given an unsorted array that may contain duplicates. Also given a number k which is smaller than size of array. Write a function that returns true if array contains duplicates within k distance.
+
+Examples:
+
+Input: k = 3, arr[] = {1, 2, 3, 4, 1, 2, 3, 4}
+Output: false
+All duplicates are more than k distance away.
+
+Input: k = 3, arr[] = {1, 2, 3, 1, 4, 5}
+Output: true
+1 is repeated at distance 3.
+
+Input: k = 3, arr[] = {1, 2, 3, 4, 5}
+Output: false
+
+Input: k = 3, arr[] = {1, 2, 3, 4, 4}
+Output: true
+
+// Similar question to "Question 43: Contains Duplicate III"
+// we can use a window set to keep tracking number we met at most k element before
+// Ask interviewer: is k valid? nil handling?
+
+- (BOOL)checkDuplicatesWithinK:(NSArray<NSNumber *> *)nums k:(NSUInteger)k {
+    NSMutableOrderedSet<NSNumber *> *window = [NSMutableOrderedSet orderedSet];
+    for (NSInteger i=0; i<nums.count; i++) {
+        if (i > k) [window removeObjectAtIndex:i-k-1];
+        NSNumber *num = nums[i];
+        if ([window containsObject:num]) return YES;
+        [window addObject:num];
+    }
+    return NO;
+}
 

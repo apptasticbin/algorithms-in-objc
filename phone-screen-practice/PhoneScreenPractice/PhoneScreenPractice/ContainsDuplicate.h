@@ -11,5 +11,6 @@
 @interface ContainsDuplicate : NSObject
 
 - (BOOL)containsNearbyAlmostDuplicate:(NSArray<NSNumber *> *)nums k:(NSInteger)k t:(NSInteger)t;
+- (BOOL)checkDuplicatesWithinK:(NSArray<NSNumber *> *)nums k:(NSUInteger)k;
 
 @end

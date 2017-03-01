@@ -39,5 +39,15 @@
     return NO;
 }
 
+- (BOOL)checkDuplicatesWithinK:(NSArray<NSNumber *> *)nums k:(NSUInteger)k {
+    NSMutableOrderedSet<NSNumber *> *window = [NSMutableOrderedSet orderedSet];
+    for (NSInteger i=0; i<nums.count; i++) {
+        if (i > k) [window removeObjectAtIndex:i-k-1];
+        NSNumber *num = nums[i];
+        if ([window containsObject:num]) return YES;
+        [window addObject:num];
+    }
+    return NO;
+}
 
 @end
