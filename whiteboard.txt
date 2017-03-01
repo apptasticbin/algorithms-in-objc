@@ -2125,3 +2125,53 @@ All root-to-leaf paths are:
     }
     return paths;
 }
+
+==============================================================================
+
+Question 43: Contains Duplicate III
+
+Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
+
+// When we see "at most" keywords, one thing we can guess is Slide Window
+// Ask interviewer: is the array sorted or not? any duplicate?
+// For this question, there are "Heap" solution and "Bucket" solution
+// For objective-c, "binary search" solution is more straight forward.
+// NSOrderedSet is a great class for handling order of hashed unique objects
+// Idea:
+// - keep a "Window set" which tracking at most k recent numbers
+// - insert each number into window set by binary search, in order to keep the set sorted
+// - we know that "|x - nums[i]| <= t" means "-t <= x - nums[i] <= t"
+// - we first find x from window set, which "x - nums[i] >= -t" ==> "x >= nums[i]-t"
+// - then we confirm that "there is such x in windows set" and also "x - nums[i] <= t"
+// - if so, we return YES. Otherwise we insert nums[i] into window set, and loop.
+// - if loop completes, we return NO
+
+- (BOOL)containsNearbyAlmostDuplicate:(NSArray<NSNumber *> *)nums k:(NSInteger)k t:(NSInteger)t {
+	NSMutableOrderedSet<NSNumber *> *window = [NSMutableOrderedSet orderedSet];
+	for (NSInteger i=0; i<nums.count; i++) {
+		// i == k -> k-1 elements
+		if (i>k) [window removeObjectAtIndex:i-k-1];
+		NSInteger num = nums[i].integerValue;
+		// find the insertion index of num-t
+		NSUInteger pos = [window indexOfObject:@(num - t) 
+								 inSortedRange:NSMakeRange(0,window.count) 
+							           options:NSBinarySearchingInsertionIndex
+							   usingComparator:NSComparisonResult^(NSNumber *num1, NSNumber *num2) {
+							   		return [num1 compare:num2];
+							   }];
+		// if there are numbers larger than num - t, also that number is smaller or equal than num+t
+		// then we find the result, and return
+		if ((pos != window.count-1) && (windows[pos].integerValue - num <= t)) return YES;
+		// if not found any result, then we insert the number into the sorted ordered set
+		// in this way, we can always keep the window set sorted
+		NSUInteger pos = [window indexOfObject:@(num) 
+								 inSortedRange:NSMakeRange(0,window.count) 
+							           options:NSBinarySearchingInsertionIndex
+							   usingComparator:NSComparisonResult^(NSNumber *num1, NSNumber *num2) {
+							   		return [num1 compare:num2];
+							   }];
+		[window insertObject:@(num) atIndex:pos];
+	}
+}
+
+

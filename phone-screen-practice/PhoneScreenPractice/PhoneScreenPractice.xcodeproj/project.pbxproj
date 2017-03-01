@@ -34,6 +34,7 @@
 		792B24E71E661EB60084EFBD /* Read4.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24E61E661EB60084EFBD /* Read4.m */; };
 		792B24EB1E66277D0084EFBD /* BestTimeBuySellStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24EA1E66277D0084EFBD /* BestTimeBuySellStock.m */; };
 		792B24EF1E66354F0084EFBD /* BinaryTreePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24EE1E66354F0084EFBD /* BinaryTreePaths.m */; };
+		792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B24F21E66D8090084EFBD /* ContainsDuplicate.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -118,6 +119,8 @@
 		792B24EA1E66277D0084EFBD /* BestTimeBuySellStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BestTimeBuySellStock.m; sourceTree = "<group>"; };
 		792B24ED1E66354F0084EFBD /* BinaryTreePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryTreePaths.h; sourceTree = "<group>"; };
 		792B24EE1E66354F0084EFBD /* BinaryTreePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreePaths.m; sourceTree = "<group>"; };
+		792B24F11E66D8090084EFBD /* ContainsDuplicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainsDuplicate.h; sourceTree = "<group>"; };
+		792B24F21E66D8090084EFBD /* ContainsDuplicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainsDuplicate.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -406,6 +409,15 @@
 			name = BinaryTreePaths;
 			sourceTree = "<group>";
 		};
+		792B24F01E66D7E00084EFBD /* ContainsDuplicate */ = {
+			isa = PBXGroup;
+			children = (
+				792B24F11E66D8090084EFBD /* ContainsDuplicate.h */,
+				792B24F21E66D8090084EFBD /* ContainsDuplicate.m */,
+			);
+			name = ContainsDuplicate;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +447,7 @@
 				793CFF141E5E22C100AB1B78 /* BinaryTreeLayerAverage */,
 				792B24CC1E65B9310084EFBD /* BSTFromPreorder */,
 				791C30E41E6319D600E90ED7 /* CoinChange */,
+				792B24F01E66D7E00084EFBD /* ContainsDuplicate */,
 				791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */,
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
 				792B24C31E658A2B0084EFBD /* DecodeWays */,
@@ -657,6 +670,7 @@
 				793CFF171E5E22DD00AB1B78 /* BinaryTreeLayerAverage.m in Sources */,
 				792B24AE1E6435580084EFBD /* FourSum.m in Sources */,
 				79BD49A51E62539900405D6A /* FindMinimumInRotatedSortedArray.m in Sources */,
+				792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */,
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
 				791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */,
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
