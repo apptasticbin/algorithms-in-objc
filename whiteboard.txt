@@ -3104,3 +3104,22 @@ https://www.careercup.com/question?id=5653760530448384
     }
     return result;
 }
+
+==============================================================================
+
+Question 58: Reverse Linked List
+
+Reverse a singly linked list.
+
+// Traditional linked list question
+// Basic idea: use two pointers to reverse one by one
+// Nested solution: recursive solution makes the code very clean and understandable
+
+- (ListNode *)reverseList:(ListNode *)head {
+	if (head == nil || head.next == nil) return head;
+	ListNode *next = head.next;
+	ListNode *reversedHead = [self reverseList:head.next];
+	next.next = head;
+	head.next = nil;
+	return reversedHead;
+}

@@ -47,6 +47,7 @@
 		792B251B1E68731C0084EFBD /* RegularExpressionMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B251A1E68731C0084EFBD /* RegularExpressionMatching.m */; };
 		792B251F1E689E0D0084EFBD /* SummaryRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B251E1E689E0D0084EFBD /* SummaryRanges.m */; };
 		792B25231E68BCFC0084EFBD /* TaskScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25221E68BCFC0084EFBD /* TaskScheduler.m */; };
+		792B25271E68C9790084EFBD /* ReverseLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25261E68C9790084EFBD /* ReverseLinkedList.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -157,6 +158,8 @@
 		792B251E1E689E0D0084EFBD /* SummaryRanges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryRanges.m; sourceTree = "<group>"; };
 		792B25211E68BCFC0084EFBD /* TaskScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskScheduler.h; sourceTree = "<group>"; };
 		792B25221E68BCFC0084EFBD /* TaskScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskScheduler.m; sourceTree = "<group>"; };
+		792B25251E68C9790084EFBD /* ReverseLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReverseLinkedList.h; sourceTree = "<group>"; };
+		792B25261E68C9790084EFBD /* ReverseLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverseLinkedList.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -562,6 +565,15 @@
 			name = TaskScheduler;
 			sourceTree = "<group>";
 		};
+		792B25241E68C9580084EFBD /* ReverseLinkedList */ = {
+			isa = PBXGroup;
+			children = (
+				792B25251E68C9790084EFBD /* ReverseLinkedList.h */,
+				792B25261E68C9790084EFBD /* ReverseLinkedList.m */,
+			);
+			name = ReverseLinkedList;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -621,6 +633,7 @@
 				792B24E41E661EA20084EFBD /* Read4 */,
 				792B25181E6872BE0084EFBD /* RegularExpressionMatching */,
 				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
+				792B25241E68C9580084EFBD /* ReverseLinkedList */,
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
 				792B24DC1E6611870084EFBD /* StrStr */,
@@ -875,6 +888,7 @@
 				792B24CF1E65B9480084EFBD /* BSTFromPreorder.m in Sources */,
 				791C30E01E63118D00E90ED7 /* ConvertSortedListToBST.m in Sources */,
 				792B24DB1E65FCF90084EFBD /* SubmatrixSumToK.m in Sources */,
+				792B25271E68C9790084EFBD /* ReverseLinkedList.m in Sources */,
 				792B25171E684AE20084EFBD /* BinarySearchTreeIterator.m in Sources */,
 				792B250B1E678C0A0084EFBD /* WordSearch.m in Sources */,
 			);
