@@ -2527,3 +2527,151 @@ Longest consecutive sequence path is 2-3,not3-2-1, so return 2.
     return MAX(length, MAX(left, right));
 }
 
+==============================================================================
+
+Question 52: Word Search
+
+Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+For example,
+Given board =
+
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+word = "ABCCED", -> returns true,
+word = "SEE", -> returns true,
+word = "ABCB", -> returns false.
+
+// Ask interviewer: capital letter? all inputs valid?
+// Traditional DFS + Backtracking solution O(M*N*4*k) = O(kN^2)
+// NOTICE: we can decrease space consumption by mark visited node in the board
+// for example, mark it into '#' and change it back after tracking back.
+// https://leetcode.com/problems/word-search/?tab=Solutions
+// http://www.jiuzhang.com/solutions/word-search/
+
+- (BOOL)exist:(NSArray<NSArray<NSString *> *> *)board word:(NSString *)word {
+    if (board == nil || word == nil || word.length == 0) return NO;
+    NSUInteger m = board.count;
+    if (m == 0) return NO;
+    NSUInteger n = board[0].count;
+    NSString *firstC = [word substringWithRange:NSMakeRange(0,1)];
+    for (NSInteger i=0; i<m; i++) {
+        for (NSInteger j=0; j<n; j++) {
+            NSString *c = board[i][j];
+            NSMutableSet<NSValue *> *visited = [NSMutableSet set];
+            if ([c isEqualToString:firstC]) {
+                BOOL found = [self dfs:board i:i j:j word:word start:0 visited:visited];
+                if (found) return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+- (BOOL)dfs:(NSArray<NSArray<NSString *> *> *)board
+          i:(NSInteger)i j:(NSInteger)j
+       word:(NSString *)word
+      start:(NSUInteger)start
+    visited:(NSMutableSet<NSValue *> *)visited {
+    if (start == word.length) return YES;
+    if (i>board.count-1 || i<0 || j>board[0].count-1 || j<0) return NO;
+    // for iOS, use valueWithCGPoint and NSMakeCGPoint
+    NSValue *pos = [NSValue valueWithPoint:NSMakePoint(i, j)];
+    if ([visited containsObject:pos]) return NO;
+    [visited addObject:pos];
+    
+    NSString *bc = board[i][j];
+    NSString *sc = [word substringWithRange:NSMakeRange(start,1)];
+    if (![bc isEqualToString:sc]) return NO;
+    // go left, right, up and down
+    return [self dfs:board i:i+1 j:j word:word start:start+1 visited:visited] ||
+    [self dfs:board i:i-1 j:j word:word start:start+1 visited:visited] ||
+    [self dfs:board i:i j:j+1 word:word start:start+1 visited:visited] ||
+    [self dfs:board i:i j:j-1 word:word start:start+1 visited:visited];
+}
+
+==============================================================================
+
+Question 52: Word Search II
+
+Given a 2D board and a list of words from the dictionary, find all words in the board.
+
+Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+
+For example,
+Given words = ["oath","pea","eat","rain"] and board =
+
+[
+  ['o','a','a','n'],
+  ['e','t','a','e'],
+  ['i','h','k','r'],
+  ['i','f','l','v']
+]
+Return ["eat","oath"].
+
+Note: You may assume that all inputs are consist of lowercase letters a-z.
+
+// If we use solution in Question 51, and search word by word, 
+// then the time complexity will be extremely high.
+// for string searching, we can use Trie to compress and store the whole dictionary words
+// the searching time for a word will drop to O(M), where M is the average length of words.
+// So Trie + Backtracking is a good solution.
+// NOTICE: we DON'T implement Trie structure here.
+// http://www.jiuzhang.com/solutions/word-search-ii/
+
+- (NSArray<NSString *> *)findWords:(NSArray<NSString *> *)words
+                           inBoard:(NSArray<NSArray<NSString *> *> *)board {
+    if (board == nil || words == nil || words.count == 0) return NO;
+    NSUInteger m = board.count;
+    if (m == 0) return NO;
+    NSUInteger n = board[0].count;
+    
+    // first, we create the Trie
+    Trie *trie = [Trie trie];
+    for (NSInteger i=0; i<words.count; i++) {
+        [trie addWord:words[i]];
+    }
+    
+    // we use set here to avoid duplicates
+    NSMutableSet<NSString *> *results = [NSMutableSet set];
+    // then, we still do dfs
+    for (NSInteger i=0; i<m; i++) {
+        for (NSInteger j=0; j<n; j++) {
+            NSMutableSet<NSValue *> *visited = [NSMutableSet set];
+            [self dfs:board i:i j:j word:board[i][j] trieNode:trie.root
+              visited:visited results:results];
+        }
+    }
+    return [results allObjects];
+}
+
+- (void)dfs:(NSArray<NSArray<NSString *> *> *)board
+          i:(NSInteger)i j:(NSInteger)j
+       word:(NSString *)word
+   trieNode:(TrieNode *)trieNode
+    visited:(NSMutableSet<NSValue *> *)visited
+    results:(NSMutableSet<NSString *> *)results {
+    if (i>board.count-1 || i<0 || j>board[0].count-1 || j<0) return;
+    // for iOS, use valueWithCGPoint and NSMakeCGPoint
+    NSValue *pos = [NSValue valueWithPoint:NSMakePoint(i, j)];
+    if ([visited containsObject:pos]) return;
+    [visited addObject:pos];
+    
+    unichar c = [board[i][j] characterAtIndex:0];
+    if (![trieNode hasChild:c]) return;
+    NSString *nextWord = [word stringByAppendingString:board[i][j]];
+    TrieNode *nextNode = [trieNode getChild:c];
+    if (nextNode.isWord) [results addObject:nextWord];
+    
+    [self dfs:board i:i+1 j:j word:nextWord trieNode:nextNode visited:visited results:results];
+    [self dfs:board i:i-1 j:j word:nextWord trieNode:nextNode visited:visited results:results];
+    [self dfs:board i:i j:j+1 word:nextWord trieNode:nextNode visited:visited results:results];
+    [self dfs:board i:i j:j-1 word:nextWord trieNode:nextNode visited:visited results:results];
+}
+
+
