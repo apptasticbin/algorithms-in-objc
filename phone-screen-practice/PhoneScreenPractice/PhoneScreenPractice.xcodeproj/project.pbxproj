@@ -41,6 +41,7 @@
 		792B25031E6758BF0084EFBD /* LongestArithmeticSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25021E6758BF0084EFBD /* LongestArithmeticSequence.m */; };
 		792B25071E6762880084EFBD /* BinaryTreeLongestConsecutiveSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25061E6762880084EFBD /* BinaryTreeLongestConsecutiveSequence.m */; };
 		792B250B1E678C0A0084EFBD /* WordSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B250A1E678C0A0084EFBD /* WordSearch.m */; };
+		792B250F1E6824750084EFBD /* CombinationSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B250E1E6824750084EFBD /* CombinationSum.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -139,6 +140,8 @@
 		792B25061E6762880084EFBD /* BinaryTreeLongestConsecutiveSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreeLongestConsecutiveSequence.m; sourceTree = "<group>"; };
 		792B25091E678C0A0084EFBD /* WordSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearch.h; sourceTree = "<group>"; };
 		792B250A1E678C0A0084EFBD /* WordSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearch.m; sourceTree = "<group>"; };
+		792B250D1E6824750084EFBD /* CombinationSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombinationSum.h; sourceTree = "<group>"; };
+		792B250E1E6824750084EFBD /* CombinationSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CombinationSum.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -490,6 +493,15 @@
 			name = WordSearch;
 			sourceTree = "<group>";
 		};
+		792B250C1E6824550084EFBD /* CombinationSum */ = {
+			isa = PBXGroup;
+			children = (
+				792B250D1E6824750084EFBD /* CombinationSum.h */,
+				792B250E1E6824750084EFBD /* CombinationSum.m */,
+			);
+			name = CombinationSum;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +532,7 @@
 				792B25041E6762500084EFBD /* BinaryTreeLongestConsecutiveSequence */,
 				792B24CC1E65B9310084EFBD /* BSTFromPreorder */,
 				791C30E41E6319D600E90ED7 /* CoinChange */,
+				792B250C1E6824550084EFBD /* CombinationSum */,
 				792B24F01E66D7E00084EFBD /* ContainsDuplicate */,
 				791C30DD1E63116000E90ED7 /* ConvertSortedListToBST */,
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
@@ -787,6 +800,7 @@
 				792B24CB1E658C2A0084EFBD /* LongestConsecutive.m in Sources */,
 				799F30C91E5F63710010365B /* VerifyPreorderBST.m in Sources */,
 				792B24E71E661EB60084EFBD /* Read4.m in Sources */,
+				792B250F1E6824750084EFBD /* CombinationSum.m in Sources */,
 				79BD49A11E62132600405D6A /* NumberIsland.m in Sources */,
 				792B24D31E65C9000084EFBD /* SubarraySumToK.m in Sources */,
 				792B24CF1E65B9480084EFBD /* BSTFromPreorder.m in Sources */,

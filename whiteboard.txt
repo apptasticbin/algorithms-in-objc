@@ -2657,6 +2657,7 @@ Note: You may assume that all inputs are consist of lowercase letters a-z.
     visited:(NSMutableSet<NSValue *> *)visited
     results:(NSMutableSet<NSString *> *)results {
     if (i>board.count-1 || i<0 || j>board[0].count-1 || j<0) return;
+	
     // for iOS, use valueWithCGPoint and NSMakeCGPoint
     NSValue *pos = [NSValue valueWithPoint:NSMakePoint(i, j)];
     if ([visited containsObject:pos]) return;
@@ -2672,6 +2673,79 @@ Note: You may assume that all inputs are consist of lowercase letters a-z.
     [self dfs:board i:i-1 j:j word:nextWord trieNode:nextNode visited:visited results:results];
     [self dfs:board i:i j:j+1 word:nextWord trieNode:nextNode visited:visited results:results];
     [self dfs:board i:i j:j-1 word:nextWord trieNode:nextNode visited:visited results:results];
+}
+
+==============================================================================
+
+Question 53: Combination Sum IV
+
+Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+
+Example:
+
+nums = [1, 2, 3]
+target = 4
+
+The possible combination ways are:
+(1, 1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 3)
+(2, 1, 1)
+(2, 2)
+(3, 1)
+
+Note that different sequences are counted as different combinations.
+
+Therefore the output is 7.
+
+Follow up:
+
+What if negative numbers are allowed in the given array?
+How does it change the problem?
+What limitation we need to add to the question to allow negative numbers?
+
+// Ask interviewer: sorted?
+// This kind of question can usually be solved by:
+// - DP: when solve the problem return the count
+// - DFS : for return all the possible result
+// https://discuss.leetcode.com/topic/52542/c-template-for-all-combination-problem-set (nice summury)
+// Thinking for follow up: 
+// - because for this question, there is no "length limitation" for the results, 
+//   then when we have negative numbers, there will be "infinite length".
+// - for example [2, -2, 2, -2], target is 3
+// - we can add like "same number can not be used twice" to allow negative numbers.
+// NOTICE: for this DP question, the index if the "target value", not "index of nums"
+
+- (NSUInteger)combinationSum4DP:(NSArray<NSNumber *> *)nums target:(NSUInteger)target {
+    NSUInteger dp[target+1];
+    dp[0] = 1;
+    for (NSInteger i=0; i<=target; i++) {
+        for (NSInteger j=0; j<nums.count; j++) {
+            if (i > nums[j].integerValue) dp[i] += dp[i-nums[j].integerValue];
+        }
+    }
+    return dp[target];
+}
+
+// how about outputing all possible combinations?
+- (NSArray<NSArray<NSNumber *> *> *)combinationSumDFS:(NSArray<NSNumber *> *)nums target:(NSUInteger)target {
+    NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+    [self helper:nums target:target combination:[NSMutableArray array] results:results];
+    return results;
+}
+
+- (void)helper:(NSArray<NSNumber *> *)nums target:(NSInteger)target
+   combination:(NSMutableArray<NSNumber *> *)combination
+       results:(NSMutableArray<NSArray<NSNumber *> *> *)results {
+    if (target < 0) return;
+    if (target == 0) [results addObject:[combination copy]];
+    for (NSInteger i=0; i<nums.count; i++) {
+        NSInteger num = nums[i].integerValue;
+        [combination addObject:nums[i]];
+        [self helper:nums target:target-num combination:combination results:results];
+        [combination removeLastObject];
+    }
 }
 
 
