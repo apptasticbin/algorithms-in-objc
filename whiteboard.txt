@@ -2966,3 +2966,92 @@ isMatch("aab", "c*a*b") → true
 	}
 	return dp[s.length][p.length];
 }
+
+==============================================================================
+
+Question 57: Data Stream as Disjoint Intervals
+
+Given a data stream input of non-negative integers a1, a2, ..., an, ..., summarize the numbers seen so far as a list of disjoint intervals.
+
+For example, suppose the integers from the data stream are 1, 3, 7, 2, 6, ..., then the summary will be:
+
+[1, 1]
+[1, 1], [3, 3]
+[1, 1], [3, 3], [7, 7]
+[1, 3], [7, 7]
+[1, 3], [6, 7]
+
+Follow up: What if there are lots of merges and the number of disjoint intervals are small compared to the data stream's size?
+
+// Ask interviewer: input are all positive? and time and memory limitation?
+// When we insert a new integer from data stream, there are three conditions:
+// - integer is less than the start value of a range
+// - integer is inside the range
+// - integer is larger than the end value of a range
+// We can use "Binary Search" to speed up merging
+// For follow up: https://discuss.leetcode.com/topic/46904/very-concise-c-solution
+// good explanation about using pro & con of using "Binary Search Tree"
+
+@interface Interval : NSObject
+
+@property (nonatomic, assign) NSInteger start;
+@property (nonatomic, assign) NSInteger end;
+
++ (instancetype)intervalWithStart:(NSInteger)start end:(NSInteger)end;
+
+@end
+
+@interface SummaryRanges : NSObject
+
+- (void)addNum:(NSInteger)val;
+- (NSArray<Interval *> *)getIntervals;
+
+@end
+
+@interface SummaryRanges ()
+
+@property (nonatomic, strong) NSMutableArray<Interval *> *intervals;
+
+@end
+
+@implementation SummaryRanges
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _intervals = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)addNum:(NSInteger)val {
+    NSComparator cmp = ^NSComparisonResult(Interval *interval1, Interval *interval2) {
+        return interval1.start < interval2.start;
+    };
+    
+    NSUInteger idx = [self.intervals indexOfObject:[Interval intervalWithStart:val end:val]
+                                     inSortedRange:NSMakeRange(0, self.intervals.count)
+                                           options:NSBinarySearchingInsertionIndex
+                                   usingComparator:cmp];
+    // for example, if val => 4, and intervals => {1, 3}, {5, 6}, we need to check if
+    // the inserting value belongs to previous interval or not.
+    // if YES; then merge this value to previous interval
+    // if NO; just insert it.
+    if (idx > 0 && self.intervals[idx-1].end+1 >= val) idx--;
+    // merge connected intervals
+    NSInteger start = val, end = val;
+    while (idx < self.intervals.count &&
+           val+1 >= self.intervals[idx].start &&
+           val-1 <= self.intervals[idx].end) {
+        start = MIN(start, self.intervals[idx].start);
+        end = MAX(end, self.intervals[idx].end);
+        [self.intervals removeObjectAtIndex:idx];
+    }
+    [self.intervals insertObject:[Interval intervalWithStart:start end:end] atIndex:idx];
+}
+
+- (NSArray<Interval *> *)getIntervals {
+    return self.intervals;
+}
+
+@end

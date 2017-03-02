@@ -45,6 +45,7 @@
 		792B25131E6836A70084EFBD /* BinaryTreeInorderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25121E6836A70084EFBD /* BinaryTreeInorderTraversal.m */; };
 		792B25171E684AE20084EFBD /* BinarySearchTreeIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25161E684AE20084EFBD /* BinarySearchTreeIterator.m */; };
 		792B251B1E68731C0084EFBD /* RegularExpressionMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B251A1E68731C0084EFBD /* RegularExpressionMatching.m */; };
+		792B251F1E689E0D0084EFBD /* SummaryRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B251E1E689E0D0084EFBD /* SummaryRanges.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -151,6 +152,8 @@
 		792B25161E684AE20084EFBD /* BinarySearchTreeIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinarySearchTreeIterator.m; sourceTree = "<group>"; };
 		792B25191E68731C0084EFBD /* RegularExpressionMatching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularExpressionMatching.h; sourceTree = "<group>"; };
 		792B251A1E68731C0084EFBD /* RegularExpressionMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularExpressionMatching.m; sourceTree = "<group>"; };
+		792B251D1E689E0D0084EFBD /* SummaryRanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryRanges.h; sourceTree = "<group>"; };
+		792B251E1E689E0D0084EFBD /* SummaryRanges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryRanges.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -538,6 +541,15 @@
 			name = RegularExpressionMatching;
 			sourceTree = "<group>";
 		};
+		792B251C1E6898280084EFBD /* SummaryRanges */ = {
+			isa = PBXGroup;
+			children = (
+				792B251D1E689E0D0084EFBD /* SummaryRanges.h */,
+				792B251E1E689E0D0084EFBD /* SummaryRanges.m */,
+			);
+			name = SummaryRanges;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -602,6 +614,7 @@
 				792B24DC1E6611870084EFBD /* StrStr */,
 				792B24D01E65C8E00084EFBD /* SubarraySumToK */,
 				792B24D81E65FCC50084EFBD /* SubmatrixSumToK */,
+				792B251C1E6898280084EFBD /* SummaryRanges */,
 				792B24A41E641FB60084EFBD /* ThreeSum */,
 				792B24FC1E67135E0084EFBD /* ValidatePalindrome */,
 				799F30C61E5F63570010365B /* VerifyPreorderBST */,
@@ -828,6 +841,7 @@
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
 				792B24BE1E64C2E40084EFBD /* MergeSortedArrays.m in Sources */,
 				792B24C21E64E2270084EFBD /* BalanceParentheses.m in Sources */,
+				792B251F1E689E0D0084EFBD /* SummaryRanges.m in Sources */,
 				792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */,
 				792B24DF1E6611980084EFBD /* StrStr.m in Sources */,
 				792B24D71E65DB270084EFBD /* MaximumSubarraySizeSumToK.m in Sources */,
