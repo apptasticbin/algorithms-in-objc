@@ -44,6 +44,7 @@
 		792B250F1E6824750084EFBD /* CombinationSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B250E1E6824750084EFBD /* CombinationSum.m */; };
 		792B25131E6836A70084EFBD /* BinaryTreeInorderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25121E6836A70084EFBD /* BinaryTreeInorderTraversal.m */; };
 		792B25171E684AE20084EFBD /* BinarySearchTreeIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25161E684AE20084EFBD /* BinarySearchTreeIterator.m */; };
+		792B251B1E68731C0084EFBD /* RegularExpressionMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B251A1E68731C0084EFBD /* RegularExpressionMatching.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -148,6 +149,8 @@
 		792B25121E6836A70084EFBD /* BinaryTreeInorderTraversal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreeInorderTraversal.m; sourceTree = "<group>"; };
 		792B25151E684AE20084EFBD /* BinarySearchTreeIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinarySearchTreeIterator.h; sourceTree = "<group>"; };
 		792B25161E684AE20084EFBD /* BinarySearchTreeIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinarySearchTreeIterator.m; sourceTree = "<group>"; };
+		792B25191E68731C0084EFBD /* RegularExpressionMatching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularExpressionMatching.h; sourceTree = "<group>"; };
+		792B251A1E68731C0084EFBD /* RegularExpressionMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularExpressionMatching.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -526,6 +529,15 @@
 			name = BinarySearchTreeIterator;
 			sourceTree = "<group>";
 		};
+		792B25181E6872BE0084EFBD /* RegularExpressionMatching */ = {
+			isa = PBXGroup;
+			children = (
+				792B25191E68731C0084EFBD /* RegularExpressionMatching.h */,
+				792B251A1E68731C0084EFBD /* RegularExpressionMatching.m */,
+			);
+			name = RegularExpressionMatching;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +595,7 @@
 				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
 				792B24AF1E6480750084EFBD /* PrettyJSONString */,
 				792B24E41E661EA20084EFBD /* Read4 */,
+				792B25181E6872BE0084EFBD /* RegularExpressionMatching */,
 				79BD499A1E61E4D300405D6A /* RemoveInvalidParentheses */,
 				793CFF201E5E36C000AB1B78 /* RunLengthEncoding */,
 				79BD49961E61895B00405D6A /* SortColors */,
@@ -801,6 +814,7 @@
 				792B24EF1E66354F0084EFBD /* BinaryTreePaths.m in Sources */,
 				791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */,
 				792B24FF1E6713760084EFBD /* ValidatePalindrome.m in Sources */,
+				792B251B1E68731C0084EFBD /* RegularExpressionMatching.m in Sources */,
 				793CFF051E5DEF2500AB1B78 /* main.m in Sources */,
 				793CFF1F1E5E2CF200AB1B78 /* Tree.m in Sources */,
 				79BD49991E61896B00405D6A /* SortColors.m in Sources */,
