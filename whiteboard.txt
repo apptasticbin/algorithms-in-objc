@@ -3207,4 +3207,29 @@ Example 2:
   
 Binary tree [1,2,3], return false.
 
+// In order to validate BST, we usually use "In-Order DFS traversal"
+// Not only the left < root < right, but also left < root < right < "parent"
+// so we need to special way to do in-order traversal
+// we can do it in a way of keeping tracking the "previous" node
+// MAX and MIN value solution: https://discuss.leetcode.com/topic/7179/my-simple-java-solution-in-3-lines
 
+- (BOOL)isValidBST:(Tree *)root {
+    Tree *pre = nil;
+    return [self helper:root previous:&pre];
+}
+
+- (BOOL)helper:(Tree *)root previous:(Tree * __autoreleasing *)pre {
+    if (root == nil) {
+        return YES;
+    }
+    // check left tree
+    if ([self helper:root.left previous:pre]) return NO;
+    
+    // check root should be larger than pre node
+    // set root as pre node
+    if (*pre != nil && root.value <= (*pre).value) return NO;
+    *pre = root;
+    
+    // check right tree
+    return [self helper:root.right previous:pre];
+}

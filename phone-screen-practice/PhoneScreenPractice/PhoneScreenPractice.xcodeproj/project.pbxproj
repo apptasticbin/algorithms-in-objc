@@ -48,6 +48,7 @@
 		792B251F1E689E0D0084EFBD /* SummaryRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B251E1E689E0D0084EFBD /* SummaryRanges.m */; };
 		792B25231E68BCFC0084EFBD /* TaskScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25221E68BCFC0084EFBD /* TaskScheduler.m */; };
 		792B25271E68C9790084EFBD /* ReverseLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25261E68C9790084EFBD /* ReverseLinkedList.m */; };
+		792B252E1E68E4140084EFBD /* ValidateBST.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B252D1E68E4140084EFBD /* ValidateBST.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -160,6 +161,8 @@
 		792B25221E68BCFC0084EFBD /* TaskScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskScheduler.m; sourceTree = "<group>"; };
 		792B25251E68C9790084EFBD /* ReverseLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReverseLinkedList.h; sourceTree = "<group>"; };
 		792B25261E68C9790084EFBD /* ReverseLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverseLinkedList.m; sourceTree = "<group>"; };
+		792B252C1E68E4140084EFBD /* ValidateBST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidateBST.h; sourceTree = "<group>"; };
+		792B252D1E68E4140084EFBD /* ValidateBST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidateBST.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -574,6 +577,15 @@
 			name = ReverseLinkedList;
 			sourceTree = "<group>";
 		};
+		792B25281E68E3E90084EFBD /* ValidateBST */ = {
+			isa = PBXGroup;
+			children = (
+				792B252C1E68E4140084EFBD /* ValidateBST.h */,
+				792B252D1E68E4140084EFBD /* ValidateBST.m */,
+			);
+			name = ValidateBST;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +655,7 @@
 				792B25201E68BCE40084EFBD /* TaskScheduler */,
 				792B24A41E641FB60084EFBD /* ThreeSum */,
 				792B24FC1E67135E0084EFBD /* ValidatePalindrome */,
+				792B25281E68E3E90084EFBD /* ValidateBST */,
 				799F30C61E5F63570010365B /* VerifyPreorderBST */,
 				792B25081E678BE30084EFBD /* WordSearch */,
 				793CFF041E5DEF2500AB1B78 /* main.m */,
@@ -845,6 +858,7 @@
 				792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */,
 				792B25031E6758BF0084EFBD /* LongestArithmeticSequence.m in Sources */,
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
+				792B252E1E68E4140084EFBD /* ValidateBST.m in Sources */,
 				791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */,
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
 				792B24F71E66FFD50084EFBD /* FindAllAnagrams.m in Sources */,
