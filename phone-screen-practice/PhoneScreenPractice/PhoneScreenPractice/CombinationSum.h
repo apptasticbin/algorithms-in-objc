@@ -10,6 +10,8 @@
 
 @interface CombinationSum : NSObject
 
+- (NSArray<NSArray<NSNumber *> *> *)combinationSumI:(NSArray<NSNumber *> *)candidates
+                                             target:(NSInteger)target;
 - (NSUInteger)combinationSum4DP:(NSArray<NSNumber *> *)nums target:(NSUInteger)target;
 - (NSArray<NSArray<NSNumber *> *> *)combinationSumDFS:(NSArray<NSNumber *> *)nums
                                                target:(NSUInteger)target;
