@@ -7,15 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Interval : NSObject
-
-@property (nonatomic, assign) NSInteger start;
-@property (nonatomic, assign) NSInteger end;
-
-+ (instancetype)intervalWithStart:(NSInteger)start end:(NSInteger)end;
-
-@end
+#import "Interval.h"
 
 @interface SummaryRanges : NSObject
 

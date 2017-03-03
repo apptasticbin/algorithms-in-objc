@@ -50,6 +50,8 @@
 		792B25271E68C9790084EFBD /* ReverseLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25261E68C9790084EFBD /* ReverseLinkedList.m */; };
 		792B252E1E68E4140084EFBD /* ValidateBST.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B252D1E68E4140084EFBD /* ValidateBST.m */; };
 		792B25321E6984BD0084EFBD /* MergeKLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25311E6984BD0084EFBD /* MergeKLists.m */; };
+		792B25361E69945D0084EFBD /* MergeIntervals.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25351E69945D0084EFBD /* MergeIntervals.m */; };
+		792B253A1E6994B50084EFBD /* Interval.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25391E6994B50084EFBD /* Interval.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -166,6 +168,10 @@
 		792B252D1E68E4140084EFBD /* ValidateBST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidateBST.m; sourceTree = "<group>"; };
 		792B25301E6984BD0084EFBD /* MergeKLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergeKLists.h; sourceTree = "<group>"; };
 		792B25311E6984BD0084EFBD /* MergeKLists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeKLists.m; sourceTree = "<group>"; };
+		792B25341E69945D0084EFBD /* MergeIntervals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergeIntervals.h; sourceTree = "<group>"; };
+		792B25351E69945D0084EFBD /* MergeIntervals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeIntervals.m; sourceTree = "<group>"; };
+		792B25381E6994B50084EFBD /* Interval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interval.h; sourceTree = "<group>"; };
+		792B25391E6994B50084EFBD /* Interval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interval.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -598,6 +604,24 @@
 			name = MergeKLists;
 			sourceTree = "<group>";
 		};
+		792B25331E6994470084EFBD /* MergeIntervals */ = {
+			isa = PBXGroup;
+			children = (
+				792B25341E69945D0084EFBD /* MergeIntervals.h */,
+				792B25351E69945D0084EFBD /* MergeIntervals.m */,
+			);
+			name = MergeIntervals;
+			sourceTree = "<group>";
+		};
+		792B25371E6994A80084EFBD /* Interval */ = {
+			isa = PBXGroup;
+			children = (
+				792B25381E6994B50084EFBD /* Interval.h */,
+				792B25391E6994B50084EFBD /* Interval.m */,
+			);
+			name = Interval;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -648,6 +672,7 @@
 				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
 				793CFF101E5E13D200AB1B78 /* MaximumNumber */,
 				792B24D41E65DB000084EFBD /* MaximumSubarraySizeSumToK */,
+				792B25331E6994470084EFBD /* MergeIntervals */,
 				792B252F1E69841C0084EFBD /* MergeKLists */,
 				792B24BB1E64C2C30084EFBD /* MergeSortedArrays */,
 				792B24E01E6619190084EFBD /* MinimumDepth */,
@@ -715,6 +740,7 @@
 		793CFF1C1E5E2CDB00AB1B78 /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
+				792B25371E6994A80084EFBD /* Interval */,
 				791C30F41E63837A00E90ED7 /* Trie */,
 				791C30F31E63836F00E90ED7 /* List */,
 				791C30F21E63836600E90ED7 /* Tree */,
@@ -863,6 +889,7 @@
 			files = (
 				792B24BA1E64B2C40084EFBD /* BinaryTreeLevelOrderTraversal.m in Sources */,
 				793CFF171E5E22DD00AB1B78 /* BinaryTreeLayerAverage.m in Sources */,
+				792B253A1E6994B50084EFBD /* Interval.m in Sources */,
 				792B24AE1E6435580084EFBD /* FourSum.m in Sources */,
 				792B25071E6762880084EFBD /* BinaryTreeLongestConsecutiveSequence.m in Sources */,
 				792B25131E6836A70084EFBD /* BinaryTreeInorderTraversal.m in Sources */,
@@ -893,6 +920,7 @@
 				799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */,
 				799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */,
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
+				792B25361E69945D0084EFBD /* MergeIntervals.m in Sources */,
 				792B24BE1E64C2E40084EFBD /* MergeSortedArrays.m in Sources */,
 				792B24C21E64E2270084EFBD /* BalanceParentheses.m in Sources */,
 				792B25231E68BCFC0084EFBD /* TaskScheduler.m in Sources */,

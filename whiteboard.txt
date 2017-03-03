@@ -3212,6 +3212,7 @@ Binary tree [1,2,3], return false.
 // so we need to special way to do in-order traversal
 // we can do it in a way of keeping tracking the "previous" node
 // MAX and MIN value solution: https://discuss.leetcode.com/topic/7179/my-simple-java-solution-in-3-lines
+// http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
 
 - (BOOL)isValidBST:(Tree *)root {
     Tree *pre = nil;
@@ -3236,7 +3237,7 @@ Binary tree [1,2,3], return false.
 
 ==============================================================================
 
-Question 60: Merge k Sorted Lists
+Question 61: Merge k Sorted Lists
 
 Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
 
@@ -3286,4 +3287,48 @@ Merge k sorted linked lists and return it as one sorted list. Analyze and descri
     if (list1) tail.next = list1;
     else tail.next = list2;
     return fakeHead.next;
+}
+
+==============================================================================
+
+Question 62: Merge Intervals
+
+Given a collection of intervals, merge all overlapping intervals.
+
+For example,
+
+Given [1,3],[2,6],[8,10],[15,18],
+return [1,6],[8,10],[15,18].
+
+// For interval merging questions, "Sorting" is a handy tool.
+// Ask interviewer: input valid? [1, 1] possible?
+// clean solution by checking and updating "last interval" in the array: 
+// https://leetcode.com/problems/merge-intervals/?tab=Solutions
+
+- (NSArray<Interval *> *)merge:(NSArray<Interval *> *)intervals {
+    if (intervals == nil || intervals.count == 0) return intervals;
+    
+    NSComparator cmp = ^NSComparisonResult(Interval *i1, Interval *i2) {
+        // sort the list based on the interval start
+        return i1.start < i2.start;
+    };
+    
+    NSArray<Interval *> *sorted = [intervals sortedArrayUsingComparator:cmp];
+    NSMutableArray<Interval *> *results = [NSMutableArray array];
+    
+    NSInteger start = intervals[0].start, end = intervals[0].end;
+    for (NSInteger i=1; i<sorted.count; i++) {
+        Interval *cur = intervals[i];
+        // if there is overlapping, then we merge them
+        if (cur.start<=end) {
+            end = MAX(cur.end, end);
+        } else { // if there isn't overlapping, then we start a new interval
+            [results addObject:[Interval intervalWithStart:start end:end]];
+            start = cur.start;
+            end = cur.end;
+        }
+    }
+    // REMEMBER: add the last interval
+    [results addObject:[Interval intervalWithStart:start end:end]];
+    return results;
 }
