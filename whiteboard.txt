@@ -3075,6 +3075,8 @@ https://www.careercup.com/question?id=5653760530448384
 // We can use hash table to mark the last index of previous same task
 // we use a timer to count the real time tick
 // http://www.cnblogs.com/EdwardLiu/p/5120090.html
+// Following solution has O(k*N) time complexity, where k is cooldown
+// In order to reach O(N), we can directly add k to "time" instead of ticking k times by 1
 
 - (NSString *)bestTaskSequenceForTasks:(NSString *)sequence interval:(NSUInteger)interval {
     if (sequence == nil || sequence.length == 0) return nil;
@@ -3500,4 +3502,285 @@ output should be:
     [self helper:root.left distance:distance-1 min:min max:max results:results];
     [self helper:root.right distance:distance+1 min:min max:max results:results];
 }
+
+==============================================================================
+
+Question 66: Expression Add Operators
+
+Given a string that contains only digits 0-9 and a target value, return all possibilities to add binary operators (not unary) +, -, or * between the digits so they evaluate to the target value.
+
+Examples:
+
+"123", 6 -> ["1+2+3", "1*2*3"] 
+"232", 8 -> ["2*3+2", "2+3*2"]
+"105", 5 -> ["1*0+5","10-5"]
+"00", 0 -> ["0+0", "0-0", "0*0"]
+"3456237490", 9191 -> []
+
+// https://leetcode.com/problems/expression-add-operators/?tab=Description
+
+==============================================================================
+
+Question 67: Most Frequently Occurring Character In String
+
+Given a string, find the most frequently occurring character.
+
+// Key idea: using Hash Table to count character, also track the "max frequent count"
+// during counting.
+
+
+==============================================================================
+
+Question 68: Word Break I
+
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words. You may assume the dictionary does not contain duplicate words.
+
+For example, given
+s = "leetcode",
+dict = ["leet", "code"].
+
+Return true because "leetcode" can be segmented as "leet code".
+
+==============================================================================
+
+Question 69: Word Break II
+
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. You may assume the dictionary does not contain duplicate words.
+
+Return all such possible sentences.
+
+For example, given
+s = "catsanddog",
+dict = ["cat", "cats", "and", "sand", "dog"].
+
+A solution is ["cats and dog", "cat sand dog"].
+
+==============================================================================
+
+Question 70: Intersection of Two Arrays II
+
+Given two arrays, write a function to compute their intersection.
+
+Example:
+Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2, 2].
+
+Note:
+Each element in the result should appear as many times as it shows in both arrays.
+The result can be in any order.
+
+Follow up:
+- What if the given array is already sorted? How would you optimize your algorithm?
+- What if nums1's size is small compared to nums2's size? Which algorithm is better?
+- What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+
+==============================================================================
+
+Question 71: Populating Next Right Pointers in Each Node I & II
+
+Given a binary tree
+
+    struct TreeLinkNode {
+      TreeLinkNode *left;
+      TreeLinkNode *right;
+      TreeLinkNode *next;
+    }
+
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+Note:
+
+You may only use constant extra space.
+You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+
+For example,
+
+Given the following perfect binary tree,
+         1
+       /  \
+      2    3
+     / \  / \
+    4  5  6  7
+	
+After calling your function, the tree should look like:
+         1 -> NULL
+       /  \
+      2 -> 3 -> NULL
+     / \  / \
+    4->5->6->7 -> NULL
+
+Follow up: What if the given tree could be any binary tree? Would your previous solution still work?
+
+==============================================================================
+
+Question 72: Median of Two Sorted Arrays
+
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+
+Example 1:
+nums1 = [1, 3]
+nums2 = [2]
+
+The median is 2.0
+Example 2:
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+The median is (2 + 3)/2 = 2.5
+
+==============================================================================
+
+Question 73: Sorted Squares of Sorted Numbers
+
+We're given a sorted array of integers: [-3, -1, 0, 1, 2]. We want to generate a sorted array of their squares: [0, 1, 1, 4, 9]
+
+==============================================================================
+
+Question 74: Min Stack / Queue
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+push(x) -- Push element x onto stack.
+pop() -- Removes the element on top of the stack.
+top() -- Get the top element.
+getMin() -- Retrieve the minimum element in the stack.
+
+Example:
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin();   --> Returns -3.
+minStack.pop();
+minStack.top();      --> Returns 0.
+minStack.getMin();   --> Returns -2.
+
+==============================================================================
+
+Question 75: Longest Palindromic Substring
+
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example:
+
+Input: "babad"
+
+Output: "bab"
+
+Note: "aba" is also a valid answer.
+Example:
+
+Input: "cbbd"
+
+Output: "bb"
+
+==============================================================================
+
+Question 76: Letter Combinations of a Phone Number
+
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+Input:Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+
+Note: Although the above answer is in lexicographical order, your answer could be in any order you want.
+
+==============================================================================
+
+Question 77: Merge Email Lists
+
+Given 1 million email list: 
+
+list 1: a@a.com, b@b.com 
+list 2: b@b.com, c@c.com 
+list 3: e@e.com
+list 4: a@a.com
+...
+Combine lists with identical emails, and output tuples: 
+(list 1, list 2, list 4) (a@a.com, b@b.com, c@c.com) (list 3) (e@e.com)
+
+==============================================================================
+
+Question 78: Generate Parentheses
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+
+==============================================================================
+
+Question 79: Common String Longer Than Or Equal to K
+
+Given two strings ‘X’ and ‘Y’, find whether there is common substring length >= k.
+
+// Similar question: Longest Common String
+// http://www.geeksforgeeks.org/longest-common-substring/
+
+==============================================================================
+
+Question 80: Subsets
+
+Given a set of distinct integers, nums, return all possible subsets.
+
+Note: The solution set must not contain duplicate subsets.
+
+For example,
+If nums = [1,2,3], a solution is:
+
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+
+==============================================================================
+
+Question 81: Subsets II
+
+Given a collection of integers that might contain duplicates, nums, return all possible subsets.
+
+Note: The solution set must not contain duplicate subsets.
+
+For example,
+If nums = [1,2,2], a solution is:
+
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]
+
+==============================================================================
+
+Question 82: Shortest Palindrome [Hard]
+
+Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+For example:
+
+Given "aacecaaa", return "aaacecaaa".
+
+Given "abcd", return "dcbabcd".
+
 
