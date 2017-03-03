@@ -13,4 +13,6 @@
 @property(nonatomic, strong) ListNode *next;
 @property(nonatomic, assign) NSInteger value;
 
++ (instancetype)nodeWithValue:(NSInteger)value;
+
 @end

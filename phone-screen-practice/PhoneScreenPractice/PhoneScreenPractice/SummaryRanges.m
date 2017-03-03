@@ -8,6 +8,14 @@
 
 #import "SummaryRanges.h"
 
+@implementation Interval
+
++ (instancetype)intervalWithStart:(NSInteger)start end:(NSInteger)end {
+    @throw NSGenericException;
+}
+
+@end
+
 @interface SummaryRanges ()
 
 @property (nonatomic, strong) NSMutableArray<Interval *> *intervals;

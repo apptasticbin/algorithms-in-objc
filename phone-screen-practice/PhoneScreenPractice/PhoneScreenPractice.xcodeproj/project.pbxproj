@@ -49,6 +49,7 @@
 		792B25231E68BCFC0084EFBD /* TaskScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25221E68BCFC0084EFBD /* TaskScheduler.m */; };
 		792B25271E68C9790084EFBD /* ReverseLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25261E68C9790084EFBD /* ReverseLinkedList.m */; };
 		792B252E1E68E4140084EFBD /* ValidateBST.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B252D1E68E4140084EFBD /* ValidateBST.m */; };
+		792B25321E6984BD0084EFBD /* MergeKLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25311E6984BD0084EFBD /* MergeKLists.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -163,6 +164,8 @@
 		792B25261E68C9790084EFBD /* ReverseLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverseLinkedList.m; sourceTree = "<group>"; };
 		792B252C1E68E4140084EFBD /* ValidateBST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidateBST.h; sourceTree = "<group>"; };
 		792B252D1E68E4140084EFBD /* ValidateBST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidateBST.m; sourceTree = "<group>"; };
+		792B25301E6984BD0084EFBD /* MergeKLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergeKLists.h; sourceTree = "<group>"; };
+		792B25311E6984BD0084EFBD /* MergeKLists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeKLists.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -586,6 +589,15 @@
 			name = ValidateBST;
 			sourceTree = "<group>";
 		};
+		792B252F1E69841C0084EFBD /* MergeKLists */ = {
+			isa = PBXGroup;
+			children = (
+				792B25301E6984BD0084EFBD /* MergeKLists.h */,
+				792B25311E6984BD0084EFBD /* MergeKLists.m */,
+			);
+			name = MergeKLists;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -636,6 +648,7 @@
 				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
 				793CFF101E5E13D200AB1B78 /* MaximumNumber */,
 				792B24D41E65DB000084EFBD /* MaximumSubarraySizeSumToK */,
+				792B252F1E69841C0084EFBD /* MergeKLists */,
 				792B24BB1E64C2C30084EFBD /* MergeSortedArrays */,
 				792B24E01E6619190084EFBD /* MinimumDepth */,
 				791C30EC1E635FB500E90ED7 /* MoveZeros */,
@@ -856,6 +869,7 @@
 				79BD49A51E62539900405D6A /* FindMinimumInRotatedSortedArray.m in Sources */,
 				792B24FB1E6705250084EFBD /* FirstBadVersion.m in Sources */,
 				792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */,
+				792B25321E6984BD0084EFBD /* MergeKLists.m in Sources */,
 				792B25031E6758BF0084EFBD /* LongestArithmeticSequence.m in Sources */,
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
 				792B252E1E68E4140084EFBD /* ValidateBST.m in Sources */,

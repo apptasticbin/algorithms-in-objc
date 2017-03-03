@@ -3233,3 +3233,57 @@ Binary tree [1,2,3], return false.
     // check right tree
     return [self helper:root.right previous:pre];
 }
+
+==============================================================================
+
+Question 60: Merge k Sorted Lists
+
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+// Ask interviewer: what order, ascending or descending?
+// Solutions:
+// - One solution for this question is to use "heap" or "priority queue"
+// - Also, similar to "Ugly Number II", we can maintain an "array for current nodes", O(k*k*N)
+// - by using divide & conqure, we split sorted list into pairs, and merge pairs
+// http://www.jiuzhang.com/solutions/merge-k-sorted-lists/
+
+// Analyze time complexity:
+// - For master method: T(n) <= aT(n/b) + O(n^d)
+// n = k, a = 2, b = 2 -> T(k) <= 2T(k/2) + O((km)^d)
+// O(kmLogk)
+// https://discuss.leetcode.com/topic/26095/my-simple-java-solution-use-recursion
+
+- (ListNode *)mergeKLists:(NSArray<ListNode *> *)lists {
+    if (lists == nil) return nil;
+    return [self mergeHelper:lists start:0 end:lists.count-1];
+}
+
+- (ListNode *)mergeHelper:(NSArray<ListNode *> *)lists
+                    start:(NSInteger)start end:(NSInteger)end {
+    if (start == end) return lists[start];
+    NSInteger mid = start + (end - start)/2;
+    ListNode *left = [self mergeHelper:lists start:start end:mid];
+    ListNode *right = [self mergeHelper:lists start:mid+1 end:end];
+    return [self mergeList:left andList:right];
+}
+
+- (ListNode *)mergeList:(ListNode *)list1 andList:(ListNode *)list2 {
+    // fake merged head; the real head is merged.next
+    ListNode *fakeHead = [ListNode nodeWithValue:0];
+    ListNode *tail = fakeHead;
+    while(list1 && list2) {
+        // here I assume that we have ascending order lists
+        if (list1.value <= list2.value) {
+            tail.next = list1;
+            tail = list1;
+            list1 = list1.next;
+        } else {
+            tail.next = list2;
+            tail = list2;
+            list2 = list2.next;
+        }
+    }
+    if (list1) tail.next = list1;
+    else tail.next = list2;
+    return fakeHead.next;
+}

@@ -10,4 +10,10 @@
 
 @implementation ListNode
 
++ (instancetype)nodeWithValue:(NSInteger)value {
+    ListNode *node = [self new];
+    node.value = value;
+    return node;
+}
+
 @end
