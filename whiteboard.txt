@@ -3332,3 +3332,112 @@ return [1,6],[8,10],[15,18].
     [results addObject:[Interval intervalWithStart:start end:end]];
     return results;
 }
+
+==============================================================================
+
+Question 63: Search in Rotated Sorted Array
+
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+You are given a target value to search. If found in the array return its index, otherwise return -1.
+
+You may assume no duplicate exists in the array.
+
+// When we meet searching in "sorted" array questions, no matter if it is rotated or not,
+// "Binary Search" will be the great tool for solving this kind of questions.
+// Ask interviewer: duplicates? positive or negative? handling invalid input?
+// Very clever solution for uing NSIntegerMin and NSIntegerMax to change this question into normal-
+// binary earch question: https://discuss.leetcode.com/topic/34491/clever-idea-making-it-simple/2
+
+- (NSInteger)search:(NSArray<NSNumber *> *)nums target:(NSInteger)target {
+    if (nums == nil && nums.count == 0) return -1;
+    NSInteger left = 0, right = nums.count-1;
+    while (left <= right) {
+        NSInteger mid = left + (right-left)/2;
+        NSInteger midValue = nums[mid].integerValue;
+        NSInteger leftValue = nums[left].integerValue;
+        NSInteger rightValue = nums[right].integerValue;
+        
+        if (midValue == target) return mid;
+        
+        // checking middle value with left value is logically better than
+        // checking middle value and target
+        if (midValue >= leftValue) {
+            if (target < midValue && target >= leftValue) {
+                right = mid-1;
+            } else {
+                left = mid+1;
+            }
+        } else {
+            if (target > midValue && target <= rightValue) {
+                left = mid+1;
+            } else {
+                right = mid-1;
+            }
+        }
+    }
+    return -1;
+}
+
+==============================================================================
+
+Question 64: Search in Rotated Sorted Array II
+
+Follow up for "Search in Rotated Sorted Array": What if duplicates are allowed?
+
+Would this affect the run-time complexity? How and why?
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+Write a function to determine if a given target is in the array.
+
+The array may contain duplicates.
+
+// The idea is similar to previous question.
+// we still do the binary search, but first filter out all duplicates.
+// The worst time complexity will drop to O(N) from O(LogN), for example [1, 1, 1, 1, 1, 1]
+
+- (BOOL)searchWithDuplicate:(NSArray<NSNumber *> *)nums target:(NSInteger)target {
+    if (nums == nil && nums.count == 0) return -1;
+    NSInteger left = 0, right = nums.count-1;
+    while (left <= right) {
+        NSInteger mid = left + (right-left)/2;
+        NSInteger midValue = nums[mid].integerValue;
+        NSInteger leftValue = nums[left].integerValue;
+        NSInteger rightValue = nums[right].integerValue;
+        
+        if (midValue == target) return mid;
+        
+        // checking middle value with left value is logically better than
+        // checking middle value and target
+        if (midValue > leftValue) {
+            if (target < midValue && target >= leftValue) {
+                right = mid-1;
+            } else {
+                left = mid+1;
+            }
+        } else if (midValue < leftValue) {
+            if (target > midValue && target <= rightValue) {
+                left = mid+1;
+            } else {
+                right = mid-1;
+            }
+        } else {
+			// when we find duplications, just left to right until no duplicate anymore
+			leftValue += 1;
+		}
+    }
+    return -1;
+}
+
+
+==============================================================================
+
+Question 65: Binary Tree Vertical Order Traversal
+ 
+Given a binary tree, return the vertical order traversal of its nodes' values. 
+(ie, from top to bottom, column by column).
+
