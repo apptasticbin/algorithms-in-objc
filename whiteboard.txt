@@ -3441,3 +3441,63 @@ Question 65: Binary Tree Vertical Order Traversal
 Given a binary tree, return the vertical order traversal of its nodes' values. 
 (ie, from top to bottom, column by column).
 
+For example:
+   
+   		  1
+        /    \
+       2      3
+      / \    / \
+     4   5  6   7
+             \   \
+              8   9
+
+output should be:
+	[4
+ 	 2
+ 	 1 5 6
+ 	 3 8
+  	 7
+ 	 9]
+
+// Basically, the idea is to mark the distance of each node from root
+// when we go left, distance - 1; go right, distance + 1. root is 0
+// Then we can use hash table to store lists of nodes for every distance.
+// Also we track the "min" and "max" distance from root
+// at last, we traverse from min nodes to max nodes
+// https://discuss.leetcode.com/topic/31954/5ms-java-clean-solution
+// http://www.geeksforgeeks.org/print-binary-tree-vertical-order-set-2/
+// NOTICE: for this question, we can use either DFS or BFS
+
+- (NSArray<NSArray<NSNumber *> *> *)verticalOrder:(Tree *)root {
+    if (root == nil) return nil;
+    NSInteger min = 0, max = 0;
+    
+    NSMutableDictionary<NSNumber *, NSMutableArray<NSNumber *> *> *columns = [NSMutableDictionary dictionary];
+    [self helper:root distance:0 min:&min max:&max results:columns];
+    
+    NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+    for (NSInteger i=min; i<=max; i++) {
+        [results addObject:columns[@(i)]];
+    }
+    return results;
+}
+
+- (void)helper:(Tree *)root distance:(NSInteger)distance
+           min:(NSInteger *)min max:(NSInteger *)max
+       results:(NSMutableDictionary<NSNumber *, NSMutableArray<NSNumber *> *> *)results {
+    if (root == nil) return;
+    if (!results[@(distance)]) {
+        results[@(distance)] = [NSMutableArray array];
+    }
+    
+    // add current value into its column
+    [results[@(distance)] addObject:@(root.value)];
+    // update min and max distance
+    *min = MIN(root.value, *min);
+    *max = MAX(root.value, *max);
+    
+    // go left and right
+    [self helper:root.left distance:distance-1 min:min max:max results:results];
+    [self helper:root.right distance:distance+1 min:min max:max results:results];
+}
+

@@ -53,6 +53,7 @@
 		792B25361E69945D0084EFBD /* MergeIntervals.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25351E69945D0084EFBD /* MergeIntervals.m */; };
 		792B253A1E6994B50084EFBD /* Interval.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25391E6994B50084EFBD /* Interval.m */; };
 		792B253E1E69ABA40084EFBD /* SearchRotatedSortedArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B253D1E69ABA40084EFBD /* SearchRotatedSortedArray.m */; };
+		792B25421E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -175,6 +176,8 @@
 		792B25391E6994B50084EFBD /* Interval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interval.m; sourceTree = "<group>"; };
 		792B253C1E69ABA40084EFBD /* SearchRotatedSortedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRotatedSortedArray.h; sourceTree = "<group>"; };
 		792B253D1E69ABA40084EFBD /* SearchRotatedSortedArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRotatedSortedArray.m; sourceTree = "<group>"; };
+		792B25401E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryTreeVerticalOrderTraversal.h; sourceTree = "<group>"; };
+		792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreeVerticalOrderTraversal.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -634,6 +637,15 @@
 			name = SearchRotatedSortedArray;
 			sourceTree = "<group>";
 		};
+		792B253F1E69E4350084EFBD /* BinaryTreeVerticalOrderTraversal */ = {
+			isa = PBXGroup;
+			children = (
+				792B25401E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.h */,
+				792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */,
+			);
+			name = BinaryTreeVerticalOrderTraversal;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -664,6 +676,7 @@
 				793CFF141E5E22C100AB1B78 /* BinaryTreeLayerAverage */,
 				792B24B71E64B2A10084EFBD /* BinaryTreeLevelOrderTraversal */,
 				792B25041E6762500084EFBD /* BinaryTreeLongestConsecutiveSequence */,
+				792B253F1E69E4350084EFBD /* BinaryTreeVerticalOrderTraversal */,
 				792B24CC1E65B9310084EFBD /* BSTFromPreorder */,
 				791C30E41E6319D600E90ED7 /* CoinChange */,
 				792B250C1E6824550084EFBD /* CombinationSum */,
@@ -958,6 +971,7 @@
 				792B24CF1E65B9480084EFBD /* BSTFromPreorder.m in Sources */,
 				791C30E01E63118D00E90ED7 /* ConvertSortedListToBST.m in Sources */,
 				792B24DB1E65FCF90084EFBD /* SubmatrixSumToK.m in Sources */,
+				792B25421E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m in Sources */,
 				792B25271E68C9790084EFBD /* ReverseLinkedList.m in Sources */,
 				792B25171E684AE20084EFBD /* BinarySearchTreeIterator.m in Sources */,
 				792B250B1E678C0A0084EFBD /* WordSearch.m in Sources */,
