@@ -63,6 +63,7 @@
 		792B255E1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B255D1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m */; };
 		792B25621E6B58650084EFBD /* LongestPalindromicSubstring.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */; };
 		792B25661E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25651E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m */; };
+		792B256A1E6B67660084EFBD /* GenerateParentheses.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25691E6B67660084EFBD /* GenerateParentheses.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -205,6 +206,8 @@
 		792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongestPalindromicSubstring.m; sourceTree = "<group>"; };
 		792B25641E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterCombinationsOfPhoneNumber.h; sourceTree = "<group>"; };
 		792B25651E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterCombinationsOfPhoneNumber.m; sourceTree = "<group>"; };
+		792B25681E6B67660084EFBD /* GenerateParentheses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerateParentheses.h; sourceTree = "<group>"; };
+		792B25691E6B67660084EFBD /* GenerateParentheses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerateParentheses.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 		792B25671E6B66FA0084EFBD /* GenerateParentheses */ = {
 			isa = PBXGroup;
 			children = (
+				792B25681E6B67660084EFBD /* GenerateParentheses.h */,
+				792B25691E6B67660084EFBD /* GenerateParentheses.m */,
 			);
 			name = GenerateParentheses;
 			sourceTree = "<group>";
@@ -1083,6 +1088,7 @@
 				792B251F1E689E0D0084EFBD /* SummaryRanges.m in Sources */,
 				792B24B21E64808E0084EFBD /* PrettyJSONString.m in Sources */,
 				792B253E1E69ABA40084EFBD /* SearchRotatedSortedArray.m in Sources */,
+				792B256A1E6B67660084EFBD /* GenerateParentheses.m in Sources */,
 				792B24DF1E6611980084EFBD /* StrStr.m in Sources */,
 				792B24D71E65DB270084EFBD /* MaximumSubarraySizeSumToK.m in Sources */,
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
