@@ -55,6 +55,7 @@
 		792B253E1E69ABA40084EFBD /* SearchRotatedSortedArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B253D1E69ABA40084EFBD /* SearchRotatedSortedArray.m */; };
 		792B25421E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */; };
 		792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */; };
+		792B254A1E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -181,6 +182,8 @@
 		792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreeVerticalOrderTraversal.m; sourceTree = "<group>"; };
 		792B25441E6A55720084EFBD /* ExpressionAddOperatiors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionAddOperatiors.h; sourceTree = "<group>"; };
 		792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionAddOperatiors.m; sourceTree = "<group>"; };
+		792B25481E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MostFrequentlyOccuringCharacters.h; sourceTree = "<group>"; };
+		792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MostFrequentlyOccuringCharacters.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -658,6 +661,15 @@
 			name = ExpressionAddOperators;
 			sourceTree = "<group>";
 		};
+		792B25471E6A59DE0084EFBD /* MostFrequentlyOccuringCharacters */ = {
+			isa = PBXGroup;
+			children = (
+				792B25481E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.h */,
+				792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */,
+			);
+			name = MostFrequentlyOccuringCharacters;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -714,6 +726,7 @@
 				792B252F1E69841C0084EFBD /* MergeKLists */,
 				792B24BB1E64C2C30084EFBD /* MergeSortedArrays */,
 				792B24E01E6619190084EFBD /* MinimumDepth */,
+				792B25471E6A59DE0084EFBD /* MostFrequentlyOccuringCharacters */,
 				791C30EC1E635FB500E90ED7 /* MoveZeros */,
 				79BD499E1E62131400405D6A /* NumberIsland */,
 				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
@@ -971,6 +984,7 @@
 				793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */,
 				791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */,
 				792B24B61E64A6540084EFBD /* FlattenNestedListIterator.m in Sources */,
+				792B254A1E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
 				792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */,
 				792B24E31E6619360084EFBD /* MinimumDepth.m in Sources */,

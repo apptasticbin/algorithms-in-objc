@@ -3574,6 +3574,21 @@ Given a string, find the most frequently occurring character.
 // Key idea: using Hash Table to count character, also track the "max frequent count"
 // during counting.
 
+- (NSArray<NSString *> *)mostFrequentlyOccurringCharacter:(NSString *)string {
+    NSMutableDictionary<NSString *, NSNumber *> *count = [NSMutableDictionary dictionary];
+    NSInteger maximum = 0;
+    for (NSInteger i=0; i<string.length; i++) {
+        NSString *c = [string substringWithRange:NSMakeRange(i,1)];
+        if (count[c] == nil) count[c] = @(0);
+        count[c] = @(count[c].integerValue+1);
+        maximum = MAX(maximum, count[c].integerValue);
+    }
+    NSSet<NSString *> *mostKeys =
+    [count keysOfEntriesPassingTest:^BOOL(NSString *key, NSNumber *obj, BOOL *stop) {
+        return obj.integerValue == maximum;
+    }];
+    return mostKeys.allObjects;
+}
 
 ==============================================================================
 
