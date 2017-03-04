@@ -57,6 +57,7 @@
 		792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */; };
 		792B254A1E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */; };
 		792B254E1E6A5F270084EFBD /* WordBreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B254D1E6A5F270084EFBD /* WordBreak.m */; };
+		792B25521E6AD6D80084EFBD /* IntersectionOfTwoArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25511E6AD6D80084EFBD /* IntersectionOfTwoArrays.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -187,6 +188,8 @@
 		792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MostFrequentlyOccuringCharacters.m; sourceTree = "<group>"; };
 		792B254C1E6A5F270084EFBD /* WordBreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBreak.h; sourceTree = "<group>"; };
 		792B254D1E6A5F270084EFBD /* WordBreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBreak.m; sourceTree = "<group>"; };
+		792B25501E6AD6D80084EFBD /* IntersectionOfTwoArrays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntersectionOfTwoArrays.h; sourceTree = "<group>"; };
+		792B25511E6AD6D80084EFBD /* IntersectionOfTwoArrays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntersectionOfTwoArrays.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -682,6 +685,15 @@
 			name = WordBreak;
 			sourceTree = "<group>";
 		};
+		792B254F1E6AD6AC0084EFBD /* IntersectionOfTwoArrays */ = {
+			isa = PBXGroup;
+			children = (
+				792B25501E6AD6D80084EFBD /* IntersectionOfTwoArrays.h */,
+				792B25511E6AD6D80084EFBD /* IntersectionOfTwoArrays.m */,
+			);
+			name = IntersectionOfTwoArrays;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +740,7 @@
 				792B24B31E64A6270084EFBD /* FlattenNestedListIterator */,
 				792B24AB1E6435460084EFBD /* FourSum */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
+				792B254F1E6AD6AC0084EFBD /* IntersectionOfTwoArrays */,
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
 				792B25001E67589C0084EFBD /* LongestArithmeticSequence */,
 				792B24C71E658B840084EFBD /* LongestConsecutive */,
@@ -960,6 +973,7 @@
 				792B25131E6836A70084EFBD /* BinaryTreeInorderTraversal.m in Sources */,
 				79BD49A51E62539900405D6A /* FindMinimumInRotatedSortedArray.m in Sources */,
 				792B24FB1E6705250084EFBD /* FirstBadVersion.m in Sources */,
+				792B25521E6AD6D80084EFBD /* IntersectionOfTwoArrays.m in Sources */,
 				792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */,
 				792B25321E6984BD0084EFBD /* MergeKLists.m in Sources */,
 				792B25031E6758BF0084EFBD /* LongestArithmeticSequence.m in Sources */,
