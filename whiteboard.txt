@@ -4106,6 +4106,31 @@ Given two strings ‘X’ and ‘Y’, find whether there is common substring le
 
 // Similar question: Longest Common String
 // http://www.geeksforgeeks.org/longest-common-substring/
+// Dynamic Programming can be used to find the longest common substring in O(m*n) time. 
+// The idea is to find length of the longest common "suffix" for all substrings of both strings 
+// and store these lengths in a table.
+// i and j of DP here means start from i in str1 and start from j in str2
+
+- (BOOL)commonString:(NSString *)str1 andString:(NSString *)str2 longerThanOrEqualToK:(NSInteger)k {
+    NSInteger dp[str1.length+1][str2.length+1];
+    for (NSInteger i=0; i<=str1.length; i++) {
+        dp[i][0] = 0;
+    }
+    for (NSInteger i=0; i<=str1.length; i++) {
+        dp[0][i] = 0;
+    }
+    for (NSInteger i=1; i<=str1.length; i++) {
+        for (NSInteger j=1; j<=str2.length; j++) {
+            if ([str1 characterAtIndex:i-1] == [str2 characterAtIndex:j-1]) {
+                dp[i][j] = dp[i-1][j-1]+1;
+            } else {
+                dp[i][j] = 0;
+            }
+            if (dp[i][j] >= k) return YES;
+        }
+    }
+    return NO;
+}
 
 ==============================================================================
 
