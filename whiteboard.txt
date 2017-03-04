@@ -3904,7 +3904,7 @@ We're given a sorted array of integers: [-3, -1, 0, 1, 2]. We want to generate a
 
 ==============================================================================
 
-Question 74: Min Stack / Queue
+Question 74: Min / Max Stack / Queue
 
 Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
@@ -3922,6 +3922,11 @@ minStack.getMin();   --> Returns -3.
 minStack.pop();
 minStack.top();      --> Returns 0.
 minStack.getMin();   --> Returns -2.
+
+// Key idea: create one queue/stack to keep original numbers
+// also create another one queue/stack to keep the minimum number "after" push the new number
+// _minCache.push_back(min(x, _minCache.back()));
+// TODO: finish the implementation in Objective-C
 
 ==============================================================================
 
@@ -3941,6 +3946,40 @@ Example:
 Input: "cbbd"
 
 Output: "bb"
+
+// First we need to know what is Palindromic string.
+// "a", "aa", "aba", "abba" and "aaaaaaaaa" are all palindromes
+// NOTICE: for a string with all same characters, no matter how long it is, it is always palindrome
+// Good solution based on: https://discuss.leetcode.com/topic/23498/very-simple-clean-java-solution
+// and https://discuss.leetcode.com/topic/12187/simple-c-solution-8ms-13-lines/3
+// The key idea is: skip all duplidate characters "around" current pivot character, 
+// BEFORE we start real comparison of left and right characters.
+
+- (NSString *)longestPalindrome:(NSString *)s {
+    if (s == nil || s.length == 0) return nil;
+    // NOTICE: maxLen with initial value 1
+    NSInteger maxLen = 1, maxStart = 0;
+    for (NSInteger i=0; i<s.length; i++) {
+        NSInteger left = i, right = i;
+        // first skip all duplicate characters, because duplicates are always palindrome string
+        while (right < s.length-1 &&
+               [s characterAtIndex:right] == [s characterAtIndex:right+1]) {
+            right++;
+        }
+        // move next start point to right+1
+        i = right+1;
+        // now expend to left and right "around" the duplicate characters
+        while (right < s.length-1 && left > 0 &&
+               [s characterAtIndex:left-1] == [s characterAtIndex:right+1]) {
+            left--; right++;
+        }
+        if (maxLen < right - left + 1) {
+            maxStart = left;
+            maxLen = right - left + 1;
+        }
+    }
+    return [s substringWithRange:NSMakeRange(maxStart, maxLen)];
+}
 
 ==============================================================================
 

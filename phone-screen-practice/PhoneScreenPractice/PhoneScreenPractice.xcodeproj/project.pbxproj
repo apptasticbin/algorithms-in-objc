@@ -61,6 +61,7 @@
 		792B25561E6AE8950084EFBD /* PopulatingNextRightsPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25551E6AE8950084EFBD /* PopulatingNextRightsPointer.m */; };
 		792B255A1E6AE8B50084EFBD /* TreeLinkNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25591E6AE8B50084EFBD /* TreeLinkNode.m */; };
 		792B255E1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B255D1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m */; };
+		792B25621E6B58650084EFBD /* LongestPalindromicSubstring.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -199,6 +200,8 @@
 		792B25591E6AE8B50084EFBD /* TreeLinkNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeLinkNode.m; sourceTree = "<group>"; };
 		792B255C1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortedSquaresOfSortedNumbers.h; sourceTree = "<group>"; };
 		792B255D1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortedSquaresOfSortedNumbers.m; sourceTree = "<group>"; };
+		792B25601E6B58650084EFBD /* LongestPalindromicSubstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongestPalindromicSubstring.h; sourceTree = "<group>"; };
+		792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongestPalindromicSubstring.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -730,6 +733,15 @@
 			name = SortedSquaresOfSortedNumbers;
 			sourceTree = "<group>";
 		};
+		792B255F1E6B57F00084EFBD /* LongestPalindromicSubstring */ = {
+			isa = PBXGroup;
+			children = (
+				792B25601E6B58650084EFBD /* LongestPalindromicSubstring.h */,
+				792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */,
+			);
+			name = LongestPalindromicSubstring;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -781,6 +793,7 @@
 				792B25001E67589C0084EFBD /* LongestArithmeticSequence */,
 				792B24C71E658B840084EFBD /* LongestConsecutive */,
 				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
+				792B255F1E6B57F00084EFBD /* LongestPalindromicSubstring */,
 				793CFF101E5E13D200AB1B78 /* MaximumNumber */,
 				792B24D41E65DB000084EFBD /* MaximumSubarraySizeSumToK */,
 				792B25331E6994470084EFBD /* MergeIntervals */,
@@ -1057,6 +1070,7 @@
 				792B255A1E6AE8B50084EFBD /* TreeLinkNode.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
 				792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */,
+				792B25621E6B58650084EFBD /* LongestPalindromicSubstring.m in Sources */,
 				792B24E31E6619360084EFBD /* MinimumDepth.m in Sources */,
 				791C30F71E63839200E90ED7 /* Trie.m in Sources */,
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
