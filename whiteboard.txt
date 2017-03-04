@@ -4154,6 +4154,41 @@ If nums = [1,2,3], a solution is:
   []
 ]
 
+// Ask interviewer: does output order matter? duplicates?
+// Similar solution with "push / pop" solution:
+// https://discuss.leetcode.com/topic/19110/c-recursive-iterative-bit-manipulation-solutions-with-explanations
+
+- (NSArray<NSArray<NSNumber *> *> *)subsetsBacktracking:(NSArray<NSNumber *> *)nums {
+	if (nums == nil || nums.count == 0) return nil;
+	return [self helper:nums start:0];
+}
+
+- (NSArray<NSArray<NSNumber *> *> *)helper:(NSArray<NSNumber *> *)nums start:(NSInteger)start {
+	if (start == nums.count) return @[@[]];
+	NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+	for (NSInteger i=start; i<nums.count; i++) {
+		// first we add the single number into result
+		NSArray<NSArray<NSNumber *> *> *combines = [self helper:nums start:i+1];
+		for (NSArray<NSNumber *> *combine in combines) {
+			[results addObject:[@[nums[i]] arrayByAddingObjectsFromArray:combine]];
+		}
+	}
+	return results;
+}
+
+- (NSArray<NSArray<NSNumber *> *> *)subsetsIterative:(NSArray<NSNumber *> *)nums {
+	NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray arrayWithObject:@[]];
+	for (NSInteger i=0; i<nums.count; i++) {
+		NSInteger n = results.count;
+		for (NSInteger j=0; j<n; j++) {
+			NSMutableArray<NSNumber *> *combine = [results[j] mutableCopy];
+			[combine addObject:nums[i]];
+			[results addObject:combine];
+		}
+	}
+	return results;
+}
+
 ==============================================================================
 
 Question 81: Subsets II
@@ -4173,6 +4208,35 @@ If nums = [1,2,2], a solution is:
   [1,2],
   []
 ]
+
+// Similar to Subsets I
+// The only difference is that in this question, we need to skip duplicates
+// we just need to check: index != begin && nums[index] == nums[index-1]
+// NOTICE: we need to "sort" the array with duplicates first!
+// For recursion + backtracking solution, the duplicate checking is easier:
+// https://discuss.leetcode.com/topic/13543/accepted-10ms-c-solution-use-backtracking-only-10-lines-easy-understand
+
+- (NSArray<NSArray<NSNumber *> *> *)subsetsWithDuplicate:(NSArray<NSNumber *> *)nums {
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
+    NSArray<NSNumber *> *sortedNums = [nums sortedArrayUsingDescriptors:@[descriptor]];
+    
+    NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray arrayWithObject:@[]];
+    // previousSize still store the previous results size
+    // the startIndex stands for the startIndex of previous results for combining next subsets
+    NSInteger previousSize = 0, startIndex = 0;
+    for (NSInteger i=0; i<sortedNums.count; i++) {
+        // if we find duplication, then we just combine with the last one of previous results
+        if (i >= 1 && nums[i].integerValue == nums[i-1].integerValue) startIndex = previousSize;
+        else startIndex = 0;
+        NSInteger previousSize = results.count;
+        for (NSInteger j=startIndex; j<previousSize; j++) {
+            NSMutableArray<NSNumber *> *combine = [results[j] mutableCopy];
+            [combine addObject:nums[i]];
+            [results addObject:combine];
+        }
+    }
+    return results;
+}
 
 ==============================================================================
 
