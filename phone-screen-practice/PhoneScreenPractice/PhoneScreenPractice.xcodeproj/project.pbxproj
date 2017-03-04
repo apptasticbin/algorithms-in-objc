@@ -56,6 +56,7 @@
 		792B25421E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */; };
 		792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */; };
 		792B254A1E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */; };
+		792B254E1E6A5F270084EFBD /* WordBreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B254D1E6A5F270084EFBD /* WordBreak.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -184,6 +185,8 @@
 		792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionAddOperatiors.m; sourceTree = "<group>"; };
 		792B25481E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MostFrequentlyOccuringCharacters.h; sourceTree = "<group>"; };
 		792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MostFrequentlyOccuringCharacters.m; sourceTree = "<group>"; };
+		792B254C1E6A5F270084EFBD /* WordBreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBreak.h; sourceTree = "<group>"; };
+		792B254D1E6A5F270084EFBD /* WordBreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBreak.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -670,6 +673,15 @@
 			name = MostFrequentlyOccuringCharacters;
 			sourceTree = "<group>";
 		};
+		792B254B1E6A5F060084EFBD /* WordBreak */ = {
+			isa = PBXGroup;
+			children = (
+				792B254C1E6A5F270084EFBD /* WordBreak.h */,
+				792B254D1E6A5F270084EFBD /* WordBreak.m */,
+			);
+			name = WordBreak;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -747,6 +759,7 @@
 				792B24FC1E67135E0084EFBD /* ValidatePalindrome */,
 				792B25281E68E3E90084EFBD /* ValidateBST */,
 				799F30C61E5F63570010365B /* VerifyPreorderBST */,
+				792B254B1E6A5F060084EFBD /* WordBreak */,
 				792B25081E678BE30084EFBD /* WordSearch */,
 				793CFF041E5DEF2500AB1B78 /* main.m */,
 			);
@@ -956,6 +969,7 @@
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
 				792B24F71E66FFD50084EFBD /* FindAllAnagrams.m in Sources */,
 				79BD499D1E61E4FA00405D6A /* RemoveInvalidParentheses.m in Sources */,
+				792B254E1E6A5F270084EFBD /* WordBreak.m in Sources */,
 				793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */,
 				792B24EF1E66354F0084EFBD /* BinaryTreePaths.m in Sources */,
 				791C30EB1E63595D00E90ED7 /* DivideTwoIntegers.m in Sources */,

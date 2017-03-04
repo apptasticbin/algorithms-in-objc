@@ -3602,9 +3602,32 @@ dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
 
+// Ask interviewer: character set? whitespaces? valid?
+// Traditional "Dynamic Programming" question
+// https://discuss.leetcode.com/topic/7299/c-dynamic-programming-simple-and-fast-solution-4ms-with-optimization
+ 
+- (BOOL)wordBreakI:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict {
+	NSSet *wordSet = [NSSet setWithArray:wordDict];
+	BOOL dp[s.length+1];
+	memset(dp, NO, s.length+1);	// set all dp into NO
+	dp[0] = YES;
+	for (NSInteger i=1; i<=s.length; i++) {
+		for (NSInteger j=i-1; j>=0; j--) {
+			if (dp[j]) {
+				NSString *sub = [s substringWithRange:NSMakeRange(j, i-j)];
+				if ([wordSet containsObject:sub] && dp[j]) {
+					dp[i] = YES;
+					break;
+				}
+			}
+		}
+	}
+	return dp[s.length];
+}
+
 ==============================================================================
 
-Question 69: Word Break II
+Question 69: Word Break II [Hard]
 
 Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. You may assume the dictionary does not contain duplicate words.
 
@@ -3615,6 +3638,38 @@ s = "catsanddog",
 dict = ["cat", "cats", "and", "sand", "dog"].
 
 A solution is ["cats and dog", "cat sand dog"].
+
+// One solution is that we can still use "Dynamic Programming" as Word Break I
+// then we "backtracking" to get results
+// Also for simpler solution, we can use "Recursive + Memorize"
+
+- (NSArray<NSString *> *)wordBreakII:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict {
+    return [self DFS:s dictionary:wordDict cache:[NSMutableDictionary dictionary]];
+}
+
+- (NSArray<NSString *> *)DFS:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict
+                       cache:(NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *)cache {
+    // return cache value if found
+    if (cache[s] != 0) return cache[s];
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    // return empty array for empty string
+    if (s.length == 0) return results;
+    
+    // now we start to find words from dictionary set word by word
+    for (NSString *word in wordDict) {
+        if ([s hasPrefix:word]) {
+            // backtracking now
+            NSString *follow = [s substringFromIndex:word.length-1];
+            NSArray<NSString *> *followWords = [self DFS:follow dictionary:wordDict cache:cache];
+            for (NSString *followWord in followWords) {
+                [results addObject:[word stringByAppendingFormat:@" %@", followWord]];
+            }
+        }
+    }
+    cache[s] = results;
+    return results;
+}
 
 ==============================================================================
 
