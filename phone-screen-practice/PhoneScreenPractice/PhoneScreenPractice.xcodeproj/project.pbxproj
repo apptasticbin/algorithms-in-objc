@@ -62,6 +62,7 @@
 		792B255A1E6AE8B50084EFBD /* TreeLinkNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25591E6AE8B50084EFBD /* TreeLinkNode.m */; };
 		792B255E1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B255D1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m */; };
 		792B25621E6B58650084EFBD /* LongestPalindromicSubstring.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */; };
+		792B25661E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25651E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -202,6 +203,8 @@
 		792B255D1E6B2E1A0084EFBD /* SortedSquaresOfSortedNumbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortedSquaresOfSortedNumbers.m; sourceTree = "<group>"; };
 		792B25601E6B58650084EFBD /* LongestPalindromicSubstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongestPalindromicSubstring.h; sourceTree = "<group>"; };
 		792B25611E6B58650084EFBD /* LongestPalindromicSubstring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongestPalindromicSubstring.m; sourceTree = "<group>"; };
+		792B25641E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterCombinationsOfPhoneNumber.h; sourceTree = "<group>"; };
+		792B25651E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterCombinationsOfPhoneNumber.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -742,6 +745,22 @@
 			name = LongestPalindromicSubstring;
 			sourceTree = "<group>";
 		};
+		792B25631E6B60EA0084EFBD /* LetterCombinationsOfPhoneNumber */ = {
+			isa = PBXGroup;
+			children = (
+				792B25641E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.h */,
+				792B25651E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m */,
+			);
+			name = LetterCombinationsOfPhoneNumber;
+			sourceTree = "<group>";
+		};
+		792B25671E6B66FA0084EFBD /* GenerateParentheses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = GenerateParentheses;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -787,9 +806,11 @@
 				792B24F81E6705040084EFBD /* FirstBadVersion */,
 				792B24B31E64A6270084EFBD /* FlattenNestedListIterator */,
 				792B24AB1E6435460084EFBD /* FourSum */,
+				792B25671E6B66FA0084EFBD /* GenerateParentheses */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
 				792B254F1E6AD6AC0084EFBD /* IntersectionOfTwoArrays */,
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
+				792B25631E6B60EA0084EFBD /* LetterCombinationsOfPhoneNumber */,
 				792B25001E67589C0084EFBD /* LongestArithmeticSequence */,
 				792B24C71E658B840084EFBD /* LongestConsecutive */,
 				799F30D21E5FA2440010365B /* LowestCommonAncestor */,
@@ -1033,6 +1054,7 @@
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
 				792B252E1E68E4140084EFBD /* ValidateBST.m in Sources */,
 				791C30EF1E635FCB00E90ED7 /* MoveZeros.m in Sources */,
+				792B25661E6B61140084EFBD /* LetterCombinationsOfPhoneNumber.m in Sources */,
 				791C30E71E6319E700E90ED7 /* CoinChange.m in Sources */,
 				792B24F71E66FFD50084EFBD /* FindAllAnagrams.m in Sources */,
 				79BD499D1E61E4FA00405D6A /* RemoveInvalidParentheses.m in Sources */,

@@ -3994,6 +3994,47 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 
 Note: Although the above answer is in lexicographical order, your answer could be in any order you want.
 
+// Traditional "Backtracking" question
+// O(k^N)
+// Ask interviewer: what are letter(s) for '0' and '1'?
+// We can also use DFS+recursion or BFS+iteration to solve this problem.
+
+- (NSArray<NSString *> *)letterCombinations:(NSString *)digits {
+    if (digits.length == 0) return nil;
+    return [self helper:digits start:0];
+}
+
+- (NSArray<NSString *> *)helper:(NSString *)digits start:(NSInteger)start {
+    if (start == digits.length) return @[];
+    
+    NSArray<NSString *> *combines = [self helper:digits start:start+1];
+    
+    NSInteger digit = [digits characterAtIndex:start] - '0';
+    NSArray<NSString *> *letters = [self digitToLetters:digit];
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    for (NSString *combine in combines) {
+        for (NSString *letter in letters) {
+            [results addObject:[letter stringByAppendingString:combine]];
+        }
+    }
+    return results;
+}
+
+- (NSArray<NSString *> *)digitToLetters:(NSInteger)digit {
+    return [@[
+              @[@""],
+              @[@""],
+              @[@"a", @"b", @"c"],
+              @[@"d", @"e", @"f"],
+              @[@"g", @"h", @"i"],
+              @[@"j", @"k", @"l"],
+              @[@"m", @"n", @"o"],
+              @[@"p", @"q", @"r", @"s"],
+              @[@"w", @"x", @"y", @"z"]
+              ] objectAtIndex:digit];
+}
+
 ==============================================================================
 
 Question 77: Merge Email Lists
@@ -4007,6 +4048,8 @@ list 4: a@a.com
 ...
 Combine lists with identical emails, and output tuples: 
 (list 1, list 2, list 4) (a@a.com, b@b.com, c@c.com) (list 3) (e@e.com)
+
+// TODO
 
 ==============================================================================
 
@@ -4023,6 +4066,37 @@ For example, given n = 3, a solution set is:
   "()(())",
   "()()()"
 ]
+
+// Traditional "Backtracking" question
+// NOTICE: here we backtracking based on the number of "left parenthese" and "right parenthese"
+// Ask interviewer: n always available?
+
+- (NSArray<NSString *> *)generateParenthesis:(NSInteger)n {
+	NSMutableArray<NSString *> *results = [NSMutableArray array];
+	[self helperWithLeftParenthesis:n rightParenthesis:n path:@"" results:results];
+	return results;
+}
+
+- (void)helperWithLeftParenthesis:(NSInteger)leftP rightParenthesis:(NSInteger)rightP
+						  path:(NSString *)path
+						  results:(NSMutableArray<NSString *> *)results {
+	if (leftP == 0 && rightP == 0) {
+		[results addObject:[path copy]];
+		return;
+	}
+	
+	if (leftP > 0) {
+		[helperWithLeftParenthesis:leftP-1 rightParenthesis:rightP 
+							  path:[path stringByAppendingString:@"("] 
+						   results:results];
+	}
+	
+	if (rightP > leftP) {
+		[helperWithLeftParenthesis:leftP rightParenthesis:rightP-1 
+							 path:[path stringByAppendingString:@")"] 
+						  results:results]];
+	}
+}
 
 ==============================================================================
 
