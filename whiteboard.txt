@@ -3837,7 +3837,7 @@ Follow up:
 
 ==============================================================================
 
-Question 72: Median of Two Sorted Arrays
+Question 72: Median of Two Sorted Arrays [Hard]
 
 There are two sorted arrays nums1 and nums2 of size m and n respectively.
 
@@ -3854,11 +3854,53 @@ nums2 = [3, 4]
 
 The median is (2 + 3)/2 = 2.5
 
+// Ask interviewer: duplicates?
+// First, let's see the concept of 'MEDIAN' in a slightly unconventional way. That is:
+// "if we cut the sorted array to two halves of EQUAL LENGTHS, then
+// median is the AVERAGE OF Max(lower_half) and Min(upper_half), i.e. the
+// two numbers immediately next to the cut".
+// (L + R)/2 = (A[(N-1)/2] + A[N/2])/2
+
+// https://discuss.leetcode.com/topic/16797/very-concise-o-log-min-m-n-iterative-solution-with-detailed-explanation
+
+- (NSFloat)findMedianSortedArrays:(NSArray<NSNumber *> *)nums1 nums2:(NSArray<NSNumber *> *)nums2 {
+	// TODO
+}
+
 ==============================================================================
 
 Question 73: Sorted Squares of Sorted Numbers
 
 We're given a sorted array of integers: [-3, -1, 0, 1, 2]. We want to generate a sorted array of their squares: [0, 1, 1, 4, 9]
+
+// This is double pointer question
+// be careful that if -3*-3 = 6, 2*2 = 4
+// So we need to compare them from left and right towards middle
+// One solution is to sort the array based on "absolute value", [0, 1, -1, 2, -3], then calculate squares
+// this takes O(nlogn + n) time
+// NOTICE: 
+// - if input is "Array", we can directly use double pointer solution
+// - if input is "Linked List", then we need to use double runner, and split the list into two parts,
+//   then reverse second part.
+// https://www.careercup.com/question?id=5681516425248768
+
+- (NSArray<NSNumber *> *)sortedSquaresOfSortedNumbers:(NSArray<NSNumber *> *)nums {
+    if (nums == nil) return nil;
+    NSMutableArray<NSNumber *> *results = [NSMutableArray array];
+    NSInteger left=0, right=nums.count-1;
+    while (left < right) {
+        NSNumber *leftNum = nums[left];
+        NSNumber *rightNum = nums[right];
+        if (ABS(leftNum.integerValue) >= ABS(rightNum.integerValue)) {
+            [results addObject:@(leftNum.integerValue * leftNum.integerValue)];
+            left++;
+        } else {
+            [results addObject:@(rightNum.integerValue * rightNum.integerValue)];
+            right--;
+        }
+    }
+    return results;
+}
 
 ==============================================================================
 
