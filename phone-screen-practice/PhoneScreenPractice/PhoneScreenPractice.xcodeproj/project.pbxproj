@@ -54,6 +54,7 @@
 		792B253A1E6994B50084EFBD /* Interval.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25391E6994B50084EFBD /* Interval.m */; };
 		792B253E1E69ABA40084EFBD /* SearchRotatedSortedArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B253D1E69ABA40084EFBD /* SearchRotatedSortedArray.m */; };
 		792B25421E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */; };
+		792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -178,6 +179,8 @@
 		792B253D1E69ABA40084EFBD /* SearchRotatedSortedArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRotatedSortedArray.m; sourceTree = "<group>"; };
 		792B25401E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryTreeVerticalOrderTraversal.h; sourceTree = "<group>"; };
 		792B25411E69E4520084EFBD /* BinaryTreeVerticalOrderTraversal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryTreeVerticalOrderTraversal.m; sourceTree = "<group>"; };
+		792B25441E6A55720084EFBD /* ExpressionAddOperatiors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionAddOperatiors.h; sourceTree = "<group>"; };
+		792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionAddOperatiors.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -646,6 +649,15 @@
 			name = BinaryTreeVerticalOrderTraversal;
 			sourceTree = "<group>";
 		};
+		792B25431E6A55580084EFBD /* ExpressionAddOperators */ = {
+			isa = PBXGroup;
+			children = (
+				792B25441E6A55720084EFBD /* ExpressionAddOperatiors.h */,
+				792B25451E6A55720084EFBD /* ExpressionAddOperatiors.m */,
+			);
+			name = ExpressionAddOperators;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -685,6 +697,7 @@
 				793CFF1C1E5E2CDB00AB1B78 /* DataStructures */,
 				792B24C31E658A2B0084EFBD /* DecodeWays */,
 				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
+				792B25431E6A55580084EFBD /* ExpressionAddOperators */,
 				792B24F41E66FFAF0084EFBD /* FindAllAnagrams */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				792B24F81E6705040084EFBD /* FirstBadVersion */,
@@ -959,6 +972,7 @@
 				791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */,
 				792B24B61E64A6540084EFBD /* FlattenNestedListIterator.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
+				792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */,
 				792B24E31E6619360084EFBD /* MinimumDepth.m in Sources */,
 				791C30F71E63839200E90ED7 /* Trie.m in Sources */,
 				793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */,
