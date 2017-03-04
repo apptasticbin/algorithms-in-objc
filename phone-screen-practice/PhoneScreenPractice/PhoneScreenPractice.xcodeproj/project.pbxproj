@@ -58,6 +58,8 @@
 		792B254A1E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25491E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m */; };
 		792B254E1E6A5F270084EFBD /* WordBreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B254D1E6A5F270084EFBD /* WordBreak.m */; };
 		792B25521E6AD6D80084EFBD /* IntersectionOfTwoArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25511E6AD6D80084EFBD /* IntersectionOfTwoArrays.m */; };
+		792B25561E6AE8950084EFBD /* PopulatingNextRightsPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25551E6AE8950084EFBD /* PopulatingNextRightsPointer.m */; };
+		792B255A1E6AE8B50084EFBD /* TreeLinkNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25591E6AE8B50084EFBD /* TreeLinkNode.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -190,6 +192,10 @@
 		792B254D1E6A5F270084EFBD /* WordBreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBreak.m; sourceTree = "<group>"; };
 		792B25501E6AD6D80084EFBD /* IntersectionOfTwoArrays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntersectionOfTwoArrays.h; sourceTree = "<group>"; };
 		792B25511E6AD6D80084EFBD /* IntersectionOfTwoArrays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntersectionOfTwoArrays.m; sourceTree = "<group>"; };
+		792B25541E6AE8950084EFBD /* PopulatingNextRightsPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopulatingNextRightsPointer.h; sourceTree = "<group>"; };
+		792B25551E6AE8950084EFBD /* PopulatingNextRightsPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopulatingNextRightsPointer.m; sourceTree = "<group>"; };
+		792B25581E6AE8B50084EFBD /* TreeLinkNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeLinkNode.h; sourceTree = "<group>"; };
+		792B25591E6AE8B50084EFBD /* TreeLinkNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeLinkNode.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -694,6 +700,24 @@
 			name = IntersectionOfTwoArrays;
 			sourceTree = "<group>";
 		};
+		792B25531E6AE7BC0084EFBD /* PopulatingNextRightsPointer */ = {
+			isa = PBXGroup;
+			children = (
+				792B25541E6AE8950084EFBD /* PopulatingNextRightsPointer.h */,
+				792B25551E6AE8950084EFBD /* PopulatingNextRightsPointer.m */,
+			);
+			name = PopulatingNextRightsPointer;
+			sourceTree = "<group>";
+		};
+		792B25571E6AE8A50084EFBD /* TreeLinkNode */ = {
+			isa = PBXGroup;
+			children = (
+				792B25581E6AE8B50084EFBD /* TreeLinkNode.h */,
+				792B25591E6AE8B50084EFBD /* TreeLinkNode.m */,
+			);
+			name = TreeLinkNode;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -755,6 +779,7 @@
 				791C30EC1E635FB500E90ED7 /* MoveZeros */,
 				79BD499E1E62131400405D6A /* NumberIsland */,
 				791C30D91E62E8CA00E90ED7 /* PaintHouses */,
+				792B25531E6AE7BC0084EFBD /* PopulatingNextRightsPointer */,
 				792B24AF1E6480750084EFBD /* PrettyJSONString */,
 				792B24E41E661EA20084EFBD /* Read4 */,
 				792B25181E6872BE0084EFBD /* RegularExpressionMatching */,
@@ -822,6 +847,7 @@
 				791C30F41E63837A00E90ED7 /* Trie */,
 				791C30F31E63836F00E90ED7 /* List */,
 				791C30F21E63836600E90ED7 /* Tree */,
+				792B25571E6AE8A50084EFBD /* TreeLinkNode */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -1002,6 +1028,7 @@
 				791C30DC1E62E93200E90ED7 /* PaintHouses.m in Sources */,
 				792B25361E69945D0084EFBD /* MergeIntervals.m in Sources */,
 				792B24BE1E64C2E40084EFBD /* MergeSortedArrays.m in Sources */,
+				792B25561E6AE8950084EFBD /* PopulatingNextRightsPointer.m in Sources */,
 				792B24C21E64E2270084EFBD /* BalanceParentheses.m in Sources */,
 				792B25231E68BCFC0084EFBD /* TaskScheduler.m in Sources */,
 				792B251F1E689E0D0084EFBD /* SummaryRanges.m in Sources */,
@@ -1013,6 +1040,7 @@
 				791C30FA1E6383BA00E90ED7 /* TrieNode.m in Sources */,
 				792B24B61E64A6540084EFBD /* FlattenNestedListIterator.m in Sources */,
 				792B254A1E6A5A140084EFBD /* MostFrequentlyOccuringCharacters.m in Sources */,
+				792B255A1E6AE8B50084EFBD /* TreeLinkNode.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
 				792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */,
 				792B24E31E6619360084EFBD /* MinimumDepth.m in Sources */,
