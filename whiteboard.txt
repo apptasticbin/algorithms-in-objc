@@ -2,7 +2,7 @@ Facebook Phone Screen Questions:
 
 ==============================================================================
 
-Question 1:
+Question 1: Common Parent Commit of Two Commits
 
 we have a git vertion control
    
@@ -37,6 +37,11 @@ for example, commit2 is the LCA of commit4 and commit3'
 // Ask interviewer: are these ids unique?
 // Improvement: http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-ii/
 // find the height of each node, then first iterate the deeper one until they are at same level
+// The best solution:
+/*A little creativity is needed here. Since we have the parent pointer, we could easily get the distance (height) of both nodes from the root. Once we knew both heights, we could subtract from one another and get the height’s difference (dh). If you observe carefully from the previous solution, the node which is closer to the root is always dh steps ahead of the deeper node. We could eliminate the need of marking visited nodes altogether. Why?
+
+The reason is simple, if we advance the deeper node dh steps above, both nodes would be at the same depth. Then, we advance both nodes one level at a time. They would then eventually intersect at one node, which is the LCA of both nodes. If not, one of the node would eventually reach NULL (root’s parent), which we conclude that both nodes are not in the same tree. However, that part of code shouldn’t be reached, since the problem statement assumed that both nodes are in the same tree. */
+
 - (Commit *)findAncestorOfCommit:(Commit *) c1 andCommit:(Commit *)c2 {
 	/* - after analyzing, I think this is a graph traversal + hash table question.
 	   - we move two commits up together, and mark every commit on this path as visited
@@ -368,7 +373,7 @@ Question 9: Convert a given Binary Tree to Doubly Linked List
 
 - (void)rightToLeftBuilder:(Tree *)root head:(Tree * __autoreleasing *)head {
 	// base case
-	if (root == nil) return nil;
+	if (root == nil) return;
 	[self rightToLeftBuilder:root.right head:head];
 	
 	root.right = *head;
@@ -1924,11 +1929,13 @@ Implement strStr().
 
 Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
 
+// Ask interviewer: handle nil?
 // Basic solution: Brute Force, O(N*k), check from beginning to end-needle.count-1, 
 // start comparing needle and haystack at index i when haystack[i] == needle[i]
+// Rabin Karp Solution: http://www.geeksforgeeks.org/searching-for-patterns-set-3-rabin-karp-algorithm/
+// - Rabin Karp algorithm is similar to brute force, but using "hash value" to match strings.
 // KMP solution: http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/
 // https://leetcode.com/problems/implement-strstr/?tab=Solutions
-// Ask interviewer: handle nil?
 
 - (NSUInteger)strStr:(NSString *)haystack needle:(NSString *)needle {
     if (haystack == nil || needle == nil) return -1;
@@ -3862,6 +3869,8 @@ The median is (2 + 3)/2 = 2.5
 // (L + R)/2 = (A[(N-1)/2] + A[N/2])/2
 
 // https://discuss.leetcode.com/topic/16797/very-concise-o-log-min-m-n-iterative-solution-with-detailed-explanation
+// http://www.geeksforgeeks.org/median-of-two-sorted-arrays/
+// http://www.geeksforgeeks.org/median-of-two-sorted-arrays-of-different-sizes/
 
 - (NSFloat)findMedianSortedArrays:(NSArray<NSNumber *> *)nums1 nums2:(NSArray<NSNumber *> *)nums2 {
 	// TODO
@@ -4250,4 +4259,104 @@ Given "aacecaaa", return "aaacecaaa".
 
 Given "abcd", return "dcbabcd".
 
+==============================================================================
 
+Question 83: Meeting Rooms
+ 
+Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings. For example, Given [[0, 30],[5, 10],[15, 20]], return false.
+
+// Sort and check interval overlaps exists or not.
+
+==============================================================================
+
+Question 84: Meeting Rooms II
+ 
+Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] find the minimum number of conference rooms required.
+
+// http://www.cnblogs.com/grandyang/p/5244720.html
+// https://discuss.leetcode.com/topic/35253/explanation-of-super-easy-java-solution-beats-98-8-from-pinkfloyda/2
+// For "two array solution", the reason "why we move both i and endItr pointer together when start[i] > 
+// end[endItr]", is because end[endItr] will free a meeting room, and at same time, start[i] will occupy
+// that meeting room. So 1-1 = 0.
+
+==============================================================================
+
+Question 85: Sort Transformed Array
+ 
+Given a sorted array of integers nums and integer values a, b and c. Apply a function of the form 
+f(x) = ax^2 + bx + c to each element x in the array.
+
+The returned array must be in sorted order.
+
+Expected time complexity: O(n)
+
+Example:
+nums = [-4, -2, 2, 4], a = 1, b = 3, c = 5,
+
+Result: [3, 9, 15, 33]
+
+nums = [-4, -2, 2, 4], a = -1, b = 3, c = 5
+
+Result: [-23, -5, 1, 7]
+
+==============================================================================
+
+Question 86: Integer to Roman
+
+Given an integer, convert it to a roman numeral.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+// https://discuss.leetcode.com/topic/12384/simple-solution
+
+
+==============================================================================
+
+Question 87: Ugly Number II
+
+Write a program to find the n-th ugly number.
+
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For example, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
+
+Note that 1 is typically treated as an ugly number, and n does not exceed 1690.
+
+// https://discuss.leetcode.com/topic/21882/my-16ms-c-dp-solution-with-short-explanation
+
+==============================================================================
+
+Question 88: Sort Transformed Array
+
+Given a sorted array of integers nums and integer values a, b and c. Apply a function of the form f(x) = ax2 + bx + c to each element x in the array.
+
+The returned array must be in sorted order.
+
+Expected time complexity: O(n)
+
+Example:
+nums = [-4, -2, 2, 4], a = 1, b = 3, c = 5,
+
+Result: [3, 9, 15, 33]
+
+nums = [-4, -2, 2, 4], a = -1, b = 3, c = 5
+
+Result: [-23, -5, 1, 7]
+
+// http://www.cnblogs.com/grandyang/p/5595614.html
+
+==============================================================================
+
+Question 89: (One) Edit Distance
+
+Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
+
+You have the following 3 operations permitted on a word:
+
+a) Insert a character
+b) Delete a character
+c) Replace a character
+
+// http://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/
+// http://www.geeksforgeeks.org/check-if-two-given-strings-are-at-edit-distance-one/
+
+// NOTICE: DP solution is good for several edit distances (O(N^2)). 
+// But not the most effient way for "one" edit distances question.

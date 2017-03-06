@@ -1,0 +1,281 @@
+NSArray:
+
++ (instancetype)array;
++ (instancetype)arrayWithObject:(ObjectType)anObject;
++ (instancetype)arrayWithArray:(NSArray<ObjectType> *)array;
++ (instancetype)arrayWithObjects:(ObjectType)firstObj, ...;
++ (instancetype)arrayWithObjects:(const ObjectType  _Nonnull [])objects count:(NSUInteger)cnt;
+- (instancetype)initWithArray:(NSArray<ObjectType> *)array 
+					copyItems:(BOOL)flag;
+- (BOOL)isEqualToArray:(NSArray<ObjectType> *)otherArray;
+					
+- (BOOL)containsObject:(ObjectType)anObject;
+- (ObjectType)objectAtIndex:(NSUInteger)index;
+- (NSUInteger)indexOfObject:(ObjectType)anObject;
+- (NSUInteger/NSIndexSet *)index(es)OfObject(s)PassingTest:(BOOL (^)(ObjectType obj, NSUInteger idx, BOOL *stop))predicate;
+- (NSUInteger)indexOfObject:(ObjectType)obj 
+              inSortedRange:(NSRange)r 
+                    options:(NSBinarySearchingOptions/NSBinarySearchingInsertionIndex)opts 
+            usingComparator:(NSComparator)cmp;
+
+- (NSEnumerator<ObjectType> *)objectEnumerator;
+- (NSEnumerator<ObjectType> *)reverseObjectEnumerator;
+- (void)enumerateObjectsUsingBlock:(void (^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;
+-(void)enumerateObjectsWithOptions:(NSEnumerationOptions/NSEnumerationReverse)opts usingBlock:(void (^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;
+
+- (NSArray<ObjectType> *)arrayByAddingObject:(ObjectType)anObject;
+- (NSArray<ObjectType> *)arrayByAddingObjectsFromArray:(NSArray<ObjectType> *)otherArray;
+
+- (NSArray<ObjectType> *)sortedArrayUsingDescriptors:(NSArray<NSSortDescriptor *> *)sortDescriptors;
+- (NSArray<ObjectType> *)sortedArrayUsingSelector:(SEL)comparator;
+- (NSArray<ObjectType> *)sortedArrayUsingComparator:(NSComparator)cmptr;
+
+- (NSString *)componentsJoinedByString:(NSString *)separator;
+
+NSMutableArray:
+
+- (void)addObject:(ObjectType)anObject;
+- (void)addObjectsFromArray:(NSArray<ObjectType> *)otherArray;
+- (void)insertObject:(ObjectType)anObject 
+             atIndex:(NSUInteger)index;
+- (void)removeAllObjects;
+- (void)removeLastObject;
+- (void)removeObject:(ObjectType)anObject;
+- (void)removeObjectAtIndex:(NSUInteger)index;
+- (void)removeObjectsInRange:(NSRange)range;
+- (void)removeObjectsInArray:(NSArray<ObjectType> *)otherArray;
+- (void)replaceObjectAtIndex:(NSUInteger)index 
+                  withObject:(ObjectType)anObject;
+- (void)exchangeObjectAtIndex:(NSUInteger)idx1 
+            withObjectAtIndex:(NSUInteger)idx2;
+- (void)sortUsingDescriptors:(NSArray<NSSortDescriptor *> *)sortDescriptors;
+- (void)sortUsingComparator:(NSComparator)cmptr;
+
+NSDictionary:
+
++ (instancetype)dictionaryWithDictionary:(NSDictionary<KeyType,ObjectType> *)dict;
+@property(readonly) NSUInteger count;
+@property(readonly, copy) NSArray<KeyType> *allKeys;
+@property(readonly, copy) NSArray<ObjectType> *allValues;
+
+- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(KeyType key, ObjectType obj, BOOL *stop))block;
+- (void)enumerateKeysAndObjectsWithOptions:(NSEnumerationOptions)opts 
+                                usingBlock:(void (^)(KeyType key, ObjectType obj, BOOL *stop))block;
+								
+- (NSArray<KeyType> *)keysSortedByValueUsingSelector:(SEL)comparator;
+- (NSArray<KeyType> *)keysSortedByValueUsingComparator:(NSComparator)cmptr;
+
+- (NSSet<KeyType> *)keysOfEntriesPassingTest:(BOOL (^)(KeyType key, ObjectType obj, BOOL *stop))predicate;
+- (NSSet<KeyType> *)keysOfEntriesWithOptions:(NSEnumerationOptions)opts 
+                                 passingTest:(BOOL (^)(KeyType key, ObjectType obj, BOOL *stop))predicate;
+
+// fast enumeration for dictionary
+for (key in someDictionary){
+     NSLog(@"Key: %@, Value %@", key, [someDictionary objectForKey: key]);
+}
+- (BOOL)isEqualToDictionary:(NSDictionary<KeyType,ObjectType> *)otherDictionary;
+
+NSMutableDictionary:
+
+- (void)addEntriesFromDictionary:(NSDictionary<KeyType,ObjectType> *)otherDictionary;
+- (void)removeObjectForKey:(KeyType)aKey;
+- (void)removeObjectsForKeys:(NSArray<KeyType> *)keyArray;
+- (void)removeAllObjects;
+
+
+NSSortDescriptor:
+
++ (instancetype)sortDescriptorWithKey:(NSString *)key 
+                            ascending:(BOOL)ascending;
++ (instancetype)sortDescriptorWithKey:(NSString *)key 
+                            ascending:(BOOL)ascending 
+                             selector:(SEL)selector;
++ (instancetype)sortDescriptorWithKey:(NSString *)key 
+                            ascending:(BOOL)ascending 
+                           comparator:(NSComparator)cmptr;
+						   
+NSComparator:
+
+typedef NSComparisonResult (^NSComparator)(id obj1, id obj2)
+
+NSComparisonResult:
+
+NSOrderedAscending
+NSOrderedSame
+NSOrderedDescending
+
+NSString:
+
++ (instancetype)string;
++ (instancetype)stringWithUTF8String:(const char *)nullTerminatedCString;
++ (instancetype)stringWithFormat:(NSString *)format, ...;
++ (instancetype)stringWithString:(NSString *)string;
+@property(readonly) NSUInteger length;
+- (unichar)characterAtIndex:(NSUInteger)index;
+@property(readonly) const char *UTF8String;
+- (BOOL)hasPrefix:(NSString *)str;
+- (BOOL)hasSuffix:(NSString *)str;
+- (BOOL)isEqualToString:(NSString *)aString;
+- (NSString *)stringByAppendingFormat:(NSString *)format, ...;
+- (NSString *)stringByAppendingString:(NSString *)aString;
+- (NSArray<NSString *> *)componentsSeparatedByString:(NSString *)separator;
+- (NSArray<NSString *> *)componentsSeparatedByCharactersInSet:(NSCharacterSet *)separator;
+- (NSString *)stringByTrimmingCharactersInSet:(NSCharacterSet *)set;
+- (NSString *)substringFromIndex:(NSUInteger)from;
+- (NSString *)substringWithRange:(NSRange)range;
+- (NSString *)substringToIndex:(NSUInteger)to;
+- (BOOL)containsString:(NSString *)str;
+- (void)enumerateLinesUsingBlock:(void (^)(NSString *line, BOOL *stop))block;
+- (void)enumerateSubstringsInRange:(NSRange)range 
+                           options:(NSStringEnumerationOptions)opts 
+                        usingBlock:(void (^)(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop))block;
+						
+@property(readonly, copy) NSString *lowercaseString;
+@property(readonly, copy) NSString *uppercaseString;
+
+doubleValue
+floatValue
+intValue
+integerValue
+longLongValue
+boolValue
+
+NSMutableString:
+
+- (void)appendFormat:(NSString *)format, ...;
+- (void)appendString:(NSString *)aString;
+- (void)deleteCharactersInRange:(NSRange)range;
+- (void)insertString:(NSString *)aString 
+             atIndex:(NSUInteger)loc;
+- (NSUInteger)replaceOccurrencesOfString:(NSString *)target 
+                              withString:(NSString *)replacement 
+                                   range:(NSRange)searchRange;
+
+
+NSStringEnumerationOptions:
+
+NSStringEnumerationByLines
+NSStringEnumerationByParagraphs
+NSStringEnumerationByComposedCharacterSequences
+NSStringEnumerationByWords
+NSStringEnumerationBySentences
+NSStringEnumerationReverse
+NSStringEnumerationSubstringNotRequired
+NSStringEnumerationLocalized
+
+NSSet:
+
++ (instancetype)setWithArray:(NSArray<ObjectType> *)array;
+- (NSSet<ObjectType> *)setByAddingObject:(ObjectType)anObject;
+- (NSSet<ObjectType> *)setByAddingObjectsFromSet:(NSSet<ObjectType> *)other;
+- (NSSet<ObjectType> *)setByAddingObjectsFromArray:(NSArray<ObjectType> *)other;
+@property(readonly) NSUInteger count;
+@property(readonly, copy) NSArray<ObjectType> *allObjects;
+- (BOOL)containsObject:(ObjectType)anObject;
+- (ObjectType)member:(ObjectType)object;
+- (void)enumerateObjects###WithOptions:(NSEnumerationOptions/NSEnumerationReverse)opts###
+                         usingBlock:(void (^)(ObjectType obj, BOOL *stop))block;
+- (NSSet<ObjectType> *)objects###WithOptions:(NSEnumerationOptions)opts###
+                              passingTest:(BOOL (^)(ObjectType obj, BOOL *stop))predicate;
+- (BOOL)intersectsSet:(NSSet<ObjectType> *)otherSet;
+- (BOOL)isEqualToSet:(NSSet<ObjectType> *)otherSet;
+- (NSArray<ObjectType> *)sortedArrayUsingDescriptors:(NSArray<NSSortDescriptor *> *)sortDescriptors;
+
+NSMutableSet:
+
+- (void)addObject:(ObjectType)object;
+- (void)removeObject:(ObjectType)object;
+- (void)removeAllObjects;
+- (void)addObjectsFromArray:(NSArray<ObjectType> *)array;
+- unionSet:
+- minusSet:
+- intersectSet:
+
+NSCountedSet:
+
+- (void)addObject:(ObjectType)object;
+- (void)removeObject:(ObjectType)object;
+- (NSUInteger)countForObject:(ObjectType)object;
+
+NSOrderedSet:
+
++ (instancetype)orderedSet;
++ (instancetype)orderedSetWithArray:(NSArray<ObjectType> *)array;
++ (instancetype)orderedSetWithSet:(NSSet<ObjectType> *)set;
++ (instancetype)orderedSetWithSet:(NSSet<ObjectType> *)set 
+                        copyItems:(BOOL)flag;
+@property(readonly) NSUInteger count;
+- (BOOL)containsObject:(ObjectType)object;
+- (void)enumerateObjectsUsingBlock:(void (^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;
+
+firstObject
+lastObject
+- (ObjectType)objectAtIndex:(NSUInteger)idx;
+- (NSUInteger)indexOfObject:(ObjectType)object;
+- (NSUInteger)indexOfObject:(ObjectType)object 
+              inSortedRange:(NSRange)range 
+                    options:(NSBinarySearchingOptions)opts 
+            usingComparator:(NSComparator)cmp;
+@property(readonly, copy) NSOrderedSet<ObjectType> *reversedOrderedSet;
+- (BOOL)isEqualToOrderedSet:(NSOrderedSet<ObjectType> *)other;
+
+- (NSArray<ObjectType> *)sortedArrayUsingDescriptors:(NSArray<NSSortDescriptor *> *)sortDescriptors;
+- (NSArray<ObjectType> *)sortedArrayUsingComparator:(NSComparator)cmptr;
+
+@property(readonly, strong) NSArray<ObjectType> *array;
+@property(readonly, strong) NSSet<ObjectType> *set;
+
+NSNumber:
+
+boolValue
+doubleValue
+floatValue
+integerValue
+unsignedIntegerValue
+stringValue
+- (NSComparisonResult)compare:(NSNumber *)otherNumber;
+- (BOOL)isEqualToNumber:(NSNumber *)number;
+
+UIView:
+
+@property(nonatomic, readonly) UIView *superview;
+@property(nonatomic, readonly, copy) NSArray<__kindof UIView *> *subviews;
+- (void)exchangeSubviewAtIndex:(NSInteger)index1 
+            withSubviewAtIndex:(NSInteger)index2;
+
+NSDate:
+
++ (instancetype)date;
++ (instancetype)dateWithTimeIntervalSinceNow:(NSTimeInterval)secs;
++ (instancetype)dateWithTimeIntervalSince1970:(NSTimeInterval)secs;
+@property(class, readonly, copy) NSDate *distantFuture;
+@property(class, readonly, copy) NSDate *distantPast;
+- (BOOL)isEqualToDate:(NSDate *)otherDate;
+- (NSDate *)earlierDate:(NSDate *)anotherDate;
+- (NSDate *)laterDate:(NSDate *)anotherDate;
+- (NSComparisonResult)compare:(NSDate *)other;
+@property(readonly) NSTimeInterval timeIntervalSinceNow;
+- (instancetype)dateByAddingTimeInterval:(NSTimeInterval)ti;
+
+NSScanner:
+
++ (instancetype)scannerWithString:(NSString *)string;
+@property NSUInteger scanLocation;
+@property BOOL caseSensitive;
+@property(copy) NSCharacterSet *charactersToBeSkipped;
+- (BOOL)scanInteger:(NSInteger *)result;
+- (BOOL)scanString:(NSString *)string 
+        intoString:(NSString * _Nullable *)result;
+@property(getter=isAtEnd, readonly) BOOL atEnd;
+
+NSStringFromClass
+NSStringFromSelector
+FOUNDATION_EXPORT NSString *NSStringFromCGPoint(NSPoint aPoint);
+FOUNDATION_EXPORT NSString *NSStringFromCGSize(NSSize aSize);
+FOUNDATION_EXPORT NSString *NSStringFromCGRect(NSRect aRect);
+FOUNDATION_EXPORT NSPoint CGPointFromString(NSString *aString);
+FOUNDATION_EXPORT NSSize CGSizeFromString(NSString *aString);
+FOUNDATION_EXPORT NSRect CGRectFromString(NSString *aString);
+		
+
+

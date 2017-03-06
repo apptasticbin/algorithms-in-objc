@@ -1,0 +1,501 @@
+Facebook 电面冲刺
+
+==============================================================================
+
+九章算法建议:
+
+对于递归问题的时间复杂度:
+- 答案个数 * 构造每个答案的时间
+- 如果不知道答案个数，用个S代替答案个数即可
+
+DFS对比BFS
+- DFS比BFS更节约搜索空间，DFS只需要记录上一个状态，而不需要记录上一层状态。
+
+所谓test cases:
+- 面试时上来可以先写test cases， 比如nil检测，zero length检测，等等
+- test cases不是unit test，test cases指的是各种边角异常情况(corner cases)
+
+subset选代表 -> sorting顺序最佳 -> 对于有duplicate的情况效果很好
+
+"all possible results" -> 搜索问题
+
+关于递归:
+
+递归：函数递归之前做了什么，递归之后撤销什么
+
+递归三要素
+1) 递归的定义：接受什么参数，返回什么值，做了什么事
+2）递归的拆解
+3) 递归的出口 -> 递归结束
+
+拿offer的四大法宝：
+- 别做难题
+- 是面试不是考试
+- 理解不是死记硬背
+- 功夫要用在刀刃上
+
+==============================================================================
+
+Question 1: Nested Numbers Array
+
+Customize NSEnumerator, implement nextObject and allObjects interfaces for array of nested numbers.
+NOTICE: initialization need to be fast.
+
+// Similar question to "Flatten Nested List Iterator"
+// Ask interviewer: how deep the nested list will be? only array and number? how "allObjects" works?
+
+@interface MyEnumerator : NSEnumerator
+
+@property (nonatomic, strong) NSArray *nestedNumbers;
+@property (nonatomic, strong) NSMutableArray *cache;
+@property (nonatomic, assign) NSUInteger cacheIndex;
+@property (nonatomic, assign) NSUInteger index;
+  
+@end
+  
+@implementation MyEnumerator
+  
+- (instancetype)initWithNestedNumbers:(NSArray *)nestedNumbers {
+  self = [super init];
+  if (self) {
+    _nestedNumbers = nestedNumbers;
+    _cache = [NSMutableArray array];
+    _index = 0;
+    _cacheIndex = 0;
+  }
+  return self;
+}
+
+#pragma mark - NSEnumerator
+  
+- (NSNumber *)nextObject {
+  if (self.cacheIndex == self.cache.count) {
+    if (self.index < self.nestedNumbers.count) {
+      [self pushNumber:self.nestedNumbers[self.index++]];
+    } else {
+      return nil;
+    }
+  }
+  return self.cache[self.cacheIndex++];
+}
+
+- (NSArray *)allObjects {
+  // push rest of nested numbers into cache
+  if (self.index < self.nestedNumbers.count) {
+    for (NSInteger i=self.index; i<self.nestedNumbers.count; i++) {
+      [self pushNumber:self.nestedNumbers[i]];
+    }
+    // all objects are in cache now.
+    self.index = self.nestedNumbers.count;
+  }
+  return [self.cache copy];
+}
+
+void testMyEnumerator() {
+  NSArray *nestedNumbers = @[
+    @[@(1), @(2)],
+    @(3),
+    @[@(4), @[@(5), @(6)]],
+    @(7),
+    @(8)
+  ];
+  MyEnumerator *myEnumerator = 
+    [[MyEnumerator alloc] initWithNestedNumbers:nestedNumbers];
+  for (NSInteger i=0; i<10; i++) {
+    NSLog(@"No.%@ number: %@", @(i+1), [myEnumerator nextObject]);
+  }
+  
+  NSLog(@"All objects: %@", [myEnumerator allObjects]);
+  NSLog(@"All objects again: %@", [myEnumerator allObjects]);
+}
+
+==============================================================================
+
+Question 2: Check Intersection of Two NSRanges
+
+Given two NSRanges, check if they have Intersection.
+
+// NOTICE: NSMakeRange(location, length)
+// be careful of "empty range" -> corner cases and test cases checking always
+// Ask interviewer: how about '0' length ranges?
+
+BOOL intersection(NSRange range1, NSRange range2) {
+  if (range1.length == 0 || range2.length == 0) return NO;
+  return !((NSMaxRange(range1)-1 < range2.location) || 
+          (range1.location > NSMaxRange(range2)-1));
+}
+
+void testIntersectionBetweenRanges() {
+  NSLog(@"%@", @(intersection(NSMakeRange(0,2), NSMakeRange(3,4))));
+  NSLog(@"%@", @(intersection(NSMakeRange(0,2), NSMakeRange(1,4))));
+  NSLog(@"%@", @(intersection(NSMakeRange(0,0), NSMakeRange(3,4))));
+}
+
+==============================================================================
+
+Question 3: Find Cloned View
+
+You have a simple tree structure Ⓐ and its clone ⓐ. Given an original tree's node Ⓑ, find and return the cloned tree's node ⓑ that is the clone of node Ⓑ.
+
+Each node in the tree has a pointer to it's parent as well as an array of it's children.
+
+       Original Clone
+         Ⓐ 	                ⓐ
+      ┏━┻━━┓             ┏━┻━━┓
+      ◯ 	   ◯             ◯        ◯
+    ┏┻┓   ┏━╋━┓       ┏┻┓   ┏━╋━┓
+    ◯   ◯   ◯   ◯   ◯      ◯    ◯  ◯   ◯   ◯
+      ┏┻┓ ┃                ┏┻┓ ┃
+      ◯   Ⓑ ◯                ◯   ⓑ ◯
+	  
+// Idea: 
+// - use "superView" to track back and get path from B to A
+// - then follow the path to find b from a
+// NOTICE: the children of each view are stored in an array with order,
+// so we just need to mark the index of each level in the path
+// MAYBE: we can use NSIndexPath
+
+@interface UIView : NSObject
+
+@property (nonatomic, weak) UIView *superview;
+@property (nonatomic, strong) NSArray *subviews;
+
+@end
+  
+@implementation UIView
+
+@end
+
+UIView *findClonedView(UIView *view, UIView *clonedRoot) {
+  if (view == nil || clonedRoot == nil) return nil;
+  NSMutableArray *path = [NSMutableArray array];
+  
+  while (view.superview) {
+    UIView *superView = view.superview;
+    NSUInteger index = [superView.subviews indexOfObject:view];
+    [path addObject:@(index)];
+  }
+  
+  UIView *target = clonedRoot;
+  for (NSInteger i=path.count-1; i>=0; i++) {
+    NSNumber *index = path[i];
+    target = target.subviews[index.integerValue];
+  }
+  return target;
+}
+
+==============================================================================
+
+Question 4: K Cloest Points
+
+Given an array containing N points find the K closest points to the origin in the 2D plane. You can assume K is much smaller than N and N is very large.
+
+// Ask interviewer: how to handle k == 0 or k > points.count?
+
+NSInteger distanceToZero(NSString *pointStr) {
+  NSPoint point = NSPointFromString(pointStr);
+  return point.x * point.x + point.y * point.y;
+}
+
+NSInteger partition(NSMutableArray *points, 
+                    NSInteger pivot, 
+                    NSInteger start, 
+                    NSInteger end) {
+  NSInteger pivotDistance = distanceToZero(points[pivot]);
+  [points exchangeObjectAtIndex:end withObjectAtIndex:pivot];
+  NSInteger left = start;
+  for (NSInteger right = start; right < end; right++) {
+    if (distanceToZero(points[right]) < pivotDistance) {
+      [points exchangeObjectAtIndex:left withObjectAtIndex:right];
+      left++;
+    }
+  }
+  [points exchangeObjectAtIndex:left withObjectAtIndex:end];
+  return left;
+}
+
+NSArray *quickSelect(NSMutableArray *points, 
+                     NSInteger k, 
+                     NSInteger start, 
+                     NSInteger end) {
+  if (start >= end) return [points subarrayWithRange:NSMakeRange(0,end+1)];
+  // NSInteger pivot = start + (arc4random() % (end-start+1));
+  NSInteger pivot = end;
+  NSInteger index = partition(points, pivot, start, end);
+  if (index == k-1) return [points subarrayWithRange:NSMakeRange(0,index+1)];
+  if (index > k-1) return quickSelect(points, k, start, index-1);
+  else return quickSelect(points, k, index+1, end);
+}
+
+NSArray *kCloestPoints(NSArray *points, NSInteger k) {
+  if (points == nil || points.count == 0 || k == 0) return nil;
+  return quickSelect([points mutableCopy], k, 0, points.count-1);
+}
+
+void test() {
+  NSArray *points = @[
+    NSStringFromPoint(NSMakePoint(3,3)),
+    NSStringFromPoint(NSMakePoint(1,1)),
+    NSStringFromPoint(NSMakePoint(5,5)),
+    NSStringFromPoint(NSMakePoint(4,4)),
+    NSStringFromPoint(NSMakePoint(2,2)),
+    NSStringFromPoint(NSMakePoint(6,6))];
+  
+  NSInteger k = 4;
+  NSLog(@"%@ cloest points: %@", @(k), kCloestPoints(points, k));
+  
+  k = 2;
+  NSLog(@"%@ cloest points: %@", @(k), kCloestPoints(points, k));
+  
+  k = 5;
+  NSLog(@"%@ cloest points: %@", @(k), kCloestPoints(points, k));
+  
+  k = 7;
+  NSLog(@"%@ cloest points: %@", @(k), kCloestPoints(points, k));
+  
+  k = 0;
+  NSLog(@"%@ cloest points: %@", @(k), kCloestPoints(points, k));
+  
+  k = 4;
+  NSLog(@"%@ cloest points: %@", @(k), kCloestPoints(nil, k));
+}
+
+==============================================================================
+
+Question 5: Input Combination
+
+// +-----+-----+-----+
+// | 1 | 2 | 3 |
+// | | ABC | DEF |
+// +-----------------+
+// | 4 | 5 | 6 |
+// | GHI | JKL | MNO |
+// +-----------------+
+// | 7 | 8 | 9 |
+// |PQRS | TUV |WXYZ |
+// +-----------------+
+// | 0 |
+// | + |
+// +--+--+
+
+// 2 -> "A"
+// 22 -> "B"
+// 222 -> "C"
+// 2233 -> "BE"
+
+// Write a function that given a string of numbers as input returns all possible string translations
+
+// Similar to "Run Length Encoding" + "Letter Combinations"
+// using DFS to track all possible input combination
+// count number of duplicate inputs, and do modulo, in order to get final input letter
+// Ask interviewer: is input always valid?
+
+NSString *numbersToCharacters(NSString *numbers) {
+  if (numbers == nil || numbers.length == 0) return @"";
+  NSArray *table = @[
+    @[@"+"],
+    @[@""],
+    @[@"A", @"B", @"C"],
+    @[@"D", @"E", @"F"],
+    @[@"G", @"H", @"I"],
+    @[@"J", @"K", @"L"],
+    @[@"M", @"N", @"O"],
+    @[@"P", @"Q", @"R", @"S"],
+    @[@"T", @"U", @"V"],
+    @[@"W", @"X", @"Y", @"Z"]
+  ];
+  NSInteger groupIndex = [numbers characterAtIndex:0] - '0';
+  NSInteger characterIndex = (numbers.length-1) % [table[groupIndex] count];
+  return table[groupIndex][characterIndex];
+}
+
+void helper(NSString *input, 
+            NSInteger start,
+            NSMutableArray *combination, 
+            NSMutableArray *results) {
+  if (start == input.length) {
+    [results addObject:[combination componentsJoinedByString:@""]];
+    return;
+  }
+  NSString *sameNumbers = @"";
+  for (NSInteger i=start; i<input.length; i++) {
+    if (i != start && [input characterAtIndex:i] != [input characterAtIndex:i-1]) {
+      break;
+    }
+  	sameNumbers = [sameNumbers stringByAppendingString:[input substringWithRange:NSMakeRange(i,1)]];
+    
+  	[combination addObject:numbersToCharacters(sameNumbers)];
+  	helper(input, i+1, combination, results);
+  	[combination removeLastObject];
+  }
+}
+
+NSArray *phoneInputCombinations(NSString *input) {
+  NSMutableArray *results = [NSMutableArray array];
+  if (input == nil || input.length == 0) return results;
+  helper(input, 0, [NSMutableArray array], results);
+  return results;
+}
+
+void test() {
+  NSLog(@"%@", phoneInputCombinations(nil));
+  NSLog(@"%@", phoneInputCombinations(@""));
+  NSLog(@"%@", phoneInputCombinations(@"2"));
+  NSLog(@"%@", phoneInputCombinations(@"22"));
+  NSLog(@"%@", phoneInputCombinations(@"222"));
+  NSLog(@"%@", phoneInputCombinations(@"2233"));
+  NSLog(@"%@", phoneInputCombinations(@"333333333"));
+  NSLog(@"%@", phoneInputCombinations(@"0322421"));
+}
+
+==============================================================================
+
+Question 6: Pair Swap Linked List
+
+Return the head node of the singly linked list with each pair of nodes swapped. If there is a last odd node leave it in place.
+
+Example:
+Input: 1 -> 2 -> 3 -> 4 -> 5
+Output: 2 -> 1 -> 4 -> 3 -> 5
+
+// recursive and iterative solutions
+
+@interface LinkedListNode : NSObject
+  
+@property (nonatomic, strong) LinkedListNode *next;
+@property (nonatomic, assign) NSInteger value;
+
+- (LinkedListNode *)linkNext:(LinkedListNode *)next;
+
+@end
+  
+@implementation LinkedListNode
+  
+- (LinkedListNode *)linkNext:(LinkedListNode *)next {
+  self.next = next;
+  return self.next;
+}
+  
+@end
+  
+LinkedListNode *pairReverseLinkedList(LinkedListNode *head) {
+  if (head == nil || head.next == nil) return head;
+  LinkedListNode *next = pairReverseLinkedList(head.next.next);
+  LinkedListNode *newHead = head.next;
+  newHead.next = head;
+  head.next = next;
+  return newHead;
+}
+
+LinkedListNode *node(NSInteger value) {
+  LinkedListNode *ret = [LinkedListNode new];
+  ret.value = value;
+  return ret;
+}
+
+void printLinkedList(LinkedListNode *head) {
+  NSMutableArray *nodes = [NSMutableArray array];
+  while (head) {
+    [nodes addObject:@(head.value)];
+    head = head.next;
+  }
+  NSLog(@"%@", [nodes componentsJoinedByString:@"->"]);
+}
+
+void test() {
+  LinkedListNode *head = node(1);
+  [[[[head linkNext:node(2)] linkNext:node(3)] linkNext:node(4)] linkNext:node(5)];
+  
+  printLinkedList(head);
+  
+  head = pairReverseLinkedList(head);
+  
+  printLinkedList(head);
+}
+
+==============================================================================
+
+Question 7: Move Zeros
+
+Take in an Int array and move all the zeroes to the end in place. It doesn’t matter how the non-zero numbers are ordered. Preferably as efficient and as space efficient as possible.
+
+Example:
+Input : [ 3, 0, 2, 0, 0, 4, 1, 0 ]
+Accepted Output: [ 4, 2, 3, 1, 0, 0, 0, 0 ]
+
+void moveZeros(NSMutableArray *nums) {
+  if (nums == nil || nums.count == 0) return;
+  NSInteger left = 0;
+  for (NSInteger right = 0; right < nums.count; right++) {
+    if ([nums[right] integerValue] != 0) {
+      [nums exchangeObjectAtIndex:left withObjectAtIndex:right];
+      left++;
+    }
+  }
+}
+
+void test() {
+  NSMutableArray *nums = [@[@(0), @(1), @(0), @(0), @(2), @(3), @(0)] mutableCopy];
+  moveZeros(nums);
+  NSLog(@"%@", nums);
+}
+
+==============================================================================
+
+Question 8: Duplicate Word Eliminate
+
+given an array of words, how to eliminate the duplicates?
+
+==============================================================================
+
+Question 9: Letters Combination
+
+A telephone keypad has letters associated with each number (e.g. 2 = abc, 3 = def); given a passphrase of "fb1" (e.g. one that you might use to log into a bank account), come up with an algorithm that would assemble an array that contains all the different possible letter combinations that, when typed into a telephone dial pad, would be equivalent to the original passphrase.
+
+==============================================================================
+
+Question 10: Verity Binary Search
+
+Verify that a binary search tree is indeed a binary search tree. 
+
+==============================================================================
+
+Question 11: Common Super View Detect
+
+How to detect a common superview.
+
+// Similar to "Common Parent Commit of Two Commits"
+
+==============================================================================
+
+Question 12: Binary Tree To Linked List (In-order)
+
+Binary tree to list, inorder
+
+// Similar to "Convert a given Binary Tree to Doubly Linked List"
+
+==============================================================================
+
+Question 13: Linked List To Binary Tree (In-order)
+
+The same list, back to inorder binary tree
+
+==============================================================================
+
+Question 14: String to Integer
+
+Convert a string into an integer without using the inbuilt frameworks.
+
+==============================================================================
+
+Question 15:
+
+Given a binary encoded string, find the range of all consecutive 1's and use them to draw an arc.
+
+==============================================================================
+
+Question 16:
+
+Draw up and implement a linked list interface that prints out a description recursively.  
+
+
