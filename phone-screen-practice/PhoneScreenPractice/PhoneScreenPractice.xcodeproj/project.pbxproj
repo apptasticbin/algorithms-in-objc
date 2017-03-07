@@ -66,6 +66,7 @@
 		792B256A1E6B67660084EFBD /* GenerateParentheses.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25691E6B67660084EFBD /* GenerateParentheses.m */; };
 		792B256E1E6B6C720084EFBD /* CommonStringLongerThanK.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B256D1E6B6C720084EFBD /* CommonStringLongerThanK.m */; };
 		792B25721E6B75AD0084EFBD /* Subsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 792B25711E6B75AD0084EFBD /* Subsets.m */; };
+		793B4D7C1E6E8EAA00F14C76 /* InorderMinHeap.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B4D7B1E6E8EAA00F14C76 /* InorderMinHeap.m */; };
 		793CFF051E5DEF2500AB1B78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF041E5DEF2500AB1B78 /* main.m */; };
 		793CFF0F1E5E00E300AB1B78 /* GitVersionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF0E1E5E00E300AB1B78 /* GitVersionControl.m */; };
 		793CFF131E5E13EB00AB1B78 /* MaximumNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF121E5E13EB00AB1B78 /* MaximumNumber.m */; };
@@ -214,6 +215,8 @@
 		792B256D1E6B6C720084EFBD /* CommonStringLongerThanK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonStringLongerThanK.m; sourceTree = "<group>"; };
 		792B25701E6B75AD0084EFBD /* Subsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subsets.h; sourceTree = "<group>"; };
 		792B25711E6B75AD0084EFBD /* Subsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subsets.m; sourceTree = "<group>"; };
+		793B4D7A1E6E8EAA00F14C76 /* InorderMinHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InorderMinHeap.h; sourceTree = "<group>"; };
+		793B4D7B1E6E8EAA00F14C76 /* InorderMinHeap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InorderMinHeap.m; sourceTree = "<group>"; };
 		793CFF011E5DEF2500AB1B78 /* PhoneScreenPractice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PhoneScreenPractice; sourceTree = BUILT_PRODUCTS_DIR; };
 		793CFF041E5DEF2500AB1B78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		793CFF0D1E5E00E300AB1B78 /* GitVersionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitVersionControl.h; sourceTree = "<group>"; };
@@ -790,6 +793,15 @@
 			name = Subsets;
 			sourceTree = "<group>";
 		};
+		793B4D791E6E8E8A00F14C76 /* InorderMinHeap */ = {
+			isa = PBXGroup;
+			children = (
+				793B4D7A1E6E8EAA00F14C76 /* InorderMinHeap.h */,
+				793B4D7B1E6E8EAA00F14C76 /* InorderMinHeap.m */,
+			);
+			name = InorderMinHeap;
+			sourceTree = "<group>";
+		};
 		793CFEF81E5DEF2400AB1B78 = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +850,7 @@
 				792B24AB1E6435460084EFBD /* FourSum */,
 				792B25671E6B66FA0084EFBD /* GenerateParentheses */,
 				793CFF0C1E5DFFF200AB1B78 /* GitVersionControl */,
+				793B4D791E6E8E8A00F14C76 /* InorderMinHeap */,
 				792B254F1E6AD6AC0084EFBD /* IntersectionOfTwoArrays */,
 				799F30CA1E5F7B9B0010365B /* KCloestPoints */,
 				792B25631E6B60EA0084EFBD /* LetterCombinationsOfPhoneNumber */,
@@ -1080,6 +1093,7 @@
 				792B24FB1E6705250084EFBD /* FirstBadVersion.m in Sources */,
 				792B25521E6AD6D80084EFBD /* IntersectionOfTwoArrays.m in Sources */,
 				792B24F31E66D8090084EFBD /* ContainsDuplicate.m in Sources */,
+				793B4D7C1E6E8EAA00F14C76 /* InorderMinHeap.m in Sources */,
 				792B25321E6984BD0084EFBD /* MergeKLists.m in Sources */,
 				792B25031E6758BF0084EFBD /* LongestArithmeticSequence.m in Sources */,
 				799F30D51E5FA2620010365B /* LowestCommonAncestor.m in Sources */,
