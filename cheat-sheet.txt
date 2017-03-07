@@ -293,5 +293,13 @@ FOUNDATION_EXPORT NSPoint CGPointFromString(NSString *aString);
 FOUNDATION_EXPORT NSSize CGSizeFromString(NSString *aString);
 FOUNDATION_EXPORT NSRect CGRectFromString(NSString *aString);
 		
+NSCharacterSet
 
+@property(readonly, class, copy) NSCharacterSet *alphanumericCharacterSet;
+@property(readonly, class, copy) NSCharacterSet *lowercaseLetterCharacterSet;
+@property(readonly, class, copy) NSCharacterSet *uppercaseLetterCharacterSet;
+@property(readonly, class, copy) NSCharacterSet *whitespaceCharacterSet;
+@property(readonly, class, copy) NSCharacterSet *whitespaceAndNewlineCharacterSet;
++ (NSCharacterSet *)characterSetWithCharactersInString:(NSString *)aString;
+- (BOOL)characterIsMember:(unichar)aCharacter;
 
