@@ -74,6 +74,7 @@
 		793CFF1B1E5E2CB100AB1B78 /* AllPathsOfTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF1A1E5E2CB100AB1B78 /* AllPathsOfTree.m */; };
 		793CFF1F1E5E2CF200AB1B78 /* Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF1E1E5E2CF200AB1B78 /* Tree.m */; };
 		793CFF231E5E36E400AB1B78 /* RunLengthEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CFF221E5E36E400AB1B78 /* RunLengthEncoding.m */; };
+		7971DE961E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 7971DE951E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.m */; };
 		799F30C91E5F63710010365B /* VerifyPreorderBST.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F30C81E5F63710010365B /* VerifyPreorderBST.m */; };
 		799F30CD1E5F7BB40010365B /* KCloestPoints.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F30CC1E5F7BB40010365B /* KCloestPoints.m */; };
 		799F30D11E5F8C010010365B /* BinaryTreeToDLL.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F30D01E5F8C010010365B /* BinaryTreeToDLL.m */; };
@@ -231,6 +232,8 @@
 		793CFF1E1E5E2CF200AB1B78 /* Tree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tree.m; sourceTree = "<group>"; };
 		793CFF211E5E36E400AB1B78 /* RunLengthEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunLengthEncoding.h; sourceTree = "<group>"; };
 		793CFF221E5E36E400AB1B78 /* RunLengthEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunLengthEncoding.m; sourceTree = "<group>"; };
+		7971DE941E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindDistanceBetweenTwoNodesInTree.h; sourceTree = "<group>"; };
+		7971DE951E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindDistanceBetweenTwoNodesInTree.m; sourceTree = "<group>"; };
 		799F30C71E5F63710010365B /* VerifyPreorderBST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyPreorderBST.h; sourceTree = "<group>"; };
 		799F30C81E5F63710010365B /* VerifyPreorderBST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyPreorderBST.m; sourceTree = "<group>"; };
 		799F30CB1E5F7BB40010365B /* KCloestPoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCloestPoints.h; sourceTree = "<group>"; };
@@ -844,6 +847,7 @@
 				791C30E81E63594500E90ED7 /* DivideTwoIntegers */,
 				792B25431E6A55580084EFBD /* ExpressionAddOperators */,
 				792B24F41E66FFAF0084EFBD /* FindAllAnagrams */,
+				7971DE931E801B1B00EFA59F /* FindDistanceBetweenTwoNodesInTree */,
 				79BD49A21E62536E00405D6A /* FindMinimumInRotatedSortedArray */,
 				792B24F81E6705040084EFBD /* FirstBadVersion */,
 				792B24B31E64A6270084EFBD /* FlattenNestedListIterator */,
@@ -950,6 +954,15 @@
 				793CFF221E5E36E400AB1B78 /* RunLengthEncoding.m */,
 			);
 			name = RunLengthEncoding;
+			sourceTree = "<group>";
+		};
+		7971DE931E801B1B00EFA59F /* FindDistanceBetweenTwoNodesInTree */ = {
+			isa = PBXGroup;
+			children = (
+				7971DE941E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.h */,
+				7971DE951E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.m */,
+			);
+			name = FindDistanceBetweenTwoNodesInTree;
 			sourceTree = "<group>";
 		};
 		799F30C61E5F63570010365B /* VerifyPreorderBST */ = {
@@ -1140,6 +1153,7 @@
 				792B255A1E6AE8B50084EFBD /* TreeLinkNode.m in Sources */,
 				791C30E31E6311B100E90ED7 /* ListNode.m in Sources */,
 				792B25461E6A55720084EFBD /* ExpressionAddOperatiors.m in Sources */,
+				7971DE961E801B4300EFA59F /* FindDistanceBetweenTwoNodesInTree.m in Sources */,
 				792B25621E6B58650084EFBD /* LongestPalindromicSubstring.m in Sources */,
 				792B24E31E6619360084EFBD /* MinimumDepth.m in Sources */,
 				791C30F71E63839200E90ED7 /* Trie.m in Sources */,
