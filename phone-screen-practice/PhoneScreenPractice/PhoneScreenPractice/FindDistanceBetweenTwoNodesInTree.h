@@ -11,4 +11,6 @@
 
 @interface FindDistanceBetweenTwoNodesInTree : NSObject
 
+- (NSUInteger)findDistanceBetweenNode:(Tree *)node1 andNode:(Tree *)node2 inTree:(Tree *)root;
+
 @end
