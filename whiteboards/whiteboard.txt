@@ -4050,8 +4050,8 @@ Note: Although the above answer is in lexicographical order, your answer could b
     NSArray<NSString *> *letters = [self digitToLetters:digit];
     
     NSMutableArray<NSString *> *results = [NSMutableArray array];
-    for (NSString *combine in combines) {
-        for (NSString *letter in letters) {
+	for (NSString *letter in letters) {
+    	for (NSString *combine in combines) {
             [results addObject:[letter stringByAppendingString:combine]];
         }
     }
@@ -4490,3 +4490,202 @@ http://algorithms.tutorialhorizon.com/find-the-distance-between-two-nodes-of-a-b
     return distBetweenNode1AndRoot + distBetweenNode2AndRoot - 2 * distBetweenLCAAndRoot;
 }
 
+==============================================================================
+
+Question 92: Clone Binary Tree
+
+http://www.jiuzhang.com/solutions/clone-binary-tree/
+
+==============================================================================
+
+Question 93: All paths of binary tree
+
+==============================================================================
+
+Question 94: Check an array increment or decrement
+
+==============================================================================
+
+Question 95: serialize, deserialize 二叉树<->linkedlist
+
+==============================================================================
+
+Question 96: 找一个无向图中的所有联通分量，要求输出每个联通分量的点集。
+
+==============================================================================
+
+Question 97: 输出一颗二叉树的从root到叶子的所有路径(字符串)
+
+==============================================================================
+
+Question 98: 在pascal里面字符串是以[5, 'a', 'b', 'c', 'd', 'e']的形式存储，现在要你用C++将这样两个东西连接起来。。。比如[3,'a',b','c']和[2,'x', 'y']变成[5, 'a', b', 'c', 'x', 'y'].
+
+==============================================================================
+
+Question 99: 给一个无向图，再给其中的一些点，找出和这些点联通的所有点
+
+==============================================================================
+
+Question 100: 给一串start time - end time，格式是Apr 2010 - Mar 2011这种，要求计算出这些时间的总跨度，重叠的跨度不重复计算。举例:["Apr 2010 - Dec 2010", "Aug 2010 - Dec 2010", "Jan 2011 - Mar 2011"] 这一个string数组，结果为(12-4+3-1)=10个月。
+
+==============================================================================
+
+Question 101: minimum window containsing a string
+
+==============================================================================
+
+Question 102: n th Fibonacci number mod 10
+
+==============================================================================
+
+Question 103: flatten linked list: a listNode has a next pointer, and data;data could be either a normal data such as int val, or a pointer point to another linked list node
+
+==============================================================================
+
+Question 104: implement circular buffer with read & write functions
+
+==============================================================================
+
+Question 105: 一个array, [1,3,5,7,4,8,2], 一个 target k, 找出这个array里所有子集的个数，满足:子集里最小和最大的数相加小于等于k.. 
+
+先排序。binarysearch找k在数组里的位置，然后左右指针。 小难点在去重。比如k=7，算[1,2,3,4,5]时为了保证1存在，只算[2,3,4,5]排列的个数。算[2,3,4,5]时，只算[3,4,5]排列的个数。
+
+==============================================================================
+
+Question 106: 给一个string “123456789”， 进行 arithmetic oepration combination. 比如: 123 + 456 + 78 -9 是一种组合， -1 + 2 -3 +4 -5 - 67 + 89 也是一 种(只用加 + 或 -), 打印出所有结果等于 100 的组合, 没有想出有什么最优解，直接backtracking 暴力，用一个sum 记录前面的结果， 不过到后来 string 处理有问题
+
+==============================================================================
+
+Question 107: 写个数据结构支持，get， set， delete，last visited key。
+
+==============================================================================
+
+Question 108: input friends relation {{1，2}， {2，3}， {3，4}} 把用户存在两个group里， 每个group里大家都不 互相认识。所以exp应该g1{1，3} g2{2，4}。
+
+==============================================================================
+
+Question 109: input 是array {1，2，3，0，4}。到达最后一个格子最短步数，每个数字代表最多可以跳几下。
+
+==============================================================================
+
+Question 110: 给一个数，问是第几个Fibonacci, 不是Fibonacci 就是的话就是前一个index
+
+==============================================================================
+
+Question 111: 数binary有多少个1， n&(n-1) 解决
+
+==============================================================================
+
+Question 112: 求任意string里有多少个palindromic substring，这个string可以包含任意字符，单个的char也算合理的palindromic substring.
+
+==============================================================================
+
+Question 113: Matrix中有0和1， 求1组成的最大的plus (+)形状的长度.
+
+==============================================================================
+
+Question 114: void putInteger( Int x) {} 这个就是打印一个整数 ，必须用下面的程序。
+using putc( char ); 这个function就是打印char， 输入是什么char打印就是什么char
+
+http://www.geeksforgeeks.org/print-long-int-number-c-using-putchar/
+
+==============================================================================
+
+Question 115: Minimum Window Substring
+
+https://leetcode.com/problems/minimum-window-substring/#/description
+
+==============================================================================
+
+Question 116: 一个bit map，是immutable的，有很多query要返回某个区域内的sum，其实就是LC range sum 2D immutable的简单版，因为matrix只有0和 1.
+
+==============================================================================
+
+Question 117: list of sorted integer arrays，要求找所有的数的median. e.g. [1,3,6,7,9], [2,4, 8], [5], return 5
+
+==============================================================================
+
+Question 118: Unique Paths I/II
+
+==============================================================================
+
+Question 119: 一个完全树。node有parent指针。每个node的值为 0或 1, 每个parent的值为两个子node的 “and” 结果 现在把一个leaf翻牌子(0变1或者1变0). 
+
+==============================================================================
+
+Question 120: 给定一个数列，比如1234，将它match到字母上，1是A，2是B等等，那么1234可以是 ABCD
+但是还可以是12是L，所以1234也可以写作 LCD 或者 AWD
+
+==============================================================================
+
+Question 121: 给出N个序列，比如2个序列A,B,没个序列包含若干的区间，
+比如 A: [1,5], [10,14], [16,18]
+B: [2,6], [8,10], [11,20]
+Merge them all: [1,6], [8, 20].
+
+==============================================================================
+
+Question 122: 给三个funtions: is_low(), is_mid(), is_high(). 让给一个数组排序, low的放在最前面, mid的放在中间, high的放在最后面. Color sort: think about when there are K colors
+
+==============================================================================
+
+Question 123: Simplify Path
+
+https://leetcode.com/problems/simplify-path/#/description
+
+==============================================================================
+
+Question 124: House Robber
+
+https://leetcode.com/problems/house-robber/#/description
+
+==============================================================================
+
+Question 125: implement circular array: Circular buffer
+
+==============================================================================
+
+Question 126: binary tree，给定一个value，return bin tree里面下一个比value大的值
+
+==============================================================================
+
+Question 127: binary tree的node加一个ptr next，point到inorder traversal的下一个node，比上一个简单
+
+==============================================================================
+
+Question 128: Previous Permutation，7531->7513
+
+==============================================================================
+
+Question 129: 给一个一维的整数组，在每两个数之填上“+”，“-”，或者什么都不填(也就是和前面数字结合)，这样得到一个公式，求出结果可以是0的公式数量。
+
+==============================================================================
+
+Question 130: LC 380. Insert Delete GetRandom O(1)
+
+https://leetcode.com/problems/insert-delete-getrandom-o1/#/description
+
+==============================================================================
+
+Question 131: Shorest Path between 2 nodes in Graph
+
+==============================================================================
+
+Question 132: 给一个linkedlist，里面的element都排序好了，但是是一个blackbox，有三个function可以调用。pop()随机pop出最前面或最后面的element，
+peek()随机偷看最前面或最后面的element，isEmpty()回传linkedlist是不是空了。问设计一个资料结构，list或是array都可以，把linkedlist里面所有的element都拿 出来，并保持他们的排序。followup是如果不能用peek()该怎么做。
+
+==============================================================================
+
+Question 133: Clone Graph
+
+==============================================================================
+
+Question 134: Erase duplicate in an unsorted array
+
+==============================================================================
+
+Question 135: Permutations
+
+https://leetcode.com/problems/permutations/#/description
+
+==============================================================================

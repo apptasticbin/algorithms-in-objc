@@ -1,0 +1,486 @@
+Question 22: Add and Search Word - Data structure design
+
+Design a data structure that supports the following two operations:
+
+void addWord(word)
+bool search(word)
+
+search(word) can search a literal word or a regular expression string containing only letters a-z or '.'. A '.' means it can represent any one letter.
+
+For example:
+
+addWord("bad")
+addWord("dad")
+addWord("mad")
+search("pad") -> false
+search("bad") -> true
+search(".ad") -> true
+search("b..") -> true
+
+Note: You may assume that all words are consist of lowercase letters a-z.
+
+// Ask interviewer: how many words? how offen APIs get called?
+// Naive solution: use hash set to keep each word. If there are too many words, this solution is not scalable.
+// Better solution: When we meet "add string" or "search string", "Trie" is the data structure to use
+// We need to create TrieNode and Trie helper class
+// https://leetcode.com/problems/add-and-search-word-data-structure-design/?tab=Solutions
+
+#pragma mark - TrieNode
+
+@interface TrieNode : NSObject
+
+@property(nonatomic, assign) BOOL isWord;
+
++ (instancetype)node;
+- (BOOL)hasChild:(unichar)c;
+- (TrieNode *)getChild:(unichar)c;
+- (void)setChild:(unichar)c withNode:(TrieNode *)node;
+
+@end
+
+@interface TrieNode ()
+
+@property(nonatomic, strong) NSMutableDictionary<NSString *, TrieNode *> *children;
+
+@end
+
+@implementation TrieNode
+
++ (instancetype)node {
+    TrieNode *node = [self new];
+    return node;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _children = [NSMutableDictionary dictionary];
+        _isWord = NO;
+    }
+    return self;
+}
+
+- (BOOL)hasChild:(unichar)c {
+    NSString *key = [self stringWithUnichar:c];
+    return [self.children objectForKey:key] != nil;
+}
+
+- (TrieNode *)getChild:(unichar)c {
+    NSString *key = [self stringWithUnichar:c];
+    return [self.children objectForKey:key];
+}
+
+- (void)setChild:(unichar)c withNode:(TrieNode *)node {
+    NSString *key = [self stringWithUnichar:c];
+    [self.children setObject:node forKey:key];
+}
+
+- (NSString *)stringWithUnichar:(unichar)c {
+    return [NSString stringWithFormat:@"%C", c];
+}
+
+@end
+
+#pragma mark - Trie
+
+@interface Trie : NSObject
+
+@property (nonatomic, strong) TrieNode *root;
+
++ (instancetype)trie;
+- (void)addWord:(NSString *)word;
+- (BOOL)search:(NSString *)word;
+
+@end
+
+@implementation Trie
+
++ (instancetype)trie {
+    Trie *theTrie = [self new];
+    theTrie.root = [TrieNode node];
+    return theTrie;
+}
+
+- (void)addWord:(NSString *)word {
+    if (!word) return;
+    // insert word characters one by one, change current node following the path
+    TrieNode *curNode = self.root;
+    for (NSUInteger i=0; i<word.length; i++) {
+        unichar c = [word characterAtIndex:i];
+        // if there isn't word with this character, create new node.
+        // otherwise, just get the existing node.
+        if (![curNode hasChild:c]) {
+            TrieNode *newNode = [TrieNode node];
+            [curNode setChild:c withNode:newNode];
+        }
+        curNode = [curNode getChild:c];
+    }
+    // mark this node as the end of a complete word.
+    curNode.isWord = YES;
+}
+
+- (BOOL)search:(NSString *)word {
+    if (!word) return NO;
+    return [self search:word root:self.root];
+}
+
+- (BOOL)search:(NSString *)word root:(TrieNode *)root {
+    /*if (word.length == 0 && root.isWord) return YES;
+    unichar c = [word characterAtIndex:0];
+    if (c != '.' && [root hasChild:c]) {
+        [self search:[word substringFromIndex:i+1] root:[root getChild:c]];
+    } else if (c == '.') {
+        for (NSUInteger i=0; i<26; i++) {
+            c = 'a'+i;
+            BOOL found = [self search:[word substringFromIndex:i+1] root:[root getChild:c]];
+            if (found) return YES;
+        }
+    }
+    return NO;*/
+	
+	TrieNode *cur = root;
+	for (NSInteger i = 0; i < word.length; i++) {
+		if (cur != nil && [word characterAtIndex:i] != '.') {
+			cur = [cur getChild:[word characterAtIndex:i]];
+		} else if (cur != nil && [word characterAtIndex:i] == '.') {
+	        for (NSUInteger i=0; i<26; i++) {
+	            unichar c = 'a'+i;
+	            BOOL found = [self search:[word substringFromIndex:i+1] root:[root getChild:c]];
+	            if (found) return YES;
+	        }
+		}
+	}
+	return run != nil && [run isWord];
+}
+
+@end
+
+#pragma mark - WordDictionary
+
+@interface WordDictionary : NSObject
+
+@property (nonatomic, strong) Trie *trie;
+
+@end
+
+@implementation WordDictionary
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _trie = [Trie trie];
+    }
+    return self;
+}
+
+- (void)addWord:(NSString *)word {
+    [self.trie addWord:word];
+}
+
+- (BOOL)search:(NSString *)word {
+    return [self.trie search:word];
+}
+
+@end
+
+==============================================================================
+
+Question 26: Flatten Nested List Iterator
+
+Given a nested list of integers, implement an iterator to flatten it.
+Each element is either an integer, or a list -- whose elements may also be integers or other lists.
+
+Example 1:
+Given the list [[1,1],2,[1,1]],
+
+By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
+
+Example 2:
+Given the list [1,[4,[6]]],
+
+By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
+
+// Ask interviewer: if no next, what to return?
+// For this question, we can use Queue or Stack to solve. My solution is Queue solution.
+// For Stack solution: http://www.jiuzhang.com/solutions/flatten-nested-list-iterator/
+
+@interface NestedInteger : NSObject
+
+- (BOOL)isInteger;
+- (NSNumber *)getInteger;
+- (NSArray<NestedInteger *> *)getList;
+
+@end
+
+@interface NestedInteractor : NSObject
+
+- (NSNumber *)next;
+- (BOOL)hasNext;
+
+@end
+
+@interface NestedInteractor ()
+
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *queue;
+@property (nonatomic, strong) NSArray<NestedInteger *> *nums;
+@property (nonatomic, assign) NSUInteger idx;
+
+@end
+
+@implementation NestedInteractor
+
+- (instancetype)initWithNums:(NSArray<NestedInteger *> *)nums {
+    self = [super init];
+    if (self) {
+        _queue = [NSMutableArray array];
+        _nums = nums;
+        _idx = 0;
+    }
+    return self;
+}
+
+- (NSNumber *)next {
+    if ([self hasNext]) {
+        if (self.queue.count) {
+            NSNumber *front = self.queue.firstObject;
+            [self.queue removeObjectAtIndex:0];
+            return front;
+        } else {
+            [self push:self.nums[self.idx++]];
+            return [self next];
+        }
+    }
+    return nil;
+}
+
+
+- (BOOL)hasNext {
+    return self.idx < self.nums.count || self.queue.count > 0;
+}
+
+#pragma mark - Private
+
+- (void)push:(NestedInteger *)nestedInteger {
+    if ([nestedInteger isInteger]) {
+        [self.queue addObject:[nestedInteger getInteger]];
+    } else {
+        NSArray<NestedInteger *> *list = [nestedInteger getList];
+        for (NSUInteger i=0; i<list.count; i++) {
+            [self push:list[i]];
+        }
+    }
+}
+
+@end
+
+==============================================================================
+
+Question 55: Binary Search Tree Iterator
+
+Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+
+Calling next() will return the next smallest number in the BST.
+
+Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+
+// this question actually is similar to Question 53
+// because in order to output BST from minimum value to maximum value, we need "in-order" traversal
+// Ask interviewer: tree available? how to handle tree == nil?
+// http://www.jiuzhang.com/solutions/binary-search-tree-iterator/
+// https://leetcode.com/problems/binary-search-tree-iterator/?tab=Solutions
+
+@interface BSTIterator : NSObject
+
+- (instancetype)init:(Tree *)root;
+- (BOOL)hasNext;
+- (NSInteger)next;
+
+@end
+
+@interface BSTIterator ()
+
+@property (nonatomic, strong) NSMutableArray<Tree *> *stack;
+@property (nonatomic, strong) Tree *root;
+@property (nonatomic, strong) Tree *current;
+
+@end
+
+@implementation BSTIterator
+
+- (instancetype)init:(Tree *)root {
+    self = [super init];
+    if (self) {
+        _stack = [NSMutableArray array];
+        _root = root;
+        _current = root;
+    }
+    return self;
+}
+
+- (BOOL)hasNext {
+    return self.current != nil || self.stack.count != 0;
+}
+
+- (NSInteger)next {
+    NSAssert([self hasNext], @"No More");
+    
+    // if the stack is empty, push all left nodes
+    while (self.current != nil) {
+        [self.stack addObject:self.current];
+        self.current = self.current.left;
+    }
+    Tree *top = self.stack.lastObject;
+    [self.stack removeLastObject];
+    self.current = self.current.right;
+    return top.value;
+}
+
+@end
+
+==============================================================================
+
+Question 57: Data Stream as Disjoint Intervals [HARD]
+
+Given a data stream input of non-negative integers a1, a2, ..., an, ..., summarize the numbers seen so far as a list of disjoint intervals.
+
+For example, suppose the integers from the data stream are 1, 3, 7, 2, 6, ..., then the summary will be:
+
+[1, 1]
+[1, 1], [3, 3]
+[1, 1], [3, 3], [7, 7]
+[1, 3], [7, 7]
+[1, 3], [6, 7]
+
+Follow up: What if there are lots of merges and the number of disjoint intervals are small compared to the data stream's size?
+
+// Ask interviewer: input are all positive? and time and memory limitation?
+// Using same idea as "Merge Intervals"
+// When we insert a new integer from data stream, there are three conditions:
+// - integer is less than the start value of a range
+// - integer is inside the range
+// - integer is larger than the end value of a range
+// We can use "Binary Search" to speed up merging
+// For follow up: https://discuss.leetcode.com/topic/46904/very-concise-c-solution
+// good explanation about using pro & con of using "Binary Search Tree"
+
+@interface Interval : NSObject
+
+@property (nonatomic, assign) NSInteger start;
+@property (nonatomic, assign) NSInteger end;
+
++ (instancetype)intervalWithStart:(NSInteger)start end:(NSInteger)end;
+
+@end
+
+@interface SummaryRanges : NSObject
+
+- (void)addNum:(NSInteger)val;
+- (NSArray<Interval *> *)getIntervals;
+
+@end
+
+@interface SummaryRanges ()
+
+@property (nonatomic, strong) NSMutableArray<Interval *> *intervals;
+
+@end
+
+@implementation SummaryRanges
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _intervals = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)addNum:(NSInteger)val {
+    NSComparator cmp = ^NSComparisonResult(Interval *interval1, Interval *interval2) {
+        return interval1.start < interval2.start;
+    };
+    
+    NSUInteger idx = [self.intervals indexOfObject:[Interval intervalWithStart:val end:val]
+                                     inSortedRange:NSMakeRange(0, self.intervals.count)
+                                           options:NSBinarySearchingInsertionIndex
+                                   usingComparator:cmp];
+    // for example, if val => 4, and intervals => {1, 3}, {5, 6}, we need to check if
+    // the inserting value belongs to previous interval or not.
+    // if YES; then merge this value to previous interval
+    // if NO; just insert it.
+    if (idx > 0 && self.intervals[idx-1].end+1 >= val) idx--;
+    // merge connected intervals
+    NSInteger start = val, end = val;
+    while (idx < self.intervals.count &&
+           val+1 >= self.intervals[idx].start &&
+           val-1 <= self.intervals[idx].end) {
+        start = MIN(start, self.intervals[idx].start);
+        end = MAX(end, self.intervals[idx].end);
+        [self.intervals removeObjectAtIndex:idx];
+    }
+    [self.intervals insertObject:[Interval intervalWithStart:start end:end] atIndex:idx];
+}
+
+- (NSArray<Interval *> *)getIntervals {
+    return self.intervals;
+}
+
+@end
+
+==============================================================================
+
+Question 74: Min / Max Stack / Queue
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+push(x) -- Push element x onto stack.
+pop() -- Removes the element on top of the stack.
+top() -- Get the top element.
+getMin() -- Retrieve the minimum element in the stack.
+
+Example:
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin();   --> Returns -3.
+minStack.pop();
+minStack.top();      --> Returns 0.
+minStack.getMin();   --> Returns -2.
+
+// Key idea: create one queue/stack to keep original numbers
+// also create another one queue/stack to keep the minimum number "after" push the new number
+// _minCache.push_back(min(x, _minCache.back()));
+// TODO: finish the implementation in Objective-C
+
+==============================================================================
+
+Question 107: 写个数据结构支持，get， set， delete，last visited key。
+
+==============================================================================
+
+Question 114: void putInteger( Int x) {} 这个就是打印一个整数 ，必须用下面的程序。
+using putc( char ); 这个function就是打印char， 输入是什么char打印就是什么char
+
+http://www.geeksforgeeks.org/print-long-int-number-c-using-putchar/
+
+==============================================================================
+
+Question 116: 一个bit map，是immutable的，有很多query要返回某个区域内的sum，其实就是LC range sum 2D immutable的简单版，因为matrix只有0和 1.
+
+==============================================================================
+
+Question 117: LC43 Multiply Strings
+
+==============================================================================
+
+Question 130: LC 380. Insert Delete GetRandom O(1)
+
+https://leetcode.com/problems/insert-delete-getrandom-o1/#/description
+
+==============================================================================
+
+Question 132: 给一个linkedlist，里面的element都排序好了，但是是一个blackbox，有三个function可以调用。pop()随机pop出最前面或最后面的element，
+peek()随机偷看最前面或最后面的element，isEmpty()回传linkedlist是不是空了。问设计一个资料结构，list或是array都可以，把linkedlist里面所有的element都拿 出来，并保持他们的排序。followup是如果不能用peek()该怎么做。
+
+==============================================================================

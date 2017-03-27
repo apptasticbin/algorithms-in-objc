@@ -1,0 +1,1171 @@
+Question 60: Validate Binary Search Tree
+
+Given a binary tree, determine if it is a valid binary search tree (BST).
+
+Assume a BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+
+Example 1:
+
+    2
+   / \
+  1   3
+  
+Binary tree [2,1,3], return true.
+
+Example 2:
+
+    1
+   / \
+  2   3
+  
+Binary tree [1,2,3], return false.
+
+// In order to validate BST, we usually use "In-Order DFS traversal"
+// Not only the left < root < right, but also left < root < right < "parent"
+// so we need to special way to do in-order traversal
+// we can do it in a way of keeping tracking the "previous" node
+// MAX and MIN value solution: https://discuss.leetcode.com/topic/7179/my-simple-java-solution-in-3-lines
+// http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+
+- (BOOL)isValidBST:(Tree *)root {
+    Tree *pre = nil;
+    return [self helper:root previous:&pre];
+}
+
+- (BOOL)helper:(Tree *)root previous:(Tree * __autoreleasing *)pre {
+    if (root == nil) {
+        return YES;
+    }
+    // check left tree
+    if ([self helper:root.left previous:pre]) return NO;
+    
+    // check root should be larger than pre node
+    // set root as pre node
+    if (*pre != nil && root.value <= (*pre).value) return NO;
+    *pre = root;
+    
+    // check right tree
+    return [self helper:root.right previous:pre];
+}
+
+==============================================================================
+
+Question 1: Common Parent Commit of Two Commits
+
+we have a git vertion control
+   
+        base
+       commit1
+       commit2
+   commit3 commit3'
+   commit4 commit4'
+   
+commit2 is parent of commit3, etc. Now give you two commits, 
+find out the lowest common ancestor of these two commits.
+
+for example, commit2 is the LCA of commit4 and commit3'
+
+@interface Commit : NSObject<NSCopying>
+
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, strong) Commit *parent;
+
+@end
+
+@implementation Commit
+
+// ask interviewer if the class conform to NSCopying as a key of NSDictionary
+- (id)copyWithZone:(NSZone *)zone {
+	id copy = [[Commit allocWithZone:zone] init];
+	return copy;
+}
+
+@end
+
+// Ask interviewer: are these ids unique?
+// Improvement: http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-ii/
+// find the height of each node, then first iterate the deeper one until they are at same level
+// The best solution:
+/*A little creativity is needed here. Since we have the parent pointer, we could easily get the distance (height) of both nodes from the root. Once we knew both heights, we could subtract from one another and get the height’s difference (dh). If you observe carefully from the previous solution, the node which is closer to the root is always dh steps ahead of the deeper node. We could eliminate the need of marking visited nodes altogether. Why?
+
+The reason is simple, if we advance the deeper node dh steps above, both nodes would be at the same depth. Then, we advance both nodes one level at a time. They would then eventually intersect at one node, which is the LCA of both nodes. If not, one of the node would eventually reach NULL (root’s parent), which we conclude that both nodes are not in the same tree. However, that part of code shouldn’t be reached, since the problem statement assumed that both nodes are in the same tree. */
+
+- (Commit *)findAncestorOfCommit:(Commit *) c1 andCommit:(Commit *)c2 {
+	/* - after analyzing, I think this is a graph traversal + hash table question.
+	   - we move two commits up together, and mark every commit on this path as visited
+	   - if the commit meets the base commit, then we stop there
+	   - if we find a commit that has already been visited before we meet the base commit,
+	   	 then that commit is the LCA commit
+	*/
+	NSMutableDictionary<Commit *, NSNumber *> *visited = [NSMutableDictionary dictionary];
+	while (c1 || c2) {
+		if (c1 && visited[c1] != nil) return c1;
+		if (c2 && visited[c2] != nil) return c2;
+		if (c1) visited[c1] = @(YES);
+		if (c2) visited[c2] = @(YES);
+		c1 = c1.parent;
+		c2 = c2.parent;
+	}
+	return nil;
+}
+
+==============================================================================
+
+Question 3:
+
+Give you a binary tree, each node keeps a integer value, calculate the average value of each layer.
+
+@interface Tree : NSObject
+
+@property (nonatomic, strong) Tree *left;
+@property (nonatomic, strong) Tree *right;
+@property (nonatomic, assign) NSInteger value;
+
+@end
+
+// Ask interviewer: sort output? binary search tree? fraction number?
+// Trap in this question: average value maybe DOUBLE
+- (NSArray *)averageValuesOfLayers:(Tree *)root {
+    if (root == nil) return nil;
+    // using NSMutableArray to simulate queue operations
+    NSMutableArray<NSNumber *> *averageValues = [NSMutableArray array];
+    NSMutableArray<Tree *> *queue = [NSMutableArray array];
+    [queue addObject:root];
+    
+    while (queue.count) {
+        // store the size of each layer
+        NSUInteger size = queue.count;
+        NSMutableArray *layer = [NSMutableArray array];
+        for (NSUInteger i=0; i<size; i++) {
+            Tree *node = queue[i];
+            [layer addObject:@(node.value)];
+        }
+        // http://nshipster.com/kvc-collection-operators/
+        NSNumber *layerAverageValue = [layer valueForKeyPath:@"@avg.doubleValue"];
+        [averageValues addObject:layerAverageValue];
+    }
+    
+    return averageValues;
+}
+
+==============================================================================
+
+Question 4:
+
+Output ALL paths of a binary tree
+
+// Ask interviewer: binary search tree? balanced? from root to leaf or from leaf to root? output format?
+- (NSArray<NSArray *> *)allPathsOfTree:(Tree *)root {
+	if (root == nil) return [NSArray array];
+	NSArray *leftPaths = [self allPathsOfTree:root.left];
+	NSArray *rightPaths = [self allPathsOfTree:root.right];
+	NSArray *subPaths = [leftPaths arrayByAddingObjectsFromArray:rightPaths];
+	NSMutableArray *paths = [NSMutableArray array];
+	for (NSArray *subPath in subPaths) {
+		NSArray *path = [subPath arrayByAddingObject:@(root.value)];
+		[paths addObject:path];
+	}
+	// NOTICE: this path is from "leaf" to "root"
+	return paths;
+}
+
+==============================================================================
+
+Question 6: Preorder verification question -> stack or in place
+
+Given two pre-order traversal arrays of two "binary search tree" respectively, find first pair of non-matching leaves. Follow Up: If they are general binary trees instead of BSTs, could you solve it? give out your reason.
+
+	 5
+  3     7
+1   4 6
+
+5, 3, 1, 4, 7, 6 -> 5,[3, 1, 4],[7, 6] -> 5,[3, [1, 4]] [7 [6]] -> 5,[3, [[1], [4]]],[7, [6]]
+
+// Similar to question 7
+// Find the first "leaf" of first tree, and first "leaf" of second tree, then compare them
+
+==============================================================================
+
+Question 7:
+
+Given an array of numbers, verify whether it is the correct preorder traversal sequence of a binary search tree.
+You may assume each number in the sequence is unique.
+
+Follow up:
+Could you do it using only constant space complexity?
+
+// Idea: http://buttercola.blogspot.fi/2015/09/leetcode-verify-preorder-sequence-in.html
+// Ask interviewer: what's the separator? size of array? balanced? Length 0, YES or NO?
+// O(N^2), O(N)
+- (BOOL)verifyPreorderBST:(NSArray *)bst {
+    if (!bst || !bst.count) return NO;
+    return [self verifyPreorderBST:bst start:0 end:bst.count-1];
+}
+
+- (BOOL)verifyPreorderBST:(NSArray *)bst start:(NSInteger)start end:(NSInteger)end {
+    if (start >= end) return YES;
+    NSNumber *root = bst[start];
+    NSInteger i = start + 1;
+    while (i < end && [root compare:bst[i]] == NSOrderedDescending) i++;
+    NSInteger j = i;
+    while (j < end && [root compare:bst[j]] == NSOrderedAscending) {
+        j++;
+    }
+    if (j <= end ) return NO;
+    return [self verifyPreorderBST:bst start:start+1 end:i-1] &&
+    [self verifyPreorderBST:bst start:i end:end];
+}
+
+// 5, 3, 1, 4, 8, 6
+- (BOOL)verifyPreorderBSTWithStack:(NSArray<NSNumber *> *)preorder {
+    if (!preorder || !preorder.count) return NO; // ask interviewer
+    
+    NSMutableArray<NSNumber *> *stack = [NSMutableArray array];
+    NSInteger max = NSIntegerMin;
+    for (NSInteger i=0; i<preorder.count; i++) {
+        NSInteger num = preorder[i].integerValue;
+        if (num < max) return NO;
+        
+        while (stack.count > 0 && num > stack.lastObject.integerValue) {
+            max = stack.lastObject.integerValue;
+            [stack removeLastObject];
+        }
+        
+        [stack addObject:@(num)];
+    }
+    return YES;
+}
+
+==============================================================================
+
+Question 9: Convert a given Binary Tree to Doubly Linked List
+
+// About __autoreleasing:
+// http://stackoverflow.com/questions/8814718/handling-pointer-to-pointer-ownership-issues-in-arc
+
+// http://www.geeksforgeeks.org/convert-a-given-binary-tree-to-doubly-linked-list-set-4/
+
+/* Given a Binary Tree (Bt), convert it to a Doubly Linked List(DLL). The left and right pointers in nodes are to be used as previous and next pointers respectively in converted DLL. The order of nodes in DLL must be same as "In-Order" of the given Binary Tree. The first node of Inorder traversal (left most node in BT) must be head node of the DLL. */
+
+- (Tree *)doubleLinkedListFromBinaryTree:(Tree *)root {
+	if (root == nil) return nil;
+	if (root.left) {
+		Tree *left = [self doubleLinkedListFromBinaryTree:root.left];
+		Tree *leftTail = [self findTailOfList:left];
+		leftTail.right = root;
+		root.left = leftTail;
+	}
+	if (root.right) {
+		Tree *right = [self doubleLinkedListFromBinaryTree:root.right];
+		Tree *rightHead = [self findHeadOfList:right];
+		root.right = rightHead;
+		rightHead.left = root;
+	}
+	return root;
+}
+
+- (Tree *)findHeadOfList:(Tree *)node {
+	if (!node) return nil;
+	while(node->left) node = node->left;
+	return node;
+}
+
+- (Tree *)findTailOfList:(Tree *)node {
+	if (!node) return nil;
+	while(node->right) node = node->right;
+	return node;
+}
+
+- (Tree *)simpleDoubleLinkedListFromBinaryTree:(Tree *)root {
+	Tree *head = nil;
+	[self rightToLeftBuilder:root head:&head];
+	return head;
+}
+
+- (void)rightToLeftBuilder:(Tree *)root head:(Tree * __autoreleasing *)head {
+	// base case
+	if (root == nil) return;
+	[self rightToLeftBuilder:root.right head:head];
+	
+	root.right = *head;
+	if (*head != nil) (*head).left = root;
+	*head = root;
+	
+	[self rightToLeftBuilder:root.left head:head];
+}
+
+==============================================================================
+
+Question 10: Lowest Common Ancestor of a Binary Tree
+http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-i/
+
+Given a binary tree, find the lowest common ancestor of two given nodes in the tree.
+
+// Ask interviewer: general binary tree or BST? size? LCA of NULL and non-NULL? value unique?
+// O(N^2) for worst case
+- (Tree *)LCAOfBinaryTree:(Tree *)root node1:(Tree *)node1 node2:(Tree *)node2 {
+	if (!root || !node1 || !node2) return nil;
+	if (root == node1 || root == node2) return root;
+	BOOL node1InLeft = [self findNode:node1 inTree:root.left];
+	BOOL node2InLeft = [self findNode:node2 inTree:root.left];
+	if (node1InLeft != node2InLeft) return root;
+	if (node1InLeft) return [self LCAOfBinaryTree:root.left node1:node1 node2:node2];
+	return [self LCAOfBinaryTree:root.right node1:node1 node2:node2];
+}
+
+- (BOOL)findNode:(Tree *)node inTree:(Tree *)root {
+	if (root == nil || node == nil) return NO;
+	if (node == root) return YES;
+	return [self findNode:node inTree:root.left] ||
+		   [self findNode:node inTree:root.right];
+}
+
+// O(N) worst case
+// post order
+- (Tree *)bottomUpLCAOfBinaryTree:(Tree *)root node1:(Tree *)node1 node2:(Tree *)node2 {
+	if (root == nil) return nil;
+	if (root == node1 || root == node2) return root;
+	Tree *foundL = [self bottomUpLCAOfBinaryTree:root.left node1:node1 node2:node2];
+	Tree *foundR = [self bottomUpLCAOfBinaryTree:root.right node1:node1 node2:node2];
+	if (foundL && foundR) return root;
+	return foundL ? foundL : foundR;
+}
+
+==============================================================================
+
+Question 18: Convert Sorted List to Binary Search Tree
+
+Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+
+@interface ListNode : NSObject
+
+@property(nonatomic, strong) ListNode *next;
+@property(nonatomic, assign) NSInteger value;
+
+@end
+
+// Idea: double runner, find middle value, then split the linked list into two parts, recursion
+// Ask interviewer: type of value? size of linked list? duplicates?
+// NOTICE: DO NOT change the original list.
+// [1, 2, 3, 4, 5, 6, 7]
+// https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/?tab=Solutions
+// http://www.jiuzhang.com/solutions/convert-sorted-list-to-binary-search-tree/
+- (Tree *)sortedListToBST:(ListNode *)head {
+    if (head == nil) return nil;
+    return [self toBST:head tail:nil];
+}
+
+- (Tree *)toBST:(ListNode *)head tail:(ListNode *)tail {
+    if (head.next == tail) return [Tree nodeWithValue:head.value];
+    // create runners
+    ListNode *slow = head;
+    ListNode *fast = head;
+    while (fast != tail && fast.next != tail) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    // now slow is the root of the BST
+    Tree *root = [Tree nodeWithValue:slow.value];
+    root.left = [self toBST:head tail:slow];
+    root.right = [self toBST:slow.next tail:tail];
+    return root;
+}
+
+==============================================================================
+
+Question 27: Binary Tree Level Order Traversal
+
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+
+// Basic BFS question
+
+- (NSArray<NSArray<NSNumber *> *> *)levelOrder:(Tree *)root {
+	if (root == nil) return nil;
+	
+	NSMutableArray<Tree *> *queue = [NSMutableArray array];
+	NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+	
+	[queue addObject:root];
+	while (queue.count) {
+		NSMutableArray<NSNumber *> *level = [NSMutableArray array];
+		NSUInteger size = queue.count;
+		for (NSUInteger i=0; i<size; i++) {
+			Tree *node = queue.firstObject;
+			[level addObject:@(node.value)];
+			if (node.left) [queue addObject:node.left];
+			if (node.right) [queue addObject:node.right];
+		}
+		// NOTICE: because NSMutableArray is not Queue, 
+		// we CAN NOT remove object at index during iterating the array.
+		// instead, we remove them together later.
+		[queue removeObjectsInRange:NSMakeRange(0,size)];
+		[results addObject:level];
+	}
+	return results;
+}
+
+==============================================================================
+
+Question 33: Construct BST from given preorder traversal
+
+Given preorder traversal of a binary search tree, construct the BST.
+For example, if the given traversal is {10, 5, 1, 7, 40, 50}, then the output should be root of following tree.
+
+     10
+   /    \
+  5     40
+ /  \     \
+1    7     50
+
+// for this question, first understan pre-order traversal.
+// for pre-order traversal, the first element ALWAYS is root.
+// Because this is a Binary search tree, then we can rebuild the tree. Otherwise we can not.
+// Ask interviewer: integer values? scale of the tree? any duplicate?
+// If we want a constant space solution, use pointers instead of left and right node arrays
+// http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+/* The trick is to write a utility helper function isBSTUtil(struct node* node, int min, int max) that traverses down the tree keeping track of the narrowing min and max allowed values as it goes, looking at each node only once. The initial values for min and max should be INT_MIN and INT_MAX — they narrow from there. */
+// Stack solution here: http://www.geeksforgeeks.org/construct-bst-from-given-preorder-traversal-set-2/
+
+// O(N^2)
+- (Tree *)BSTFromPreOrderTraversal:(NSArray<NSNumber *> *)preorder {
+    if (preorder == nil || preorder.count == 0) return nil;
+    NSMutableArray *leftNodes = [NSMutableArray array];
+    NSMutableArray *rightNodes = [NSMutableArray array];
+    Tree *root = [Tree nodeWithValue:preorder[0].integerValue];
+    for (NSInteger i=1; i<preorder.count; i++) {
+        if (preorder[i].integerValue <= preorder[0].integerValue) {
+            [leftNodes addObject:preorder[i]];
+        } else {
+            [rightNodes addObject:preorder[i]];
+        }
+    }
+    root.left = [self BSTFromPreOrderTraversal:leftNodes];
+    root.right = [self BSTFromPreOrderTraversal:rightNodes];
+    return root;
+}
+
+// O(N)
+- (Tree *)BSTFromPreOrderRecersive:(NSArray<NSNumber *> *)preorder {
+    if (preorder == nil || preorder.count == 0) return nil;
+    NSUInteger start = 0;
+    return [self helper:preorder key:preorder[start] start:&start min:NSIntegerMin max:NSIntegerMax];
+}
+
+- (Tree *)helper:(NSArray<NSNumber *> *)preorder key:(NSNumber *)key start:(NSUInteger *)start
+             min:(NSInteger)min max:(NSInteger)max {
+    if (*start >= preorder.count) return nil;
+    Tree *root = nil;
+    if (key.integerValue > min && key.integerValue < max) {
+        root = [Tree nodeWithValue:key.integerValue];
+        (*start)++;
+        if (*start < preorder.count) {
+            root.left = [self helper:preorder key:preorder[*start] start:start min:min max:key.integerValue];
+            root.right = [self helper:preorder key:preorder[*start] start:start min:key.integerValue max:max];
+        }
+    }
+    return root;
+}
+
+- (Tree *)BSTFromPreorderStack:(NSInteger [])preorder size:(NSUInteger)size {
+    if (preorder == nil || size == 0) return nil;
+    
+    NSMutableArray<Tree *> *stack = [NSMutableArray array];
+    Tree *rootNode = [Tree nodeWithValue:preorder[0]];
+    [stack addObject:rootNode];
+    
+    for (NSInteger i=1; i<size; i++) {
+        if (preorder[i] < stack.lastObject.value) {
+            // when the current value is less than peek value of stack
+            // this means current value is left node if stack peek node
+            Tree *root = stack.lastObject;
+            Tree *left = [Tree nodeWithValue:preorder[i]];
+            root.left = left;
+            [stack addObject:left];
+        } else {
+            // otherwise, the current value will be a right node of previous nodes
+            // pop nodes until we find the previous root
+            // add current value as right node of previous root
+            // then push current node
+            Tree *root = nil;
+            while (stack.count && preorder[i] > stack.lastObject.value) {
+                root = stack.lastObject;
+                [stack removeLastObject];
+            }
+            if (root) {
+                Tree *right = [Tree nodeWithValue:preorder[i]];
+                root.right = right;
+                [stack addObject:right];
+            }
+        }
+    }
+    return rootNode;
+}
+
+==============================================================================
+
+Question 41: Minimum Depth of Binary Tree
+
+Given a binary tree, find its minimum depth.
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+Follow up: How about is the left/right tree is much deeper than right/left tree?
+
+// Basic solution: Traditional DFS question. Also similar to "Maximum Depth of Binary Tree" question.
+// Ask interviewer: binary tree balanced? size of the tree? depth of nil, 0 or 1?
+// NOTICE: be careful of special cases: all left nodes, or all right nodes
+
+- (NSUInteger)minDepthDFS:(Tree *)root {
+    if (root == nil) return 0;
+    if (!root.left) return [self minDepthDFS:root.right]+1;
+    if (!root.right) return [self minDepthDFS:root.left]+1;
+    return MIN([self minDepthDFS:root.left], [self minDepthDFS:root.right])+1;
+}
+
+// Idea: return when first time meeting a "leaf node"
+- (NSUInteger)minDepthBFS:(Tree *)root {
+    if (root == nil) return 0;
+    NSUInteger depth = 0;
+    NSMutableArray<Tree *> *queue = [NSMutableArray array];
+    [queue addObject:root];
+    while (queue.count) {
+        depth += 1;
+        NSUInteger size = queue.count;
+        NSMutableArray<Tree *> *newNodes = [NSMutableArray array];
+        for (NSInteger i=0; i<size; i++) {
+            Tree *node = queue[i];
+            if (node.left == nil && node.right == nil) return depth;
+            if (node.left) [newNodes addObject:node.left];
+            if (node.right) [newNodes addObject:node.right];
+        }
+        [queue removeAllObjects];
+        [queue addObjectsFromArray:newNodes];
+    }
+    return depth;
+}
+
+==============================================================================
+
+Question 43: Binary Tree Paths
+
+Given a binary tree, return all root-to-leaf paths.
+For example, given the following binary tree:
+
+   1
+ /   \
+2     3
+ \
+  5
+  
+All root-to-leaf paths are:
+
+["1->2->5", "1->3"]
+
+// DFS, BFS
+// Ask interviewer: what to return nil root?
+
+- (NSArray<NSString *> *)binaryTreePaths:(Tree *)root {
+    if (root == nil) return nil;
+    NSMutableArray<NSString *> *path = [NSMutableArray array];
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    [self dfs:root path:path results:results];
+    return [results copy];
+}
+
+- (void)dfs:(Tree *)root path:(NSMutableArray<NSString *> *)path
+    results:(NSMutableArray<NSString *> *)results {
+    if (root == nil) return;
+    if (root.left == nil && root.right == nil) {
+        [path addObject:@(root.value).stringValue];
+        [results addObject:[path componentsJoinedByString:@"->"]];
+        [path removeLastObject];
+        return ;
+    }
+    
+    [path addObject:@(root.value).stringValue];
+    [self dfs:root.left path:path results:results];
+    [self dfs:root.left path:path results:results];
+    [path removeLastObject];
+}
+
+- (NSArray<NSString *> *)binaryTreePathsShort:(Tree *)root {
+    NSMutableArray<NSString *> *paths = [NSMutableArray array];
+    if (root == nil) return paths;
+    if (root.left == nil && root.right == nil) {
+        [paths addObject:@(root.value).stringValue];
+        return paths;
+    }
+    
+    for (NSString *path in [self binaryTreePathsShort:root.left]) {
+        [paths addObject:[NSString stringWithFormat:@"%@->%@", @(root.value).stringValue, path]];
+    }
+    
+    for (NSString *path in [self binaryTreePathsShort:root.right]) {
+        [paths addObject:[NSString stringWithFormat:@"%@->%@", @(root.value).stringValue, path]];
+    }
+    return paths;
+}
+
+==============================================================================
+
+Question 51: Binary Tree Longest Consecutive Sequence
+ 
+Given a binary tree, find the length of the longest consecutive sequence path.
+
+The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The longest consecutive path need to be from parent to child (cannot be the reverse).
+
+For example,
+
+   1
+    \
+     3
+    / \
+   2   4
+        \
+         5
+		 
+Longest consecutive sequence path is 3-4-5, so return 3.
+
+   2
+    \
+     3
+    / 
+   2    
+  / 
+ 1
+ 
+Longest consecutive sequence path is 2-3,not3-2-1, so return 2.
+
+// Ask interviewer: BST? numbers are all positive? duplicates?
+// http://www.cnblogs.com/grandyang/p/5252599.html (My solution is actually the divide&conquer one! \o/)
+// http://www.jiuzhang.com/solutions/binary-tree-longest-consecutive-sequence/
+
+- (NSUInteger)longestConsecutive:(Tree *)root {
+    return [self helper:root parent:nil lengthWithoutRoot:0];
+}
+
+- (NSUInteger)helper:(Tree *)root parent:(Tree *)parent lengthWithoutRoot:(NSUInteger)lengthWithoutRoot {
+    if (root == nil) return 0;
+    NSUInteger length = (parent != nil && root.value == parent.value+1) ? lengthWithoutRoot+1 : 1;
+    NSUInteger left = [self helper:root.left parent:root lengthWithoutRoot:length];
+    NSUInteger right = [self helper:root.right parent:root lengthWithoutRoot:length];
+    return MAX(length, MAX(left, right));
+}
+
+==============================================================================
+
+Question 54: Binary Tree Inorder Traversal
+
+Given a binary tree, return the inorder traversal of its nodes' values.
+
+For example:
+
+Given binary tree [1,null,2,3],
+
+   1
+    \
+     2
+    /
+   3
+
+return [1,3,2].
+
+Note: Recursive solution is trivial, could you do it iteratively?
+
+// Traditional recursion question
+// when doing this iteratively, we can use Stack
+// https://discuss.leetcode.com/topic/3288/three-methods-to-solve-c
+
+- (NSArray<NSNumber *> *)inorderTraversalRecursive:(Tree *)root {
+    if (root == nil) return @[];
+    NSArray<NSNumber *> *leftNodes = [self inorderTraversalRecursive:root.left];
+    NSArray<NSNumber *> *rightNodes = [self inorderTraversalRecursive:root.right];
+    NSNumber *rootValue = @(root.value);
+    
+    NSArray *result = [leftNodes arrayByAddingObject:rootValue];
+    result = [result arrayByAddingObjectsFromArray:rightNodes];
+    return result;
+}
+
+- (NSArray<NSNumber *> *)inorderTraversalInterative:(Tree *)root {
+    if (root == nil) return nil;
+    NSMutableArray<Tree *> *stack = [NSMutableArray array];
+    NSMutableArray<NSNumber *> *results = [NSMutableArray array];
+    
+    [stack addObject:root];
+    while (stack.count) {
+        Tree *top = stack.lastObject;
+        // if there is still left node, push it, mark it's parent's left node as nil
+        if (top.left) {
+            [stack addObject:top.left];
+            top.left = nil;
+            continue;
+        }
+        // if no left node, add to results
+        [results addObject:@(top.value)];
+        // check right node now
+        if (top.right) {
+            [stack addObject:top.right];
+            top.right = nil;
+            continue;
+        }
+        [stack removeLastObject];
+    }
+    return results;
+}
+
+// If interviewer doesn't allow to change the tree, we use visited flag instead(Tree is special Graph)
+// Or, we can use a "current node" pointer
+- (NSArray<NSNumber *> *)inorderTraversalInterativeBetter:(Tree *)root {
+    if (root == nil) return nil;
+    NSMutableArray<Tree *> *stack = [NSMutableArray array];
+    NSMutableArray<NSNumber *> *results = [NSMutableArray array];
+    Tree *current = root;
+    
+    while (stack.count || current) {
+        if (current) {
+            [stack addObject:current];
+            current = current.left;
+        } else {
+            Tree *top = stack.lastObject;
+            [results addObject:@(top.value)];
+            [stack removeLastObject];
+            current = top.right;
+        }
+    }
+    return results;
+}
+
+==============================================================================
+
+Question 59: Reverse Linked List
+
+Reverse a singly linked list.
+
+// Traditional linked list question
+// Basic idea: use two pointers to reverse one by one
+// Nested solution: recursive solution makes the code very clean and understandable
+
+- (ListNode *)reverseList:(ListNode *)head {
+	if (head == nil || head.next == nil) return head;
+	ListNode *next = head.next;
+	ListNode *reversedHead = [self reverseList:head.next];
+	next.next = head;
+	head.next = nil;
+	return reversedHead;
+}
+
+==============================================================================
+
+Question 61: Merge k Sorted Lists
+
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+// Ask interviewer: what order, ascending or descending?
+// Solutions:
+// - One solution for this question is to use "heap" or "priority queue"
+// - Also, similar to "Ugly Number II", we can maintain an "array for current nodes", O(k*k*N)
+// - by using divide & conqure, we split sorted list into pairs, and merge pairs
+// http://www.jiuzhang.com/solutions/merge-k-sorted-lists/
+
+// Analyze time complexity:
+// - For master method: T(n) <= aT(n/b) + O(n^d)
+// n = k, a = 2, b = 2 -> T(k) <= 2T(k/2) + O((km)^d)
+// O(kmLogk)
+// https://discuss.leetcode.com/topic/26095/my-simple-java-solution-use-recursion
+
+- (ListNode *)mergeKLists:(NSArray<ListNode *> *)lists {
+    if (lists == nil) return nil;
+    return [self mergeHelper:lists start:0 end:lists.count-1];
+}
+
+- (ListNode *)mergeHelper:(NSArray<ListNode *> *)lists
+                    start:(NSInteger)start end:(NSInteger)end {
+    if (start == end) return lists[start];
+    NSInteger mid = start + (end - start)/2;
+    ListNode *left = [self mergeHelper:lists start:start end:mid];
+    ListNode *right = [self mergeHelper:lists start:mid+1 end:end];
+    return [self mergeList:left andList:right];
+}
+
+- (ListNode *)mergeList:(ListNode *)list1 andList:(ListNode *)list2 {
+    // fake merged head; the real head is merged.next
+    ListNode *fakeHead = [ListNode nodeWithValue:0];
+    ListNode *tail = fakeHead;
+    while(list1 && list2) {
+        // here I assume that we have ascending order lists
+        if (list1.value <= list2.value) {
+            tail.next = list1;
+            tail = list1;
+            list1 = list1.next;
+        } else {
+            tail.next = list2;
+            tail = list2;
+            list2 = list2.next;
+        }
+    }
+    if (list1) tail.next = list1;
+    else tail.next = list2;
+    return fakeHead.next;
+}
+
+==============================================================================
+
+Question 65: Binary Tree Vertical Order Traversal
+ 
+Given a binary tree, return the vertical order traversal of its nodes' values. 
+(ie, from top to bottom, column by column).
+
+For example:
+   
+   		  1
+        /    \
+       2      3
+      / \    / \
+     4   5  6   7
+             \   \
+              8   9
+
+output should be:
+	[4
+ 	 2
+ 	 1 5 6
+ 	 3 8
+  	 7
+ 	 9]
+
+// Basically, the idea is to mark the distance of each node from root
+// when we go left, distance - 1; go right, distance + 1. root is 0
+// Then we can use hash table to store lists of nodes for every distance.
+// Also we track the "min" and "max" distance from root
+// at last, we traverse from min nodes to max nodes
+// https://discuss.leetcode.com/topic/31954/5ms-java-clean-solution
+// http://www.geeksforgeeks.org/print-binary-tree-vertical-order-set-2/
+// NOTICE: for this question, we can use either DFS or BFS
+
+- (NSArray<NSArray<NSNumber *> *> *)verticalOrder:(Tree *)root {
+    if (root == nil) return nil;
+    NSInteger min = 0, max = 0;
+    
+    NSMutableDictionary<NSNumber *, NSMutableArray<NSNumber *> *> *columns = [NSMutableDictionary dictionary];
+    [self helper:root distance:0 min:&min max:&max results:columns];
+    
+    NSMutableArray<NSArray<NSNumber *> *> *results = [NSMutableArray array];
+    for (NSInteger i=min; i<=max; i++) {
+        [results addObject:columns[@(i)]];
+    }
+    return results;
+}
+
+- (void)helper:(Tree *)root distance:(NSInteger)distance
+           min:(NSInteger *)min max:(NSInteger *)max
+       results:(NSMutableDictionary<NSNumber *, NSMutableArray<NSNumber *> *> *)results {
+    if (root == nil) return;
+    if (!results[@(distance)]) {
+        results[@(distance)] = [NSMutableArray array];
+    }
+    
+    // add current value into its column
+    [results[@(distance)] addObject:@(root.value)];
+    // update min and max distance
+    *min = MIN(root.value, *min);
+    *max = MAX(root.value, *max);
+    
+    // go left and right
+    [self helper:root.left distance:distance-1 min:min max:max results:results];
+    [self helper:root.right distance:distance+1 min:min max:max results:results];
+}
+
+==============================================================================
+
+Question 71: Populating Next Right Pointers in Each Node I & II
+
+Given a binary tree
+
+    struct TreeLinkNode {
+      TreeLinkNode *left;
+      TreeLinkNode *right;
+      TreeLinkNode *next;
+    }
+
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+Note:
+
+You may only use constant extra space.
+You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+
+For example,
+
+Given the following perfect binary tree,
+         1
+       /  \
+      2    3
+     / \  / \
+    4  5  6  7
+	
+After calling your function, the tree should look like:
+         1 -> NULL
+       /  \
+      2 -> 3 -> NULL
+     / \  / \
+    4->5->6->7 -> NULL
+
+Follow up: 
+- What if the given tree could be any binary tree? 
+- Would your previous solution still work?
+
+// because we need to link node level to level, left to right
+// so we can use BST to traverse the tree level by level, right to left
+// https://discuss.leetcode.com/topic/28580/java-solution-with-constant-space
+
+@interface TreeLinkNode : NSObject
+
+@property (nonatomic, strong) TreeLinkNode *left;
+@property (nonatomic, strong) TreeLinkNode *right;
+@property (nonatomic, strong) TreeLinkNode *next;
+
+@end
+
+// Ask interviewer: contant space includes call stack space?
+- (void)connectConstantSpaceForPerfectTree:(TreeLinkNode *)root {
+	// because the tree is perfect binary tree,
+	// so we know that if root has left tree, it MUST has right tree
+	if (root == nil) return;
+	if (root.left != nil) {
+		root.left.next = root.right;
+		if (root.next != nil) {
+			root.right.next = root.next.left;
+		}
+	}
+	connect(root.left);
+	connect(root.right);
+}
+
+- (void)connectConstantSpaceForAnyTree:(TreeLinkNode *)root {
+	// we use dummy head as the dummy head of current level
+	// pre as the runner pointer for this level
+	TreeLinkNode *dummyHead = [TreeLinkNode new];
+	TreeLinkNode *cur = dummyHead;
+	while (root != nil) {
+		if (root.left) {
+			// if root has left node, then we link it with its left node (dummy node for the most left one)
+			cur.next = root.left;
+			cur = cur.next;
+			}
+		if (root.right) {
+			cur.next = root.right;
+			cur = cur.next;
+		}
+		root = root.next;
+		// when we meet the end or previous level, move root to current level
+		if (root == nil) {
+			cur = dummyHead;
+			root = dummyHead.next;
+			dummyHead.next = nil;
+		}
+	}
+}
+
+// NOTICE: this solution is not constant space solution.
+- (void)connectBFS:(TreeLinkNode *)root {
+	if (root == nil) return;
+	NSMutableArray<TreeLinkNode *> *queue = [NSMutableArray array];
+	[queue addObject:root];
+	while(queue.count) {
+		NSInteger size = queue.count;
+		for (NSInteger i=0; i<size; i++) {
+			TreeLinkNode *top = queue[i];
+			if (i+1 < size) {
+				TreeLinkNode *next = queue[i+1];
+				top.next = next;
+			} else {
+				top.next = nil;
+			}
+			if (top.left) [queue addObject:top.left];
+			if (top.right) [queue addObject:top.right];
+		}
+		[queue removeObjectsInRange:NSMakeRange(0, size)];
+	}
+}
+
+==============================================================================
+
+Question 90: In-order Minimum Heap
+
+Given an array with integers, convert this array to an minimum heap tree, which keeps the origianl order of the array when doing in-order traversal.
+
+// http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=213028&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3089%5D%5Bvalue%5D%5B2%5D%3D2%26searchoption%5B3089%5D%5Btype%5D%3Dcheckbox%26searchoption%5B3090%5D%5Bvalue%5D%3D1%26searchoption%5B3090%5D%5Btype%5D%3Dradio%26searchoption%5B3046%5D%5Bvalue%5D%3D2%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311
+
+// O(N^2) -> N recursion, and find minimum index need N operation on average.
+// Ask interviewer: input valid? nil handling?
+
+- (Tree *)inOrderMinimumHeap:(NSArray<NSNumber *> *)nums {
+	if (nums == nil || nums.count == 0) return nil;
+	return [self helper:nums left:0 right:nums.count];
+}
+
+- (Tree *)helper:(NSArray<NSNumber *> *)nums left:(NSUInteger)left right:(NSUInteger)right {
+	if (left > right) return nil;
+	if (left == right) return [Tree nodeWithValue:nums[left].integerValue];
+	NSInteger minIndex = [self indexOfMinimum:nums left:left right:right];
+	Tree *root = [Tree nodeWithValue:nums[minIndex].integerValue];
+	root.left = [self helper:nums left:left right:minIndex-1];
+	root.right = [self helper:nums left:minIndex+1 right:right];
+	return root;
+}
+
+- (NSUInteger)indexOfMinimum:(NSArray<NSNumber *> *)nums 
+						left:(NSUInteger)left right:(NSUInteger)right {
+	NSInteger minimum = NSIntegerMax;
+	NSInteger index = -1;
+	for (NSInteger i = left; i <= right; i++) {
+		if (minimum > nums[i].integerValue) {
+			index = i;
+			minimum = nums[i].integerValue;
+		}
+	}
+	return index;
+}
+
+==============================================================================
+
+Question 91: Find the Distance between Two Nodes of a Binary Tree
+
+Given nodes in a binary tree, find the dis­tance between them. The distance here means number of edges between two nodes.
+
+http://algorithms.tutorialhorizon.com/find-the-distance-between-two-nodes-of-a-binary-tree/
+
+// Distance(X, Y) = Distance(root, X) + Distance(root, Y) - 2 * Distance(root, LCA(X, Y))
+// NOTICE: if the tree is BST, finding LCA is much more faster.
+
+- (Tree *)findLCAOfNode:(Tree *)node1 andNode:(Tree *)node2 inTree:(Tree *)root {
+    if (root == nil) {
+        return nil;
+    }
+    if (root == node1 || root == node2) {
+        return root;
+    }
+    Tree *foundInLeft = [self findLCAOfNode:node1 andNode:node2 inTree:root.left];
+    Tree *foundInRight = [self findLCAOfNode:node1 andNode:node2 inTree:root.right];
+    if (foundInLeft && foundInRight) {
+        return root;
+    }
+    if (foundInLeft) {
+        return foundInLeft;
+    }
+    if (foundInRight) {
+        return foundInRight;
+    }
+    return nil;
+}
+
+- (NSUInteger)pathLengthBetweenTreeRoot:(Tree *)root toNode:(Tree *)node {
+    if (root == nil || node == nil) {
+        return 0;
+    }
+    if (root == node) {
+        return 1;
+    }
+    NSUInteger distance = [self pathLengthBetweenTreeRoot:root.left toNode:node];
+    if (distance > 0) {
+        return distance + 1;
+    }
+    
+    distance = [self pathLengthBetweenTreeRoot:root.right toNode:node];
+    if (distance > 0) {
+        return distance + 1;
+    }
+    return 0;
+}
+
+- (NSUInteger)findDistanceBetweenNode:(Tree *)node1 andNode:(Tree *)node2 inTree:(Tree *)root {
+    if (root == nil || node1 == nil || node2 == nil) {
+        return 0;
+    }
+    Tree *lca = [self findLCAOfNode:node1 andNode:node2 inTree:root];
+    NSUInteger distBetweenNode1AndRoot = [self pathLengthBetweenTreeRoot:root toNode:node1] - 1;
+    NSUInteger distBetweenNode2AndRoot = [self pathLengthBetweenTreeRoot:root toNode:node2] - 1;
+    NSUInteger distBetweenLCAAndRoot = [self pathLengthBetweenTreeRoot:root toNode:lca] - 1;
+    return distBetweenNode1AndRoot + distBetweenNode2AndRoot - 2 * distBetweenLCAAndRoot;
+}
+
+==============================================================================
+
+Question 92: Clone Binary Tree
+
+http://www.jiuzhang.com/solutions/clone-binary-tree/
+
+==============================================================================
+
+Question 93: All paths of binary tree
+
+==============================================================================
+
+Question 95: serialize, deserialize 二叉树 <-> linkedlist
+
+==============================================================================
+
+Question 96: 找一个无向图中的所有联通分量，要求输出每个联通分量的点集。
+
+==============================================================================
+
+Question 97: 输出一颗二叉树的从root到叶子的所有路径(字符串)
+
+==============================================================================
+
+Question 99: 给一个无向图，再给其中的一些点，找出和这些点联通的所有点
+
+==============================================================================
+
+Question 100: 给一串start time - end time，格式是Apr 2010 - Mar 2011这种，要求计算出这些时间的总跨度，重叠的跨度不重复计算。举例:["Apr 2010 - Dec 2010", "Aug 2010 - Dec 2010", "Jan 2011 - Mar 2011"]这一个string数组，结果为(12-4+3-1)=10个月。
+
+==============================================================================
+
+Question 103: flatten linked list: a listNode has a next pointer, and data;data could be either a normal data such as int val, 
+or a pointer point to another linked list node
+
+==============================================================================
+
+Question 108: input friends relation {{1，2}， {2，3}， {3，4}} 把用户存在两个group里， 每个group里大家都不 互相认识。所以exp应该g1{1，3} g2{2，4}。
+
+==============================================================================
+
+Question 119: 一个完全树。node有parent指针。每个node的值为 0或 1, 每个parent的值为两个子node的 “and” 结果 现在把一个leaf翻牌子(0变1或者1变0). 
+
+==============================================================================
+
+Question 126: binary tree，给定一个value，return bin tree里面下一个比value大的值
+
+==============================================================================
+
+Question 127: binary tree的node加一个ptr next，point到inorder traversal的下一个node，比上一个简单
+
+==============================================================================
+
+Question 131: Shorest Path between 2 nodes in Graph
+
+==============================================================================
+
+Question 133: Clone Graph
+
+==============================================================================

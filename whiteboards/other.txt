@@ -1,0 +1,172 @@
+Question 20: Divide Two Integers
+
+Divide two integers without using multiplication, division and mod operator.
+If it is overflow, return MAX_INT.
+
+// Ask interviewer: positive or negative? zero?
+// Naive solution: minus dividend and dividor and count times.
+// Better solution: binary search. dividor << 1, which means dividend * 2, until dividend < dividor
+// each time we double the dividor => binary search => Log(N)
+// Treat dividers as sorted array
+// NOTICE: we need to handle corner cases 1) zero dividor 2) minus integer
+// 25 / 3 -> 25 / 6 -> 25 / 12 -> 25 / 24
+// https://leetcode.com/problems/divide-two-integers/?tab=Solutions
+// http://www.jiuzhang.com/solutions/divide-two-integers/
+
+- (NSInteger)divide:(NSInteger)dividend dividor:(NSInteger)dividor {
+ 	// overflow cases
+	if (dividor == 0 || (dividend == NSIntegerMin && dividor == -1)) return NSIntegerMax;
+	// using XOR to shorten this checking
+	NSInteger sign = (dividend > 0) ^ (dividor > 0) ? -1 : 1;
+	NSUInteger dvd = ABS(dividend);
+	NSUInteger dvs = ABS(dividor);
+	NSUInteger result = 0;
+	while(dvd >= dvs) {
+		NSInteger tmp = dvs;
+		// when dividend > dividor, the result is at lease 1
+		NSUInteger multiple = 1; // IMPORTANT
+		// times dividor by 2, also times the multiple by 2
+		while(dvd >= (tmp << 1)) {
+			tmp <<= 1;
+			multiple <<= 1;
+		}
+		dvd -= tmp;
+		result += multiple;
+	}
+	return sign == 1 ? result : -result;
+}
+
+==============================================================================
+
+Question 39: Read N Characters Given Read4
+
+The API: int read4(char *buf) reads 4 characters at a time from a file.
+The return value is the actual number of characters read. 
+For example, it returns 3 if there is only 3 characters left in the file.
+By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
+Note: The read function will only be called once for each test case.
+
+http://bangbingsyb.blogspot.fi/2014/11/leetcode-read-n-characters-given-read4.html
+http://www.jiuzhang.com/solutions/read-n-characters-given-read4/
+
+NSUInteger read4(char *buf);
+
+@implementation Read4
+
+- (NSUInteger)read:(char *)buf n:(NSUInteger)n {
+    char buf4[4];
+    NSUInteger size = 0;
+    while (true) {
+        NSUInteger actual = read4(buf4);
+        for (NSUInteger i=0; i<actual && size < n; i++) {
+            buf[size++] = buf4[i];
+        }
+        if (actual == 0 || size == n) return size;
+    }
+}
+
+==============================================================================
+
+Question 58: Task Scheduler
+
+Give a task sequence, for example, "ABBABBC", and minimum interval between two same tasks, 
+for example, interval=3. Then the real running period of BB should be 5 "B _ _ _ B".
+
+Write a method with a task sequence and interval as inputs, output the runing period.
+
+Followup: output the best task-finishing sequence instead of running period
+
+https://www.careercup.com/question?id=5653760530448384
+
+// Ask interviewer: interval = 0? input always valid?
+// After thinking, I think this question can be solved by Hash Table
+// We can use hash table to mark the last index of previous same task
+// we use a timer to count the real time tick
+// http://www.cnblogs.com/EdwardLiu/p/5120090.html
+// Following solution has O(k*N) time complexity, where k is cooldown
+// In order to reach O(N), we can directly add k to "time" instead of ticking k times by 1
+
+- (NSString *)bestTaskSequenceForTasks:(NSString *)sequence interval:(NSUInteger)interval {
+    if (sequence == nil || sequence.length == 0) return nil;
+    // mark the latest timeout for tasks
+    NSMutableDictionary<NSString *, NSNumber *> * timeouts = [NSMutableDictionary dictionary];
+    NSMutableString *result = [NSMutableString string];
+    NSInteger time = 0;
+    NSInteger pos = 0;
+    while (pos < sequence.length) {
+        NSString *task = [sequence substringWithRange:NSMakeRange(pos,1)];
+        if (!timeouts[task]) {
+            timeouts[task] = @(time+interval+1); // NOTICE the "+1"
+            [result appendString:task];
+            pos++;
+			time++;
+        } else {
+            NSInteger nextStart = timeouts[task].integerValue;
+            /*if (time >= nextStart) {
+                timeouts[task] = @(time+interval+1);
+                [result appendString:task];
+                pos++;
+            } else {
+                [result appendString:@"_"];
+            }*/
+			for (NSInteger i = 0; i < nextStart-time; i++) {
+				[result appendString:@"_"];
+			}
+			[result appendString:task];
+			time = nextStart + 1;
+			timeouts[task] = @(time+interval);
+        }
+        // always move forward the time pointer, to simulate the time ticking
+        // time++;
+    }
+    return result;
+}
+
+==============================================================================
+
+Question 77: Merge Email Lists
+
+Given 1 million email list: 
+
+list 1: a@a.com, b@b.com 
+list 2: b@b.com, c@c.com 
+list 3: e@e.com
+list 4: a@a.com
+...
+Combine lists with identical emails, and output tuples: 
+(list 1, list 2, list 4) (a@a.com, b@b.com, c@c.com) (list 3) (e@e.com)
+
+// TODO
+
+==============================================================================
+
+Question 86: Integer to Roman
+
+Given an integer, convert it to a roman numeral.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+// https://discuss.leetcode.com/topic/12384/simple-solution
+
+
+==============================================================================
+
+Question 98: 在pascal里面字符串是以[5, 'a', 'b', 'c', 'd', 'e']的形式存储，现在要你用C++将这样两个东西连接起来。。。比如[3,'a',b','c']和[2,'x', 'y']变成[5, 'a', b', 'c', 'x', 'y'].
+
+==============================================================================
+
+Question 102: n th Fibonacci number mod 10
+
+==============================================================================
+
+Question 110: 给一个数，问是第几个Fibonacci, 不是Fibonacci 就是的话就是前一个index
+
+==============================================================================
+
+Question 111: 数binary有多少个1， n&(n-1) 解决
+
+==============================================================================
+
+Question 117: LC43 Multiply Strings
+
+==============================================================================

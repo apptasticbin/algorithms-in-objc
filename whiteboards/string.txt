@@ -1,0 +1,915 @@
+Question 5: Run Length Encoding
+
+Given an input string, write a function that returns the Run Length Encoded string for the input string.
+
+For example, if the input string is “wwwwaaadexxxxxx”, then the function should return “w4a3d1e1x6”.
+
+// Ask interviewer: size of the string? capital letters? white spaces? how about single short letters?
+- (NSString *)runLengthEncoding:(NSString *)input {
+    if (!input || !input.length) return nil;
+    NSString *encoded = [NSString string];
+    unichar preC = [input characterAtIndex:0];
+    NSInteger count = 1;
+    for (NSUInteger i=1; i<input.length; i++) {
+        unichar curC = [input characterAtIndex:i];
+        if (preC == curC) count++;
+        else {
+            encoded = [encoded stringByAppendingFormat:@"%C", preC];
+            encoded = [encoded stringByAppendingString:@(count).stringValue];
+            // reset counter and previous character value
+            count = 1;
+            preC = curC;
+        }
+    }
+    // append last one to the result string
+    encoded = [encoded stringByAppendingFormat:@"%C", preC];
+    encoded = [encoded stringByAppendingString:@(count).stringValue];
+    return encoded;
+}
+
+==============================================================================
+
+Question 13: Remove Invalid Parentheses
+
+Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Examples:
+"()())()" -> ["()()()", "(())()"]
+"(a)())()" -> ["(a)()()", "(a())()"]
+")(" -> [""]
+
+// BFS thinking: check current level is valid or not.
+// - if YES, then add to result and mark this level to be "found". 
+// (Here we need to be careful that there maybe other valid string in this level, we need to add them all) 
+// - if NO, go deeper level
+// http://www.geeksforgeeks.org/remove-invalid-parentheses/
+// https://leetcode.com/problems/remove-invalid-parentheses/?tab=Solutions
+// Ask interviewer: input format? is input valid?
+- (NSArray<NSString *> *)removeInvalidParentheses:(NSString *)s {
+    if (s == nil) return nil;
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    NSMutableArray<NSString *> *queue = [NSMutableArray array];
+    NSMutableSet<NSString *> *visited = [NSMutableSet set];
+    BOOL found = NO;
+    [queue addObject:s];
+    while (queue.count) {
+        NSString *front = queue.firstObject;
+        [queue removeObjectAtIndex:0];
+        if ([self isValid:front]) {
+            found = YES;
+            [results addObject:front];
+        }
+        // if this node is valid, it's children MUST be invalid, due to removing one more parenthese.
+        if (found) continue;
+        for (NSUInteger i=0; i<front.length; i++) {
+            if (![self isParenthesis:[front characterAtIndex:i]]) continue;
+            NSMutableString *mutableFront = [front mutableCopy];
+            [mutableFront deleteCharactersInRange:NSMakeRange(i,1)];
+            if (![visited containsObject:mutableFront]) {
+                [visited addObject:mutableFront];
+                [queue addObject:mutableFront];
+            }
+        }
+    }
+    return results;
+}
+
+- (BOOL)isValid:(NSString *)s {
+    NSInteger count = 0;
+    for (NSUInteger i=0; i<s.length; i++) {
+        if ([s characterAtIndex:i] == '(') {
+            count++;
+        } else if ([s characterAtIndex:i] == ')') {
+            count--;
+        }
+        if (count < 0) return NO;
+    }
+    return YES;
+}
+
+- (BOOL)isParenthesis:(unichar)c {
+    return c == '(' || c == ')';
+}
+
+==============================================================================
+
+Question 26: Print the pretty JSON strings
+
+Pretty print a JSON object using proper indentation.
+
+Every inner brace should increase one indentation to the following lines.
+Every close brace should decrease one indentation to the same line and the following lines.
+The indents can be increased with an additional ‘\t’
+
+Example 1:
+
+Input : {A:"B",C:{D:"E",F:{G:"H",I:"J"}}}
+Output : 
+{ 
+    A:"B",
+    C: 
+    {
+        D:"E",
+        F:
+        {
+            G:"H",
+            I:"J"
+        }
+    }
+}
+
+Example 2:
+
+Input : ["foo", {"bar":["baz",null,1.0,2]}]
+Output : 
+[
+    "foo",
+    {
+        "bar":
+        [
+            "baz",
+            null,
+            1.0,
+            2
+        ]
+    }
+]
+[] and {} are only acceptable braces in this case.
+
+Assume for this problem that space characters can be done away with.
+
+Your solution should return a list of strings, where each entry corresponds to a single line. 
+The strings should not have “\n” character in them.
+
+// When we see string parsing question, stack is a good data structure to use.
+// For this question, we don't use stack. we iterate from left to right, 
+// increase indent for '{' or '[', create new line for ',', decrease indent for '}' and ']'
+// Ask interviewers: is input valid? white space?
+// http://qa.geeksforgeeks.org/3734/print-the-pretty-json-strings-facebook-microsoft
+// One improvement is replacing all ' ' with '' at beginning.
+
+- (NSArray<NSString *> *)prettyJSONString:(NSString *)json {
+    if (!json) return nil;
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    NSString *indent = [NSString string];
+    
+    for (NSUInteger i=0; i<json.length; i++) {
+        unichar c = [json characterAtIndex:i];
+        NSString *line = [NSString string];
+		// skip 
+        if (c == ' ') continue;
+        if (c == '{' && c == '[') {
+            line = [NSString stringWithFormat:@"%@%C", indent, c];
+            indent = [indent stringByAppendingFormat:@"%c", '\t'];	// append new indent
+        } else if (c == '}' && c == ']') {
+            // A new string containing the characters of the receiver up to,
+            // but not including, the one at anIndex.
+            indent = [indent substringToIndex:indent.length-1];	// remove last indent
+            line = [NSString stringWithFormat:@"%@%C", indent, c];
+        } else if (c == ',' || c == ':') {
+            line = [line stringByAppendingFormat:@"%C", c];
+            line = [NSString stringWithFormat:@"%@%@,", indent, line];
+        } else {
+            // if the current character is non of above ones, then append it to line, and continue
+            line = [line stringByAppendingFormat:@"%C", c];
+            continue;
+        }
+        
+        [results addObject:line];
+        line = [NSString string];
+    }
+    return results;
+}
+
+==============================================================================
+
+Question 29: Balance parentheses in a string 
+
+For example:
+"(a)()" -> "(a)()"
+"((bc)" -> "(bc)"
+")))a((" -> "a"
+"(a(b)" ->"(ab)" or "a(b)"
+"(a(((b"
+")))a((b)"
+
+Follow up: do without using Stack
+
+// http://www.1point3acres.com/bbs/thread-192179-1-1.html
+// We can use stack for this question. Also, we can solve it without stack, by using counter.
+// Ask interviewer: do we add to balance parentheses, or only remove? special cases? memory limitation?
+// white space? input valid -> "(a(((b"? character set?
+// Usually, "pair, unpair" question can be solved by counter easily.
+// For this question, we need to remove redundent '(' and ')' seperately.
+// So we iterate the string L -> R, and R -> L.
+// TODO: one pass solution?
+
+- (NSString *)balanceParentheses:(NSString *)input {
+    // use stack to mark the index of '('. pop top when meeting ')'
+    NSString *result = [self removeRightParentheses:input];
+    result = [self removeLeftParentheses:result];
+    return result;
+}
+
+- (NSString *)removeRightParentheses:(NSString *)input {
+    NSInteger count = 0;
+    NSMutableString *result = [NSMutableString string];
+    for (NSInteger i=0; i<input.length; i++) {
+        unichar c = [input characterAtIndex:i];
+        [result appendFormat:@"%C", c];
+        if (c == '(') count++;
+        else if (c == ')') {
+            if (count > 0) count--;
+            else [result deleteCharactersInRange:NSMakeRange(input.length-1, 1)];
+        }
+    }
+    return result;
+}
+
+- (NSString *)removeLeftParentheses:(NSString *)input {
+    NSInteger count = 0;
+    NSMutableString *result = [NSMutableString string];
+    for (NSInteger i=input.length-1; i>=0; i--) {
+        unichar c = [input characterAtIndex:i];
+        [result insertString:[NSString stringWithFormat:@"%C", c] atIndex:0];
+        if (c == ')') count++;
+        else if (c == '(') {
+            if (count > 0) count--;
+            else [result deleteCharactersInRange:NSMakeRange(0, 1)];
+        }
+    }
+    return result;
+}
+
+==============================================================================
+
+Question 30: Decode Ways [DP]
+
+A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+
+Given an encoded message containing digits, determine the total number of ways to decode it.
+
+For example,
+
+Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
+The number of ways decoding "12" is 2.
+
+Follow-up: 1) output all decoded results 2) constant space
+
+// Dynamic Programming + Backtracking all results
+// Ask interviewer: range of digits? input order? for follow-up, output order? input always digits?
+// first digit is '0'?
+// For Follow-up 1), if we want to print out all results, using recursion and copy result string in each
+// recursive call would be a solution.
+// http://www.jiuzhang.com/solutions/decode-ways/
+// https://leetcode.com/problems/decode-ways/?tab=Solutions
+
+- (NSUInteger)numDecodingsDP:(NSString *)s {
+    if (s == nil || s.length == 0 || [s characterAtIndex:0] == '0') return 0;
+    
+    NSUInteger dp[s.length+1];
+    memset(dp, 0, (s.length+1)*sizeof(NSUInteger));
+    dp[0] = 1;	// empty string
+    dp[1] = 1;	// string size 1 and first character is not '0'
+    // i here means string size, not index
+    for (NSInteger i=2; i<=s.length; i++) {
+        unichar p = [s characterAtIndex:i-2];
+        unichar c = [s characterAtIndex:i-1];
+        if (c >= '1' && c <= '9') dp[i] = dp[i-1];
+        if (p == '1' || (p == '2' && c >= '0' && c <= '6')) dp[i] += dp[i-2];
+    }
+    return dp[s.length];
+}
+
+- (NSUInteger)numDecodingsConstantSpace:(NSString *)s {
+    if (s == nil || s.length == 0 || [s characterAtIndex:0] == '0') return 0;
+    // d1: decoding ways of d[i-1]
+    // d2: decoding ways of d[i-2]
+    NSUInteger d1 = 1, d2 = 1, res = 0;
+    for (NSInteger i=2; i<=s.length; i++) {
+        unichar p = [s characterAtIndex:i-2];
+        unichar c = [s characterAtIndex:i-1];
+        if (c >= '1' && c <= '9') res += d1;
+        if (p == '1' || (p == '2' && c >= '0' && c <= '6')) res += d2;
+        // update d1 and d2
+        d2 = d1; d1 = res; res = 0;
+    }
+    return res;
+}
+
+==============================================================================
+
+Question 37: Implement strStr()
+
+Implement strStr().
+
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+// Ask interviewer: handle nil?
+// Basic solution: Brute Force, O(N*k), check from beginning to end-needle.count-1, 
+// start comparing needle and haystack at index i when haystack[i] == needle[i]
+// Rabin Karp Solution: http://www.geeksforgeeks.org/searching-for-patterns-set-3-rabin-karp-algorithm/
+// - Rabin Karp algorithm is similar to brute force, but using "hash value" to match strings.
+// KMP solution: http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/
+// https://leetcode.com/problems/implement-strstr/?tab=Solutions
+
+- (NSUInteger)strStr:(NSString *)haystack needle:(NSString *)needle {
+    if (haystack == nil || needle == nil) return -1;
+    for (NSInteger i=0; i<haystack.length-needle.length; i++) {
+        NSInteger j=0;
+        for (; j<needle.length; j++) {
+            if ([haystack characterAtIndex:i+j] != [needle characterAtIndex:j]) break;
+        }
+        if (j == needle.length) return i;
+    }
+    return -1;
+}
+
+==============================================================================
+
+Question 46: Find All Anagrams in a String
+
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+The order of output does not matter.
+
+Example 1:
+
+Input:
+s: "cbaebabacd" p: "abc"
+
+Output:
+[0, 6]
+
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input:
+s: "abab" p: "ab"
+
+Output:
+[0, 1, 2]
+
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+// When we meet anagram, we can think of using hash table + counter to reach O(N) time complexity
+// Ask interviewer: what kind of character containing in the string? all letters?
+// is the input always valid? how about nil? s.length > p.length?
+// Naive solution: hash table + counter + Brute Force
+// Better solution: hash table + counter + Slide Window
+
+- (NSArray<NSNumber *> *)findAnagrams:(NSString *)s p:(NSString *)p {
+	NSMutableDictionary<NSString *, NSNumber *> *hashTable = [NSMutableDictionary dictionary];
+	NSMutableArray<NSNumber *> *results = [NSMutableArray array];
+	
+	// put all letters in p into hash table, count them
+	for (NSInteger i=0; i<p.length; i++) {
+		NSString *c = [p substringInRange:NSMakeRange(i,1)];
+		if (!hashTable[c]) hashTable[c] = @(1);
+		else hashTable[c] = @(hashTable[c].integerValue+1);
+	}
+	
+	// now we iterate s from beginning to end
+	NSInteger count = p.length;
+	NSInteger start = 0, end = 0;
+	while (end < s.length) {
+		NSString *c = [s substringInRange:NSMakeRange(i,1)];
+		
+		// if current character is not in p, we still add them into hash table
+		if (!hashTable[c]) hashTable[c] = @(0);
+		
+		// decrease the total count and letter count by 1
+		if (hashTable[c].integerValue > 0) count--;
+		
+		hashTable[c] = @(hashTable[c].integerValue-1);
+		// move the end pointer to next one
+		end++;
+		
+		// if count == 0, then we find a anagram of p.
+		if (count == 0) [results addObject:@(start)];
+		
+		if (end - start == p.length) {
+			NSString *sc = [p substringInRange:NSMakeRange(start, 1)];
+			// here we filter out all non-anagram letters, whose count is -1.
+			if (hashTable[sc].integerValue >= 0) count++;
+			hashTable[sc] = @(hashTable[sc].integerValue+1);
+			start++;
+		}
+	}
+	// http://stackoverflow.com/questions/27389591/best-practice-return-mutablearray-copy-or-mutablearray-if-return-type-is-nsarra
+	/* Generally speaking:
+	   If your caller is following these guidelines, just return the mutable array since it's slightly cheaper, 	   and the caller won't mutate it.
+       If you're not sure whether caller might not follow these guidelines, and you want to code defensively, 	   return an immutable copy using array.copy.
+	**/
+	return [results copy];
+}
+
+==============================================================================
+
+Question 47: Valid Palindrome
+
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+For example,
+"A man, a plan, a canal: Panama" is a palindrome.
+"race a car" is not a palindrome.
+
+Note:
+Have you consider that the string might be empty? This is a good question to ask during an interview.
+
+For the purpose of this problem, we define empty string as valid palindrome.
+
+// Traditional double pointer question.
+// be careful about "whitespaces"
+// use NSCharacterSet to check if current character is alphanumeric
+
+- (BOOL)isPalindrome:(NSString *)s {
+    NSInteger left = 0, right = s.length-1;
+    NSCharacterSet *alphanumeric = [NSCharacterSet alphanumericCharacterSet];
+    while (left < right) {
+        while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:left]]) left++;
+        while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:right]]) right--;
+        unichar lc = [s characterAtIndex:left];
+        unichar lr = [s characterAtIndex:right];
+        if (lc != lr) return NO;
+        left++; right--;
+    }
+    return YES;
+}
+
+==============================================================================
+
+Question 56: Regular Expression Matching [HARD]
+https://leetcode.com/problems/regular-expression-matching/?tab=Solutions
+
+Implement regular expression matching with support for '.' and '*'.
+
+'.' Matches any single character.
+'*' Matches zero or more of the preceding element.
+
+The matching should cover the entire input string (not partial).
+
+The function prototype should be:
+bool isMatch(const char *s, const char *p)
+
+Some examples:
+isMatch("aa","a") → false
+isMatch("aa","aa") → true
+isMatch("aaa","aa") → false
+isMatch("aa", "a*") → true
+isMatch("aa", ".*") → true
+isMatch("ab", ".*") → true
+isMatch("aab", "c*a*b") → true
+
+// TODO: Try to understand this question deeper later.
+// When we try to matching two strings, or find differences between to strings, or similar questions
+// In Stantford course, there is similar question about "find differences between strings"
+// "Dynamic Programming" is one option to reach good performance
+// https://discuss.leetcode.com/topic/40371/easy-dp-java-solution-with-detailed-explanation
+// Ask Interviewer: input valid? first character '*'?
+/*
+1. If p.charAt(j) == s.charAt(i) :  dp[i][j] = dp[i-1][j-1];
+2. If p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1];
+3. If p.charAt(j) == '*': here are two sub conditions:
+	1) if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
+	2) if p.charAt(i-1) == s.charAt(i) or p.charAt(i-1) == '.':
+		dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a 
+		or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
+		or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty */
+
+- (BOOL)isMatch:(NSString *)s p:(NSString *)p {
+	if (s == nil || p == nil) return NO;
+	BOOL dp[s.length+1][p.length+1];
+	// initialize the dp container
+	// empty string matches empty string
+	dp[0][0] = YES;
+	// if the length of p is 0, then we would say s is not match to empty string
+	for (NSInteger i=1; i<=s.length; i++) dp[i][0] = NO;
+	// if the length of s is 0, then if the previous character in p p[j-1] == '*'
+	// and also previous character is NOT the first one, then we could say dp[0][j] = dp[0][j-2]
+	for (NSInteger j=1; j<=p.length; j++) {
+		unichar c = [p characterAtIndex:j-1];
+		if (c == '*' && j>1) dp[0][j] = dp[0][j-2]; 
+	}
+	
+	// now we can build the DP table
+	for (NSInteger i=1; i<=s.length; i++) {
+		for (NSInteger j=1; j<=p.length; j++) {
+			unichar sc = [s characterAtIndex:i];
+			unichar pc = [p characterAtIndex:j];
+			unichar pcc = [p characterAtIndex:j-1];
+			if (pc != '*') {
+				dp[i][j] = dp[i-1][j-1] && (sc == pc || pc == '.');
+			} else if (j > 1) {
+				dp[i][j] = dp[i][j-2] || (sc == pcc || pcc == '.') && dp[i-1][j];
+			}
+		}
+	}
+	return dp[s.length][p.length];
+}
+
+==============================================================================
+
+Question 66: Expression Add Operators [Hard]
+
+Given a string that contains only digits 0-9 and a target value, return all possibilities to add binary operators (not unary) +, -, or * between the digits so they evaluate to the target value.
+
+Examples:
+
+"123", 6 -> ["1+2+3", "1*2*3"] 
+"232", 8 -> ["2*3+2", "2+3*2"]
+"105", 5 -> ["1*0+5","10-5"]
+"00", 0 -> ["0+0", "0-0", "0*0"]
+"3456237490", 9191 -> []
+
+// https://leetcode.com/problems/expression-add-operators/?tab=Description
+// Divide & Conquer + backtracking
+// https://discuss.leetcode.com/topic/35751/recommend-for-beginners-clean-c-implementation-with-detailed-explanation
+
+- (NSArray<NSString *> *)addOperators:(NSString *)num target:(NSInteger)target {
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    if (num == nil || num.length == 0) return results;
+    [self helper:num path:@"" target:target start:0 current:0 multed:0 results:results];
+    return results;
+}
+
+- (void)helper:(NSString *)num path:(NSString *)path
+        target:(NSInteger)target start:(NSInteger)start
+       current:(NSInteger)current multed:(NSInteger)multed
+       results:(NSMutableArray<NSString *> *)results {
+    if (start == num.length && current == target) {
+        [results addObject:path];
+        return;
+    }
+    for (NSInteger i=start; i<num.length; i++) {
+        // this means we found continuous '0's, which is invalid
+        if (i != start && [num characterAtIndex:start] == '0') break;
+        NSString *ns = [num substringWithRange:NSMakeRange(start, i-start+1)];
+        NSInteger n = ns.integerValue;
+        if (start == 0) {
+            // if this is the first character in the path, we just move to next one
+            [self helper:num path:[path stringByAppendingFormat:@"%@",ns] target:target
+                   start:i+1 current:n multed:n results:results];
+        } else {
+            // for '+' and '-', we just add or minus current value
+            // remember to inverse the multed when we do '-'
+            [self helper:num path:[path stringByAppendingFormat:@"+%@",ns] target:target
+                   start:i+1 current:current+n multed:n results:results];
+            [self helper:num path:[path stringByAppendingFormat:@"-%@",ns] target:target
+                   start:i+1 current:current-n multed:-n results:results];
+            // when we do '*', first we need to remove previous 'multed' value from 'current'
+            // this is because we don't know '*' operation beforehand, so previous 'multed'
+            // value has already been added or minused in 'current'
+            // after removing duplicate 'multed', we add 'multed * n'
+            [self helper:num path:[path stringByAppendingFormat:@"*%@",ns] target:target
+                   start:i+1 
+                 current:current-multed+multed*n
+                  multed:multed*n
+                 results:results];
+        }
+    }
+}
+
+==============================================================================
+
+Question 68: Word Break I
+
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words. You may assume the dictionary does not contain duplicate words.
+
+For example, given
+s = "leetcode",
+dict = ["leet", "code"].
+
+Return true because "leetcode" can be segmented as "leet code".
+
+// Ask interviewer: character set? whitespaces? valid?
+// Traditional "Dynamic Programming" question
+// https://discuss.leetcode.com/topic/7299/c-dynamic-programming-simple-and-fast-solution-4ms-with-optimization
+ 
+- (BOOL)wordBreakI:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict {
+	NSSet *wordSet = [NSSet setWithArray:wordDict];
+	BOOL dp[s.length+1];
+	memset(dp, NO, (s.length+1)*sizeof(BOOL));	// set all dp into NO
+	dp[0] = YES;
+	for (NSInteger i=1; i<=s.length; i++) {
+		for (NSInteger j=i-1; j>=0; j--) {
+			if (dp[j]) {
+				NSString *sub = [s substringWithRange:NSMakeRange(j, i-j)];
+				if ([wordSet containsObject:sub] && dp[j]) {
+					dp[i] = YES;
+					break;
+				}
+			}
+		}
+	}
+	return dp[s.length];
+}
+
+==============================================================================
+
+Question 69: Word Break II [Hard]
+
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. You may assume the dictionary does not contain duplicate words.
+
+Return all such possible sentences.
+
+For example, given
+s = "catsanddog",
+dict = ["cat", "cats", "and", "sand", "dog"].
+
+A solution is ["cats and dog", "cat sand dog"].
+
+// One solution is that we can still use "Dynamic Programming" as Word Break I
+// then we "backtracking" to get results
+// Also for simpler solution, we can use "Recursive + Memorize"
+// https://discuss.leetcode.com/topic/27855/my-concise-java-solution-based-on-memorized-dfs
+
+- (NSArray<NSString *> *)wordBreakII:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict {
+    return [self DFS:s dictionary:wordDict cache:[NSMutableDictionary dictionary]];
+}
+
+- (NSArray<NSString *> *)DFS:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict
+                       cache:(NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *)cache {
+    // return cache value if found
+    if (cache[s] != 0) return cache[s];
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    // return empty array for empty string
+    if (s.length == 0) return results;
+    
+    // now we start to find words from dictionary set word by word
+    for (NSString *word in wordDict) {
+        if ([s hasPrefix:word]) {
+            // backtracking now
+            NSString *follow = [s substringFromIndex:word.length-1];
+            NSArray<NSString *> *followWords = [self DFS:follow dictionary:wordDict cache:cache];
+            for (NSString *followWord in followWords) {
+                [results addObject:[word stringByAppendingFormat:@" %@", followWord]];
+            }
+        }
+    }
+    cache[s] = results;
+    return results;
+}
+
+==============================================================================
+
+Question 75: Longest Palindromic Substring
+
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example:
+
+Input: "babad"
+
+Output: "bab"
+
+Note: "aba" is also a valid answer.
+Example:
+
+Input: "cbbd"
+
+Output: "bb"
+
+// First we need to know what is Palindromic string.
+// "a", "aa", "aba", "abba" and "aaaaaaaaa" are all palindromes
+// NOTICE: for a string with all same characters, no matter how long it is, it is always palindrome
+// Good solution based on: https://discuss.leetcode.com/topic/23498/very-simple-clean-java-solution
+// and https://discuss.leetcode.com/topic/12187/simple-c-solution-8ms-13-lines/3
+// The key idea is: skip all duplidate characters "around" current pivot character, 
+// BEFORE we start real comparison of left and right characters.
+
+- (NSString *)longestPalindrome:(NSString *)s {
+    if (s == nil || s.length == 0) return nil;
+    // NOTICE: maxLen with initial value 1
+    NSInteger maxLen = 1, maxStart = 0;
+    for (NSInteger i=0; i<s.length; i++) {
+        NSInteger left = i, right = i;
+        // first skip all duplicate characters, because duplicates are always palindrome string
+        while (right < s.length-1 &&
+               [s characterAtIndex:right] == [s characterAtIndex:right+1]) {
+            right++;
+        }
+        // move next start point to right+1
+        i = right+1;
+        // now expend to left and right "around" the duplicate characters
+        while (right < s.length-1 && left > 0 &&
+               [s characterAtIndex:left-1] == [s characterAtIndex:right+1]) {
+            left--; right++;
+        }
+        if (maxLen < right - left + 1) {
+            maxStart = left;
+            maxLen = right - left + 1;
+        }
+    }
+    return [s substringWithRange:NSMakeRange(maxStart, maxLen)];
+}
+
+==============================================================================
+
+Question 76: Letter Combinations of a Phone Number
+
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+Input:Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+
+Note: Although the above answer is in lexicographical order, your answer could be in any order you want.
+
+// Traditional "Backtracking" question
+// O(k^N)
+// Ask interviewer: what are letter(s) for '0' and '1'?
+// We can also use DFS+recursion or BFS+iteration to solve this problem.
+
+- (NSArray<NSString *> *)letterCombinations:(NSString *)digits {
+    if (digits.length == 0) return nil;
+    return [self helper:digits start:0];
+}
+
+- (NSArray<NSString *> *)helper:(NSString *)digits start:(NSInteger)start {
+    if (start == digits.length) return @[];
+    
+    NSArray<NSString *> *combines = [self helper:digits start:start+1];
+    
+    NSInteger digit = [digits characterAtIndex:start] - '0';
+    NSArray<NSString *> *letters = [self digitToLetters:digit];
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+	for (NSString *letter in letters) {
+    	for (NSString *combine in combines) {
+            [results addObject:[letter stringByAppendingString:combine]];
+        }
+    }
+    return results;
+}
+
+- (NSArray<NSString *> *)digitToLetters:(NSInteger)digit {
+    return [@[
+              @[@""],
+              @[@""],
+              @[@"a", @"b", @"c"],
+              @[@"d", @"e", @"f"],
+              @[@"g", @"h", @"i"],
+              @[@"j", @"k", @"l"],
+              @[@"m", @"n", @"o"],
+              @[@"p", @"q", @"r", @"s"],
+              @[@"w", @"x", @"y", @"z"]
+              ] objectAtIndex:digit];
+}
+
+==============================================================================
+
+Question 78: Generate Parentheses
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+
+// Traditional "Backtracking" question
+// NOTICE: here we backtracking based on the number of "left parenthese" and "right parenthese"
+// Ask interviewer: n always available?
+
+- (NSArray<NSString *> *)generateParenthesis:(NSInteger)n {
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    [self helperWithLeftParenthesis:n rightParenthesis:n path:@"" results:results];
+    return results;
+}
+
+- (void)helperWithLeftParenthesis:(NSInteger)leftP rightParenthesis:(NSInteger)rightP
+                             path:(NSString *)path
+                          results:(NSMutableArray<NSString *> *)results {
+    if (leftP == 0 && rightP == 0) {
+        [results addObject:[path copy]];
+        return;
+    }
+    
+    if (leftP > 0) {
+        [self helperWithLeftParenthesis:leftP-1 rightParenthesis:rightP
+                                   path:[path stringByAppendingString:@"("]
+                                results:results];
+    }
+    
+    if (rightP > leftP) {
+        [self helperWithLeftParenthesis:leftP rightParenthesis:rightP-1
+                                   path:[path stringByAppendingString:@")"]
+                                results:results];
+    }
+}
+
+==============================================================================
+
+Question 79: Common String Longer Than Or Equal to K
+
+Given two strings ‘X’ and ‘Y’, find whether there is common substring length >= k.
+
+// Similar question: Longest Common String
+// http://www.geeksforgeeks.org/longest-common-substring/
+// Dynamic Programming can be used to find the longest common substring in O(m*n) time. 
+// The idea is to find length of the longest common "suffix" for all substrings of both strings 
+// and store these lengths in a table.
+// i and j of DP here means start from i in str1 and start from j in str2
+
+- (BOOL)commonString:(NSString *)str1 andString:(NSString *)str2 longerThanOrEqualToK:(NSInteger)k {
+    NSInteger dp[str1.length+1][str2.length+1];
+    for (NSInteger i=0; i<=str1.length; i++) {
+        dp[i][0] = 0;
+    }
+    for (NSInteger i=0; i<=str1.length; i++) {
+        dp[0][i] = 0;
+    }
+    for (NSInteger i=1; i<=str1.length; i++) {
+        for (NSInteger j=1; j<=str2.length; j++) {
+            if ([str1 characterAtIndex:i-1] == [str2 characterAtIndex:j-1]) {
+                dp[i][j] = dp[i-1][j-1]+1;
+            } else {
+                dp[i][j] = 0;
+            }
+            if (dp[i][j] >= k) return YES;
+        }
+    }
+    return NO;
+}
+
+==============================================================================
+
+Question 82: Shortest Palindrome [Hard]
+
+Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+For example:
+
+Given "aacecaaa", return "aaacecaaa".
+
+Given "abcd", return "dcbabcd".
+
+==============================================================================
+
+Question 89: (One) Edit Distance
+
+Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
+
+You have the following 3 operations permitted on a word:
+
+a) Insert a character
+b) Delete a character
+c) Replace a character
+
+// http://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/
+// http://www.geeksforgeeks.org/check-if-two-given-strings-are-at-edit-distance-one/
+
+// NOTICE: DP solution is good for several edit distances (O(N^2)). 
+// But not the most effient way for "one" edit distances question.
+
+==============================================================================
+
+Question 101: minimum window containsing a string
+
+==============================================================================
+
+Question 106: 给一个string “123456789”， 进行 arithmetic oepration combination. 比如: 123 + 456 + 78 -9 是一种组合， -1 + 2 -3 +4 -5 - 67 + 89 也是一 种(只用加 + 或 -), 打印出所有结果等于 100 的组合, 没有想出有什么最优解，直接backtracking 暴力，用一个sum 记录前面的结果， 不过到后来 string 处理有问题
+
+==============================================================================
+
+Question 112: 求任意string里有多少个palindromic substring，这个string可以包含任意字符，单个的char也算合理的palindromic substring.
+
+==============================================================================
+
+Question 115: Minimum Window Substring
+
+https://leetcode.com/problems/minimum-window-substring/#/description
+
+==============================================================================
+
+Question 120: 给定一个数列，比如1234，将它match到字母上，1是A，2是B等等，那么1234可以是 ABCD
+但是还可以是12是L，所以1234也可以写作 LCD 或者 AWD
+
+==============================================================================
+
+Question 123: Simplify Path
+
+https://leetcode.com/problems/simplify-path/#/description
+
+==============================================================================
