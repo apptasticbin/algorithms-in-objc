@@ -1,4 +1,4 @@
-Question 60: Validate Binary Search Tree
+Question 60: Validate Binary Search Tree [DONE]
 
 Given a binary tree, determine if it is a valid binary search tree (BST).
 
@@ -54,7 +54,7 @@ Binary tree [1,2,3], return false.
 
 ==============================================================================
 
-Question 1: Common Parent Commit of Two Commits
+Question 1: Common Parent Commit of Two Commits [DONE]
 
 we have a git vertion control
    
@@ -115,7 +115,7 @@ The reason is simple, if we advance the deeper node dh steps above, both nodes w
 
 ==============================================================================
 
-Question 3:
+Question 3: [DONE]
 
 Give you a binary tree, each node keeps a integer value, calculate the average value of each layer.
 
@@ -147,6 +147,14 @@ Give you a binary tree, each node keeps a integer value, calculate the average v
         // http://nshipster.com/kvc-collection-operators/
         NSNumber *layerAverageValue = [layer valueForKeyPath:@"@avg.doubleValue"];
         [averageValues addObject:layerAverageValue];
+		
+		for (NSUInteger i=0; i<size; i++) {
+			Tree *node = queue[i];
+			if (node.left) [queue addObject:node.left];
+			if (node.right) [queue addObject:node.right];
+		}
+		NSIndexSet *removeSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, size)];
+		[queue removeObjectsAtIndexes:removeSet];
     }
     
     return averageValues;
@@ -154,7 +162,7 @@ Give you a binary tree, each node keeps a integer value, calculate the average v
 
 ==============================================================================
 
-Question 4:
+Question 4: [DONE]
 
 Output ALL paths of a binary tree
 
@@ -190,7 +198,7 @@ Given two pre-order traversal arrays of two "binary search tree" respectively, f
 
 ==============================================================================
 
-Question 7:
+Question 7: [DONE]
 
 Given an array of numbers, verify whether it is the correct preorder traversal sequence of a binary search tree.
 You may assume each number in the sequence is unique.
@@ -242,10 +250,11 @@ Could you do it using only constant space complexity?
 
 ==============================================================================
 
-Question 9: Convert a given Binary Tree to Doubly Linked List
+Question 9: Convert a given Binary Tree to Doubly Linked List [DONE]
 
 // About __autoreleasing:
 // http://stackoverflow.com/questions/8814718/handling-pointer-to-pointer-ownership-issues-in-arc
+// https://developer.apple.com/library/content/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html
 
 // http://www.geeksforgeeks.org/convert-a-given-binary-tree-to-doubly-linked-list-set-4/
 
@@ -300,7 +309,7 @@ Question 9: Convert a given Binary Tree to Doubly Linked List
 
 ==============================================================================
 
-Question 10: Lowest Common Ancestor of a Binary Tree
+Question 10: Lowest Common Ancestor of a Binary Tree [DONE]
 http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-i/
 
 Given a binary tree, find the lowest common ancestor of two given nodes in the tree.
@@ -337,7 +346,7 @@ Given a binary tree, find the lowest common ancestor of two given nodes in the t
 
 ==============================================================================
 
-Question 18: Convert Sorted List to Binary Search Tree
+Question 18: Convert Sorted List to Binary Search Tree [DONE]
 
 Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
 
@@ -377,7 +386,7 @@ Given a singly linked list where elements are sorted in ascending order, convert
 
 ==============================================================================
 
-Question 27: Binary Tree Level Order Traversal
+Question 27: Binary Tree Level Order Traversal [DONE]
 
 Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
 
@@ -408,7 +417,7 @@ return its level order traversal as:
 		NSMutableArray<NSNumber *> *level = [NSMutableArray array];
 		NSUInteger size = queue.count;
 		for (NSUInteger i=0; i<size; i++) {
-			Tree *node = queue.firstObject;
+			Tree *node = queue[i];
 			[level addObject:@(node.value)];
 			if (node.left) [queue addObject:node.left];
 			if (node.right) [queue addObject:node.right];
@@ -424,7 +433,7 @@ return its level order traversal as:
 
 ==============================================================================
 
-Question 33: Construct BST from given preorder traversal
+Question 33: Construct BST from given preorder traversal [DONE]
 
 Given preorder traversal of a binary search tree, construct the BST.
 For example, if the given traversal is {10, 5, 1, 7, 40, 50}, then the output should be root of following tree.
@@ -521,7 +530,7 @@ For example, if the given traversal is {10, 5, 1, 7, 40, 50}, then the output sh
 
 ==============================================================================
 
-Question 41: Minimum Depth of Binary Tree
+Question 41: Minimum Depth of Binary Tree [DONE]
 
 Given a binary tree, find its minimum depth.
 The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
@@ -548,22 +557,20 @@ Follow up: How about is the left/right tree is much deeper than right/left tree?
     while (queue.count) {
         depth += 1;
         NSUInteger size = queue.count;
-        NSMutableArray<Tree *> *newNodes = [NSMutableArray array];
         for (NSInteger i=0; i<size; i++) {
             Tree *node = queue[i];
             if (node.left == nil && node.right == nil) return depth;
             if (node.left) [newNodes addObject:node.left];
             if (node.right) [newNodes addObject:node.right];
         }
-        [queue removeAllObjects];
-        [queue addObjectsFromArray:newNodes];
+        [queue removeObjectsInRange:NSMakeRange(0, size)];
     }
     return depth;
 }
 
 ==============================================================================
 
-Question 43: Binary Tree Paths
+Question 43: Binary Tree Paths [DONE]
 
 Given a binary tree, return all root-to-leaf paths.
 For example, given the following binary tree:
@@ -596,7 +603,7 @@ All root-to-leaf paths are:
         [path addObject:@(root.value).stringValue];
         [results addObject:[path componentsJoinedByString:@"->"]];
         [path removeLastObject];
-        return ;
+        return;
     }
     
     [path addObject:@(root.value).stringValue];
@@ -625,7 +632,7 @@ All root-to-leaf paths are:
 
 ==============================================================================
 
-Question 51: Binary Tree Longest Consecutive Sequence
+Question 51: Binary Tree Longest Consecutive Sequence [DONE]
  
 Given a binary tree, find the length of the longest consecutive sequence path.
 
@@ -651,7 +658,7 @@ Longest consecutive sequence path is 3-4-5, so return 3.
   / 
  1
  
-Longest consecutive sequence path is 2-3,not3-2-1, so return 2.
+Longest consecutive sequence path is 2-3,not 3-2-1, so return 2.
 
 // Ask interviewer: BST? numbers are all positive? duplicates?
 // http://www.cnblogs.com/grandyang/p/5252599.html (My solution is actually the divide&conquer one! \o/)
@@ -671,7 +678,7 @@ Longest consecutive sequence path is 2-3,not3-2-1, so return 2.
 
 ==============================================================================
 
-Question 54: Binary Tree Inorder Traversal
+Question 54: Binary Tree Inorder Traversal [DONE]
 
 Given a binary tree, return the inorder traversal of its nodes' values.
 
@@ -755,7 +762,7 @@ Note: Recursive solution is trivial, could you do it iteratively?
 
 ==============================================================================
 
-Question 59: Reverse Linked List
+Question 59: Reverse Linked List [DONE]
 
 Reverse a singly linked list.
 
@@ -774,7 +781,7 @@ Reverse a singly linked list.
 
 ==============================================================================
 
-Question 61: Merge k Sorted Lists
+Question 61: Merge k Sorted Lists [DONE]
 
 Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
 
@@ -828,7 +835,7 @@ Merge k sorted linked lists and return it as one sorted list. Analyze and descri
 
 ==============================================================================
 
-Question 65: Binary Tree Vertical Order Traversal
+Question 65: Binary Tree Vertical Order Traversal [DONE]
  
 Given a binary tree, return the vertical order traversal of its nodes' values. 
 (ie, from top to bottom, column by column).
@@ -895,7 +902,7 @@ output should be:
 
 ==============================================================================
 
-Question 71: Populating Next Right Pointers in Each Node I & II
+Question 71: Populating Next Right Pointers in Each Node I & II [DONE]
 
 Given a binary tree
 
@@ -937,6 +944,7 @@ Follow up:
 // because we need to link node level to level, left to right
 // so we can use BST to traverse the tree level by level, right to left
 // https://discuss.leetcode.com/topic/28580/java-solution-with-constant-space
+// Recursive solution: https://discuss.leetcode.com/topic/32808/c-recursive-solution-easy-understanding
 
 @interface TreeLinkNode : NSObject
 
@@ -957,8 +965,8 @@ Follow up:
 			root.right.next = root.next.left;
 		}
 	}
-	connect(root.left);
-	connect(root.right);
+	connectConstantSpaceForPerfectTree(root.left);
+	connectConstantSpaceForPerfectTree(root.right);
 }
 
 - (void)connectConstantSpaceForAnyTree:(TreeLinkNode *)root {
@@ -1010,7 +1018,7 @@ Follow up:
 
 ==============================================================================
 
-Question 90: In-order Minimum Heap
+Question 90: In-order Minimum Heap [DONE]
 
 Given an array with integers, convert this array to an minimum heap tree, which keeps the origianl order of the array when doing in-order traversal.
 
@@ -1049,7 +1057,7 @@ Given an array with integers, convert this array to an minimum heap tree, which 
 
 ==============================================================================
 
-Question 91: Find the Distance between Two Nodes of a Binary Tree
+Question 91: Find the Distance between Two Nodes of a Binary Tree [DONE]
 
 Given nodes in a binary tree, find the dis­tance between them. The distance here means number of edges between two nodes.
 
@@ -1111,13 +1119,13 @@ http://algorithms.tutorialhorizon.com/find-the-distance-between-two-nodes-of-a-b
 
 ==============================================================================
 
-Question 92: Clone Binary Tree
+Question 92: Clone Binary Tree [DONE]
 
 http://www.jiuzhang.com/solutions/clone-binary-tree/
 
 ==============================================================================
 
-Question 93: All paths of binary tree
+Question 93: All paths of binary tree [DONE]
 
 ==============================================================================
 
@@ -1129,7 +1137,7 @@ Question 96: 找一个无向图中的所有联通分量，要求输出每个联�
 
 ==============================================================================
 
-Question 97: 输出一颗二叉树的从root到叶子的所有路径(字符串)
+Question 97: 输出一颗二叉树的从root到叶子的所有路径(字符串) [DONE]
 
 ==============================================================================
 

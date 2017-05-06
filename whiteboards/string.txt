@@ -1,4 +1,29 @@
-Question 5: Run Length Encoding
+Question 67: Most Frequently Occurring Character In String [DONE]
+
+Given a string, find the most frequently occurring character.
+
+// Key idea: using Hash Table to count character, also track the "max frequent count"
+// during counting.
+
+- (NSArray<NSString *> *)mostFrequentlyOccurringCharacter:(NSString *)string {
+    NSMutableDictionary<NSString *, NSNumber *> *count = [NSMutableDictionary dictionary];
+    NSInteger maximum = 0;
+    for (NSInteger i=0; i<string.length; i++) {
+        NSString *c = [string substringWithRange:NSMakeRange(i,1)];
+        if (count[c] == nil) count[c] = @(0);
+        count[c] = @(count[c].integerValue+1);
+        maximum = MAX(maximum, count[c].integerValue);
+    }
+    NSSet<NSString *> *mostKeys =
+    [count keysOfEntriesPassingTest:^BOOL(NSString *key, NSNumber *obj, BOOL *stop) {
+        return obj.integerValue == maximum;
+    }];
+    return mostKeys.allObjects;
+}
+
+==============================================================================
+
+Question 5: Run Length Encoding [DONE]
 
 Given an input string, write a function that returns the Run Length Encoded string for the input string.
 
@@ -29,7 +54,7 @@ For example, if the input string is “wwwwaaadexxxxxx”, then the function sho
 
 ==============================================================================
 
-Question 13: Remove Invalid Parentheses
+Question 13: Remove Invalid Parentheses [DONE]
 
 Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
 
@@ -86,7 +111,7 @@ Examples:
         }
         if (count < 0) return NO;
     }
-    return YES;
+    return count == 0;	// it is possible that count > 0, which means we have more '('s
 }
 
 - (BOOL)isParenthesis:(unichar)c {
@@ -95,7 +120,7 @@ Examples:
 
 ==============================================================================
 
-Question 26: Print the pretty JSON strings
+Question 26: Print the pretty JSON strings [DONE]
 
 Pretty print a JSON object using proper indentation.
 
@@ -186,7 +211,7 @@ The strings should not have “\n” character in them.
 
 ==============================================================================
 
-Question 29: Balance parentheses in a string 
+Question 29: Balance parentheses in a string [DONE]
 
 For example:
 "(a)()" -> "(a)()"
@@ -223,7 +248,7 @@ Follow up: do without using Stack
         if (c == '(') count++;
         else if (c == ')') {
             if (count > 0) count--;
-            else [result deleteCharactersInRange:NSMakeRange(input.length-1, 1)];
+            else [result deleteCharactersInRange:NSMakeRange(result.length-1, 1)];
         }
     }
     return result;
@@ -246,7 +271,7 @@ Follow up: do without using Stack
 
 ==============================================================================
 
-Question 30: Decode Ways [DP]
+Question 30: Decode Ways [DP] [DONE]
 
 A message containing letters from A-Z is being encoded to numbers using the following mapping:
 
@@ -276,7 +301,7 @@ Follow-up: 1) output all decoded results 2) constant space
     if (s == nil || s.length == 0 || [s characterAtIndex:0] == '0') return 0;
     
     NSUInteger dp[s.length+1];
-    memset(dp, 0, (s.length+1)*sizeof(NSUInteger));
+    memset(dp, 0, sizeof(dp));
     dp[0] = 1;	// empty string
     dp[1] = 1;	// string size 1 and first character is not '0'
     // i here means string size, not index
@@ -307,7 +332,7 @@ Follow-up: 1) output all decoded results 2) constant space
 
 ==============================================================================
 
-Question 37: Implement strStr()
+Question 37: Implement strStr() [DONE]
 
 Implement strStr().
 
@@ -377,7 +402,7 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 	
 	// put all letters in p into hash table, count them
 	for (NSInteger i=0; i<p.length; i++) {
-		NSString *c = [p substringInRange:NSMakeRange(i,1)];
+		NSString *c = [p substringWithRange:NSMakeRange(i,1)];
 		if (!hashTable[c]) hashTable[c] = @(1);
 		else hashTable[c] = @(hashTable[c].integerValue+1);
 	}
@@ -386,7 +411,7 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 	NSInteger count = p.length;
 	NSInteger start = 0, end = 0;
 	while (end < s.length) {
-		NSString *c = [s substringInRange:NSMakeRange(i,1)];
+		NSString *c = [s substringWithRange:NSMakeRange(end,1)];
 		
 		// if current character is not in p, we still add them into hash table
 		if (!hashTable[c]) hashTable[c] = @(0);
@@ -402,10 +427,10 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 		if (count == 0) [results addObject:@(start)];
 		
 		if (end - start == p.length) {
-			NSString *sc = [p substringInRange:NSMakeRange(start, 1)];
+			NSString *sc = [s substringWithRange:NSMakeRange(start, 1)];
 			// here we filter out all non-anagram letters, whose count is -1.
-			if (hashTable[sc].integerValue >= 0) count++;
 			hashTable[sc] = @(hashTable[sc].integerValue+1);
+			if (hashTable[sc].integerValue > 0) count++;
 			start++;
 		}
 	}

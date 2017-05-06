@@ -4,9 +4,9 @@ https://leetcode.com/problems/permutations/#/description
 
 ==============================================================================
 
-Question 2:
+Question 2: [DONE]
 
-Give you a array of digits, only swap it once, in order to maximum the the number
+Give you a array of digits, only swap it once, in order to maximum the number
 that can be combined by these digits.
 
 NOTICE: digits here are 0 to 9
@@ -54,7 +54,7 @@ For example, [4, 2, 1, 3, 5] is 42135, maximum number after one swap is 52134
 
 ==============================================================================
 
-Question 8: K Cloest Points
+Question 8: K Cloest Points [DONE]
 
 Given an array containing N points find the K closest points to the origin in the 2D plane. You can assume K is much smaller than N and N is very large.
 
@@ -77,7 +77,7 @@ Quickselect uses the same overall approach as quicksort, choosing one element as
                                 start:(NSUInteger)start end:(NSUInteger)end {
 	if (start >= end) return [points copy];
     // http://stackoverflow.com/questions/35758588/maximum-return-value-of-arc4random
-    NSUInteger selectedPivot = arc4random() % (end-start+1);
+    NSUInteger selectedPivot = start + arc4random_uniform(end-start+1);
     NSUInteger pivotIndex = [self partition:points start:start end:end pivot:selectedPivot];
     if (pivotIndex == k) return [points subarrayWithRange:NSMakeRange(0, k)];
     if (pivotIndex > k) return [self kCloestPoints:k fromPoints:points
@@ -90,11 +90,11 @@ Quickselect uses the same overall approach as quicksort, choosing one element as
                   start:(NSUInteger)start end:(NSUInteger)end
                   pivot:(NSUInteger)pivot {
     // choose last one as the pivot value
-    NSUInteger pivotIndex = pivot;
+    NSUInteger pivotIndex = start;
     NSUInteger pivotDistance = [self distanceToOriginFromPoint:points[pivotIndex].pointValue];
     // move pivot value to end
     [points exchangeObjectAtIndex:pivotIndex withObjectAtIndex:end];
-    for (NSUInteger i=start; i<end-1; i++) {
+    for (NSUInteger i=start; i<end; i++) {
         // NOTICE: we should use CGPointValue for iOS
         NSUInteger distance = [self distanceToOriginFromPoint:points[i].pointValue];
         if (distance < pivotDistance) {
@@ -112,7 +112,7 @@ Quickselect uses the same overall approach as quicksort, choosing one element as
 
 ==============================================================================
 
-Question 11: Sort Colors I
+Question 11: Sort Colors I [DONE]
 
 https://leetcode.com/problems/sort-colors/?tab=Solutions
 
@@ -173,7 +173,7 @@ You are not suppose to use the library's sort function for this problem.
 
 ==============================================================================
 
-Question 12: Sort Colors II
+Question 12: Sort Colors II [DONE]
 
 Given an array of n objects with k different colors (numbered from 1 to k), sort them so that objects of the same color are adjacent, with the colors in the order 1, 2, ... k.
 
@@ -181,7 +181,7 @@ Notice: You are not suppose to use the library's sort function for this problem.
 
 // Best solution, O(NLog(k))
 - (void)sortColors2:(NSMutableArray<NSNumber *> *)colors k:(NSUInteger)k {
-	// key idea: binary 
+	// key idea: binary search
 	if (!colors) return;
 	[self rainbowSort:colors start:0 end:colors.count-1 colorFrom:1 colorTo:k];
 }
@@ -210,7 +210,7 @@ Notice: You are not suppose to use the library's sort function for this problem.
 
 ==============================================================================
 
-Question 14: Number Of Islands
+Question 14: Number Of Islands [DONE]
 
 Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 
@@ -243,7 +243,8 @@ Answer: 3
         for (NSUInteger j=0; j<n; j++) {
             // NOTICE: should be valueWithCGPoint in iOS
             NSValue *pos = [NSValue valueWithPoint:CGPointMake(i, j)];
-            if (![visited containsObject:pos]) {
+            if ([grid[x][y] isEqualToNumber:@(1)] &&
+				![visited containsObject:pos]) {
                 count++;
                 [self DFS:grid i:i j:j m:m n:n visited:visited];
             }
@@ -272,7 +273,7 @@ Answer: 3
 
 ==============================================================================
 
-Question 15: Find Minimum in Rotated Sorted Array I && II
+Question 15: Find Minimum in Rotated Sorted Array I && II [DONE]
 
 Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).Find the minimum element.
@@ -320,7 +321,7 @@ FOLLOW UP: What if duplicates are allowed? Would this affect the run-time comple
 
 ==============================================================================
 
-Question 16: Paint House I [DP]
+Question 16: Paint House I [DP] [DONE]
  
 There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
 
@@ -337,9 +338,10 @@ The cost of painting each house with a certain color is represented by a n x 3 c
 	red[0] = blue[0] = green[0] = NSUIntegerMax;
 	for (NSUInteger i=1; i<n+1; i++) {
 		// if the ith house painted into red color, then (i-1)th house must be blue or green
-		red[i] = MIN(blue[i-1]+costs[i][0], green[i-1]+costs[i][0]);
-		blue[i] = MIN(red[i-1]+costs[i][1], green[i-1]+costs[i][1]);
-		green[i] = MIN(red[i-1]+costs[i][2], blue[i-1]+costs[i][2]);
+		// NOTICE: index of costs should be i-1, not i
+		red[i] = MIN(blue[i-1]+costs[i-1][0], green[i-1]+costs[i-1][0]);
+		blue[i] = MIN(red[i-1]+costs[i-1][1], green[i-1]+costs[i-1][1]);
+		green[i] = MIN(red[i-1]+costs[i-1][2], blue[i-1]+costs[i-1][2]);
 	}
 	return MIN(red[n], MIN(blue[n], green[n]));
 }
@@ -355,7 +357,7 @@ The cost of painting each house with a certain color is represented by a n x 3 c
 
 ==============================================================================
 
-Question 17: Paint House II [DP]
+Question 17: Paint House II [DP] [DONE]
  
 There are a row of n houses, each house can be painted with one of the k colors. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
 
@@ -402,7 +404,7 @@ http://www.jiuzhang.com/solutions/paint-house-ii/
                 dp[i][j] = dp[i-1][last[1].color] + costs[i-1][j];
             }
             now[2] = [PreviousMinimumCost cost:dp[i][j] color:j];
-            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"cost" ascending:NO];
+            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"cost" ascending:YES];
             [now sortUsingDescriptors:@[sortDescriptor]];
         }
     }
@@ -411,7 +413,7 @@ http://www.jiuzhang.com/solutions/paint-house-ii/
 
 ==============================================================================
 
-Question 19: Coin Change [DP]
+Question 19: Coin Change [DP] [DONE]
 
 You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
 
@@ -450,7 +452,7 @@ You may assume that you have an infinite number of each kind of coin.
 
 ==============================================================================
 
-Question 21: Move Zeroes
+Question 21: Move Zeroes [DONE]
 
 Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
@@ -472,7 +474,7 @@ Note: You must do this in-place without making a copy of the array. Minimize the
 
 ==============================================================================
 
-Question 23: 3Sum
+Question 23: 3Sum [DONE]
 
 Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
 
@@ -535,7 +537,7 @@ Similar Questions:
 
 ==============================================================================
 
-Question 24: 4Sum I
+Question 24: 4Sum I [DONE]
 
 Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
 
@@ -591,7 +593,7 @@ A solution set is:
 
 ==============================================================================
 
-Question 25: 4Sum II
+Question 25: 4Sum II [DONE]
 
 Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that A[i] + B[j] + C[k] + D[l] is zero.
 
@@ -633,9 +635,8 @@ The two tuples are:
     for (NSUInteger i=0; i<C.count; i++) {
         for (NSUInteger j=0; j<D.count; j++) {
             NSInteger sum = C[i].integerValue + D[j].integerValue;
-            if (count[@(-sum)] && count[@(-sum)].integerValue > 0) {
-                result++;
-                count[@(-sum)] = @(count[@(-sum)].integerValue-1);
+            if (count[@(-sum)]) {
+                result = count[@(-sum)].integerValue;
             }
         }
     }
@@ -644,7 +645,7 @@ The two tuples are:
 
 ==============================================================================
 
-Question 28: Merge Sorted Array
+Question 28: Merge Sorted Array [DONE]
 
 Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
 
@@ -670,7 +671,7 @@ Note: You may assume that nums1 has enough space (size that is greater or equal 
 
 ==============================================================================
 
-Question 32: Longest Consecutive Sequence
+Question 32: Longest Consecutive Sequence [DONE]
 Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
 For example,
@@ -708,7 +709,7 @@ Your algorithm should run in O(n) complexity.
 
 ==============================================================================
 
-Question 33: Maximum Subarray
+Question 33: Maximum Subarray [DONE]
 
 Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
 
@@ -731,7 +732,7 @@ the contiguous subarray [4,-1,2,1] has the largest sum = 6.
 
 ==============================================================================
 
-Question 34: Subarray with sum equals to K
+Question 34: Subarray with sum equals to K [DONE]
 
 Whether there is a subarray's sum equals to k, here all numbers are non-negative numbers.
 
@@ -760,7 +761,7 @@ http://www.1point3acres.com/bbs/thread-206502-1-1.html
 
 ==============================================================================
 
-Question 35: Maximum Size Subarray Sum Equals k
+Question 35: Maximum Size Subarray Sum Equals k [DONE]
  
 Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
 
@@ -789,7 +790,7 @@ return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
 
 ==============================================================================
 
-Question 36: Submatrix with sum equals to K
+Question 36: Submatrix with sum equals to K [DONE]
 
 Given a n×nn×n matrix A[0...m-1][0....n-1] where all entries are non-negative integers, and a non-negative integer K, find whether there is submatrix with sum to K
 
@@ -846,7 +847,7 @@ CC150 page 492
 
 ==============================================================================
 
-Question 40: Merge K Sorted Arrays/Linked Lists
+Question 40: Merge K Sorted Arrays/Linked Lists [DONE]
 
 Merge k sorted Arrays/Linked Lists and return it as one sorted Array/List
 
@@ -857,7 +858,7 @@ http://www.programcreek.com/2014/05/merge-k-sorted-arrays-in-java/
 
 ==============================================================================
 
-Question 42: Best Time to Buy and Sell Stock [DP]
+Question 42: Best Time to Buy and Sell Stock [DP] [DONE]
 
 Say you have an array for which the ith element is the price of a given stock on day i.
 
@@ -891,7 +892,7 @@ In this case, no transaction is done, i.e. max profit = 0.
 
 ==============================================================================
 
-Question 44: Contains Duplicate III
+Question 44: Contains Duplicate III [DONE]
 
 Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
 
@@ -913,7 +914,7 @@ Given an array of integers, find out whether there are two distinct indices i an
     NSMutableOrderedSet<NSNumber *> *window = [NSMutableOrderedSet orderedSet];
     for (NSInteger i=0; i<nums.count; i++) {
         // i == k -> k-1 elements
-        if (i>k) [window removeObjectAtIndex:i-k-1];
+        if (i>k) [window removeObject:nums[i-k-1]];
         NSInteger num = nums[i].integerValue;
         // find the insertion index of num-t
         NSUInteger pos = [window indexOfObject:@(num - t)
@@ -940,7 +941,7 @@ Given an array of integers, find out whether there are two distinct indices i an
 
 ==============================================================================
 
-Question 45: Check Duplicate Numbers In Window k
+Question 45: Check Duplicate Numbers In Window k [DONE]
 http://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/
 
 Given an unsorted array that may contain duplicates. Also given a number k which is smaller than size of array. Write a function that returns true if array contains duplicates within k distance.
@@ -978,7 +979,7 @@ Output: true
 
 ==============================================================================
 
-Question 47: First Bad Version
+Question 47: First Bad Version [DONE]
 
 You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
 
@@ -1004,7 +1005,7 @@ BOOL isBadVersion(NSUInteger version);
 
 ==============================================================================
 
-Question 48: Dot Product Of Sparse Vector
+Question 48: Dot Product Of Sparse Vector [DONE]
 
 Given two sparse Vectors, compute the Dot Product. 
 
@@ -1028,7 +1029,7 @@ Similar Question: Sparse Matrix multiplication
 
 ==============================================================================
 
-Question 49: Sparse Matrix Multiplication
+Question 49: Sparse Matrix Multiplication [DONE]
 
 Given two sparse matrices A and B, return the result of AB.
 You may assume that A's column number is equal to B's row number.
@@ -1054,7 +1055,7 @@ AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
 
 ==============================================================================
 
-Question 50: Longest Increasing(Arithmetic) Subsequence I
+Question 50: Longest Increasing(Arithmetic) Subsequence I [DONE]
 
 Given an unsorted array of integers, find the length of longest increasing subsequence.
 
@@ -1088,7 +1089,7 @@ O(N^2)
         dp[i] = 1;
         for (NSInteger j=i-1; j>=0; j++) {
             NSInteger num = nums[i].integerValue;
-            if (num > dp[j]) dp[i] = MAX(dp[j]+1, dp[i]);
+            if (num > nums[j].integerValue) dp[i] = MAX(dp[j]+1, dp[i]);
         }
         if (dp[i] > max) max = dp[i];
     }
@@ -1131,7 +1132,7 @@ O(NLogN)
 
 ==============================================================================
 
-Question 52: Word Search
+Question 52: Word Search [DONE]
 
 Given a 2D board and a word, find if the word exists in the grid.
 
@@ -1199,7 +1200,7 @@ word = "ABCB", -> returns false.
 
 ==============================================================================
 
-Question 52: Word Search II
+Question 52: Word Search II [DONE]
 
 Given a 2D board and a list of words from the dictionary, find all words in the board.
 
@@ -1271,6 +1272,7 @@ Note: You may assume that all inputs are consist of lowercase letters a-z.
     TrieNode *nextNode = [trieNode getChild:c];
     if (nextNode.isWord) [results addObject:nextWord];
     
+	// WRONG HERE: We need to remove "pos" from visited after each recersive call
     [self dfs:board i:i+1 j:j word:nextWord trieNode:nextNode visited:visited results:results];
     [self dfs:board i:i-1 j:j word:nextWord trieNode:nextNode visited:visited results:results];
     [self dfs:board i:i j:j+1 word:nextWord trieNode:nextNode visited:visited results:results];
@@ -1279,7 +1281,7 @@ Note: You may assume that all inputs are consist of lowercase letters a-z.
 
 ==============================================================================
 
-Question 53: Combination Sum IV
+Question 53: Combination Sum IV [DONE]
 
 Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
 
@@ -1322,9 +1324,11 @@ What limitation we need to add to the question to allow negative numbers?
 - (NSUInteger)combinationSum4DP:(NSArray<NSNumber *> *)nums target:(NSUInteger)target {
     NSUInteger dp[target+1];
     dp[0] = 1;
+	NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
+	NSArray *sortedNums = [nums sortedArrayUsingDescriptors:@[sd]];
     for (NSInteger i=0; i<=target; i++) {
-        for (NSInteger j=0; j<nums.count; j++) {
-            if (i > nums[j].integerValue) dp[i] += dp[i-nums[j].integerValue];
+        for (NSInteger j=0; j<sortedNums.count; j++) {
+            if (i > sortedNums[j].integerValue) dp[i] += dp[i-sortedNums[j].integerValue];
         }
     }
     return dp[target];
@@ -1352,7 +1356,7 @@ What limitation we need to add to the question to allow negative numbers?
 
 ==============================================================================
 
-Question 60: Combination Sum
+Question 60: Combination Sum [DONE]
 
 Given a set of candidate numbers (C) (without duplicates) and a target number (T), 
 find all unique combinations in C where the candidate numbers sums to T.
@@ -1407,7 +1411,7 @@ combination:(NSMutableArray *)combination
 
 ==============================================================================
 
-Question 62: Merge Intervals
+Question 62: Merge Intervals [DONE]
 
 Given a collection of intervals, merge all overlapping intervals.
 
@@ -1451,7 +1455,7 @@ return [1,6],[8,10],[15,18].
 
 ==============================================================================
 
-Question 63: Search in Rotated Sorted Array
+Question 63: Search in Rotated Sorted Array [DONE]
 
 Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 
@@ -1499,7 +1503,7 @@ You may assume no duplicate exists in the array.
 
 ==============================================================================
 
-Question 64: Search in Rotated Sorted Array II
+Question 64: Search in Rotated Sorted Array II [DONE]
 
 Follow up for "Search in Rotated Sorted Array": What if duplicates are allowed?
 
@@ -1549,35 +1553,9 @@ The array may contain duplicates.
     return -1;
 }
 
-
 ==============================================================================
 
-Question 67: Most Frequently Occurring Character In String
-
-Given a string, find the most frequently occurring character.
-
-// Key idea: using Hash Table to count character, also track the "max frequent count"
-// during counting.
-
-- (NSArray<NSString *> *)mostFrequentlyOccurringCharacter:(NSString *)string {
-    NSMutableDictionary<NSString *, NSNumber *> *count = [NSMutableDictionary dictionary];
-    NSInteger maximum = 0;
-    for (NSInteger i=0; i<string.length; i++) {
-        NSString *c = [string substringWithRange:NSMakeRange(i,1)];
-        if (count[c] == nil) count[c] = @(0);
-        count[c] = @(count[c].integerValue+1);
-        maximum = MAX(maximum, count[c].integerValue);
-    }
-    NSSet<NSString *> *mostKeys =
-    [count keysOfEntriesPassingTest:^BOOL(NSString *key, NSNumber *obj, BOOL *stop) {
-        return obj.integerValue == maximum;
-    }];
-    return mostKeys.allObjects;
-}
-
-==============================================================================
-
-Question 70: Intersection of Two Arrays II
+Question 70: Intersection of Two Arrays II [DONE]
 
 Given two arrays, write a function to compute their intersection.
 
@@ -1659,7 +1637,7 @@ The median is (2 + 3)/2 = 2.5
 
 ==============================================================================
 
-Question 73: Sorted Squares of Sorted Numbers
+Question 73: Sorted Squares of Sorted Numbers [DONE]
 
 We're given a sorted array of integers: [-3, -1, 0, 1, 2]. We want to generate a sorted array of their squares: [0, 1, 1, 4, 9]
 
@@ -1694,7 +1672,7 @@ We're given a sorted array of integers: [-3, -1, 0, 1, 2]. We want to generate a
 
 ==============================================================================
 
-Question 80: Subsets
+Question 80: Subsets [DONE]
 
 Given a set of distinct integers, nums, return all possible subsets.
 
@@ -1751,7 +1729,7 @@ If nums = [1,2,3], a solution is:
 
 ==============================================================================
 
-Question 81: Subsets II
+Question 81: Subsets II [DONE]
 
 Given a collection of integers that might contain duplicates, nums, return all possible subsets.
 
@@ -1788,7 +1766,7 @@ If nums = [1,2,2], a solution is:
         // if we find duplication, then we just combine with the last one of previous results
         if (i >= 1 && nums[i].integerValue == nums[i-1].integerValue) startIndex = previousSize;
         else startIndex = 0;
-        NSInteger previousSize = results.count;
+        previousSize = results.count;
         for (NSInteger j=startIndex; j<previousSize; j++) {
             NSMutableArray<NSNumber *> *combine = [results[j] mutableCopy];
             [combine addObject:nums[i]];
@@ -1800,15 +1778,16 @@ If nums = [1,2,2], a solution is:
 
 ==============================================================================
 
-Question 83: Meeting Rooms
+Question 83: Meeting Rooms [DONE]
  
 Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings. For example, Given [[0, 30],[5, 10],[15, 20]], return false.
 
 // Sort and check interval overlaps exists or not.
+// http://www.programcreek.com/2014/07/leetcode-meeting-rooms-java/
 
 ==============================================================================
 
-Question 84: Meeting Rooms II
+Question 84: Meeting Rooms II [DONE]
  
 Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] find the minimum number of conference rooms required.
 
@@ -1820,27 +1799,7 @@ Given an array of meeting time intervals consisting of start and end times [[s1,
 
 ==============================================================================
 
-Question 85: Sort Transformed Array
- 
-Given a sorted array of integers nums and integer values a, b and c. Apply a function of the form 
-f(x) = ax^2 + bx + c to each element x in the array.
-
-The returned array must be in sorted order.
-
-Expected time complexity: O(n)
-
-Example:
-nums = [-4, -2, 2, 4], a = 1, b = 3, c = 5,
-
-Result: [3, 9, 15, 33]
-
-nums = [-4, -2, 2, 4], a = -1, b = 3, c = 5
-
-Result: [-23, -5, 1, 7]
-
-==============================================================================
-
-Question 87: Ugly Number II
+Question 87: Ugly Number II [DONE]
 
 Write a program to find the n-th ugly number.
 
@@ -1852,7 +1811,7 @@ Note that 1 is typically treated as an ugly number, and n does not exceed 1690.
 
 ==============================================================================
 
-Question 88: Sort Transformed Array
+Question 88: Sort Transformed Array [DONE]
 
 Given a sorted array of integers nums and integer values a, b and c. Apply a function of the form f(x) = ax2 + bx + c to each element x in the array.
 
@@ -1879,6 +1838,10 @@ Question 94: Check an array increment or decrement
 
 Question 100: 给一串start time - end time，格式是Apr 2010 - Mar 2011这种，要求计算出这些时间的总跨度，重叠的跨度不重复计算。举例:["Apr 2010 - Dec 2010", "Aug 2010 - Dec 2010", "Jan 2011 - Mar 2011"]这一个string数组，结果为(12-4+3-1)=10个月。
 
+// 1) string to integer (date)
+// 2) merge interval
+// 3) sum intervals
+
 ==============================================================================
 
 Question 105: 一个array, [1,3,5,7,4,8,2], 一个 target k, 找出这个array里所有子集的个数，满足:子集里最小和最大的数相加小于等于k.. 
@@ -1887,7 +1850,7 @@ Question 105: 一个array, [1,3,5,7,4,8,2], 一个 target k, 找出这个array�
 
 ==============================================================================
 
-Question 109: input 是array {1，2，3，0，4}。到达最后一个格子最短步数，每个数字代表最多可以跳几下。
+Question 109: input 是array {1，2，3，0，4}。到达最后一个格子最短步数，每个数字代表最多可以跳几下。 [DONE]
 
 ==============================================================================
 
@@ -1914,7 +1877,7 @@ Question 122: 给三个funtions: is_low(), is_mid(), is_high(). 让给一个数�
 
 ==============================================================================
 
-Question 124: House Robber [DP]
+Question 124: House Robber [DP] [DONE]
 
 https://leetcode.com/problems/house-robber/#/description
 

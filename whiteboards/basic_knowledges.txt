@@ -1,0 +1,84 @@
+### Big O ###
+
+Three Rules:
+
+1. Different steps get added together 
+
+e.g: O(N + NLog(N))
+
+2. Drop constances 
+
+e.g: O(2N) => O(N)
+
+3. Different inputs => different variables
+
+e.g: O(M * N)
+
+4. Drop Non-dominate terms
+
+O(N^2 + N) => O(N^2)
+
+because N^2 <= N^2 + N <= 2*N^2, and O(2*N^2) => O(N^2)
+
+
+### 7 Steps to Solve Algorithm Problems ###
+
+1. Listen:
+
+Typically every detail is needed to solve problem. 
+So if you solve a problem without using a detail, you might need that to solve it optimally.
+
+2. Make Larger Examples and Avoid Special Cases
+
+3. Brute Force
+
+Better to have a brute force than nothing at all, because:
+- checkes that you understand the problem
+- shows you're at least good enough to get that
+- It's a good place to optimize from
+
+DON'T CODE IT
+- state brute force
+- state runtime
+- optimize
+
+4. Optimize
+
+5. Walk Through Your Algorithm:
+
+Know exactly what you're going to do before coding:
+- what variables & data structures?
+- how, when + why do they change?
+- what is the structure of your code?
+
+6. Code
+
+- wirte straight
+- use space wisely: erase what you don't need, okay to use arrows, write in top-left corner
+- coding style matters: consistent braces, consistent variable naming, consistent spaces, descriptive variable
+- MODULARIZE (before, not after!)
+
+7. Test
+
+- Analyse: think about each line, doueble check things that looks weird/risky
+- use test cases: small test-cases first, edge cases, big test cases
+- Remember: think as you test, test your code, not your algorithm, think before you fix bugs, DON'T PANIC!
+			wrong fixes are worse than no fix.
+			
+
+### 3 Algorithm Strategies ###
+
+1. B.U.D. (Find Bottlenecks, Unnecessary work, Duplicated work in Brute force solutions)
+
+- Bottleneck: For example, find one element in sorded array O(N)[linear] -> O(LogN)[binary search] -> O(1)[hash table]
+- Unnecessary work: For example, in for loop, we can "break" early
+- Duplicated work: when you notice yourself is doing work over and over again, that's the time to cache them.
+
+2. Space/Time Tradeoffs
+
+- *ALWAYS have "hash tables" at the top of your mind
+
+3. D.I.Y.
+
+- Use big example (and one that reasonably generic), solve it manually in mind just for that input, 
+  and then "reverse engineer your thought process" what was your brain's algorithm.
