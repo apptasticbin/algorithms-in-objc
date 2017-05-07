@@ -360,7 +360,7 @@ Returns the index of the first occurrence of needle in haystack, or -1 if needle
 
 ==============================================================================
 
-Question 46: Find All Anagrams in a String
+Question 46: Find All Anagrams in a String [DONE]
 
 Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
 Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
@@ -444,7 +444,7 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 
 ==============================================================================
 
-Question 47: Valid Palindrome
+Question 47: Valid Palindrome [DONE]
 
 Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
 
@@ -467,9 +467,9 @@ For the purpose of this problem, we define empty string as valid palindrome.
     while (left < right) {
         while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:left]]) left++;
         while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:right]]) right--;
-        unichar lc = [s characterAtIndex:left];
-        unichar lr = [s characterAtIndex:right];
-        if (lc != lr) return NO;
+        NSString *lc = [s substringWithRange:NSMakeRange(left, 1)];
+        NSString *rc = [s substringWithRange:NSMakeRange(right, 1)];
+        if (![lc.lowercaseString isEqualToString:rc.lowercaseString]) return NO;
         left++; right--;
     }
     return YES;
@@ -610,7 +610,7 @@ Examples:
 
 ==============================================================================
 
-Question 68: Word Break I
+Question 68: Word Break I [DONE]
 
 Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words. You may assume the dictionary does not contain duplicate words.
 
@@ -645,7 +645,7 @@ Return true because "leetcode" can be segmented as "leet code".
 
 ==============================================================================
 
-Question 69: Word Break II [Hard]
+Question 69: Word Break II [Hard] [DONE]
 
 Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. You may assume the dictionary does not contain duplicate words.
 
@@ -669,20 +669,24 @@ A solution is ["cats and dog", "cat sand dog"].
 - (NSArray<NSString *> *)DFS:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict
                        cache:(NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *)cache {
     // return cache value if found
-    if (cache[s] != 0) return cache[s];
+    if (cache[s]) return cache[s];
     
     NSMutableArray<NSString *> *results = [NSMutableArray array];
     // return empty array for empty string
-    if (s.length == 0) return results;
+    if (s.length == 0) {
+        [results addObject:@""];
+        return results;
+    }
     
     // now we start to find words from dictionary set word by word
     for (NSString *word in wordDict) {
         if ([s hasPrefix:word]) {
             // backtracking now
-            NSString *follow = [s substringFromIndex:word.length-1];
+            NSString *follow = [s substringFromIndex:word.length];
             NSArray<NSString *> *followWords = [self DFS:follow dictionary:wordDict cache:cache];
             for (NSString *followWord in followWords) {
-                [results addObject:[word stringByAppendingFormat:@" %@", followWord]];
+                NSString *result = [word stringByAppendingFormat:@"%@%@", followWord.length ? @" " : @"", followWord];
+                [results addObject:result];
             }
         }
     }
@@ -692,7 +696,7 @@ A solution is ["cats and dog", "cat sand dog"].
 
 ==============================================================================
 
-Question 75: Longest Palindromic Substring
+Question 75: Longest Palindromic Substring [DONE]
 
 Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
 
@@ -745,7 +749,7 @@ Output: "bb"
 
 ==============================================================================
 
-Question 76: Letter Combinations of a Phone Number
+Question 76: Letter Combinations of a Phone Number [DONE]
 
 Given a digit string, return all possible letter combinations that the number could represent.
 

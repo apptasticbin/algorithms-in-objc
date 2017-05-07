@@ -16,7 +16,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self findAllAnagrams];
+    [self letterCombinations];
+}
+
+- (void)letterCombinations {
+    NSString *input = @"23";
+    NSLog(@"Letter combinations of %@: %@", input, [self letterCombinationsOfPhoneNumber:input]);
+}
+
+- (void)wordBreakII {
+    NSString *input = @"catsanddog";
+    NSArray *dict = @[@"cat", @"cats", @"and", @"sand", @"dog"];
+    NSLog(@"%@ can be broken into: %@", input, [self wordBreakIIBetter:input dictionary:dict]);
+}
+
+- (void)validPalindrome {
+    NSString *input = @"A man, a plan, a canal: Panama";
+    NSLog(@"%@ is palindrome: %@", input, @([self isPalindrome:input]));
+    
+    input = @"race a car";
+    NSLog(@"%@ is palindrome: %@", input, @([self isPalindrome:input]));
+    
+    input = @"a aa b c a a a";
+    NSLog(@"%@ is palindrome: %@", input, @([self isPalindrome:input]));
+    
+    input = @"a aa b  a a a";
+    NSLog(@"%@ is palindrome: %@", input, @([self isPalindrome:input]));
 }
 
 - (void)findAllAnagrams {
@@ -160,6 +185,125 @@
 }
 
 #pragma mark - Private
+
+#pragma mark - Letter Combinations of Phone Number
+
+- (NSArray<NSString *> *)letterCombinationsOfPhoneNumber:(NSString *)phoneNumber {
+    if (!phoneNumber || !phoneNumber.length) {
+        return nil;
+    }
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    [self phoneNumberHelper:phoneNumber start:0 result:[NSMutableString string] results:results];
+    return results;
+}
+
+- (void)phoneNumberHelper:(NSString *)phoneNumber start:(NSInteger)start
+                   result:(NSMutableString *)result results:(NSMutableArray *)results {
+    if (start == phoneNumber.length) {
+        [results addObject:[result copy]];
+        return;
+    }
+    NSInteger digit = [phoneNumber characterAtIndex:start] - '0';
+    NSArray<NSString *> *letters = [self digitToLetters:digit];
+    for (NSString *letter in letters) {
+        [result appendString:letter];
+        [self phoneNumberHelper:phoneNumber start:start+1 result:result results:results];
+        [result deleteCharactersInRange:NSMakeRange(result.length-1, 1)];
+    }
+}
+
+- (NSArray<NSString *> *)digitToLetters:(NSInteger)digit {
+    return [@[
+              @[@""],
+              @[@""],
+              @[@"a", @"b", @"c"],
+              @[@"d", @"e", @"f"],
+              @[@"g", @"h", @"i"],
+              @[@"j", @"k", @"l"],
+              @[@"m", @"n", @"o"],
+              @[@"p", @"q", @"r", @"s"],
+              @[@"w", @"x", @"y", @"z"]
+              ] objectAtIndex:digit];
+}
+
+#pragma mark - Word Break II
+
+- (NSArray<NSString *> *)wordBreakIIBetter:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict {
+    return [self betterDFS:s dictionary:[NSSet setWithArray:wordDict] cache:[NSMutableDictionary dictionary]];
+}
+
+- (NSArray<NSString *> *)betterDFS:(NSString *)s dictionary:(NSSet<NSString *> *)wordDict cache:(NSMutableDictionary *)cache {
+    if (cache[s]) {
+        return cache[s];
+    }
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    if (s.length == 0) {
+        [results addObject:@""];
+        return results;
+    }
+    
+    for (NSInteger i=1; i<=s.length; i++) {
+        NSString *word = [s substringToIndex:i];
+        if ([wordDict containsObject:word]) {
+            NSString *followWord = [s substringFromIndex:i];
+            NSArray<NSString *> *followResults = [self betterDFS:followWord dictionary:wordDict cache:cache];
+            for (NSString *followResult in followResults) {
+                NSString *result = [word stringByAppendingFormat:@"%@%@", followResult.length ? @" " : @"", followResult];
+                [results addObject:result];
+            }
+        }
+    }
+    cache[s] = results;
+    return results;
+}
+
+- (NSArray<NSString *> *)wordBreakII:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict {
+    return [self DFS:s dictionary:wordDict cache:[NSMutableDictionary dictionary]];
+}
+
+- (NSArray<NSString *> *)DFS:(NSString *)s dictionary:(NSArray<NSString *> *)wordDict
+                       cache:(NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *)cache {
+    // return cache value if found
+    if (cache[s]) return cache[s];
+    
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    // return empty array for empty string
+    if (s.length == 0) {
+        [results addObject:@""];
+        return results;
+    }
+    
+    // now we start to find words from dictionary set word by word
+    for (NSString *word in wordDict) {
+        if ([s hasPrefix:word]) {
+            // backtracking now
+            NSString *follow = [s substringFromIndex:word.length];
+            NSArray<NSString *> *followWords = [self DFS:follow dictionary:wordDict cache:cache];
+            for (NSString *followWord in followWords) {
+                NSString *result = [word stringByAppendingFormat:@"%@%@", followWord.length ? @" " : @"", followWord];
+                [results addObject:result];
+            }
+        }
+    }
+    cache[s] = results;
+    return results;
+}
+
+#pragma mark - Valid Palindrome
+
+- (BOOL)isPalindrome:(NSString *)s {
+    NSInteger left = 0, right = s.length-1;
+    NSCharacterSet *alphanumeric = [NSCharacterSet alphanumericCharacterSet];
+    while (left < right) {
+        while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:left]]) left++;
+        while (left < right && ![alphanumeric characterIsMember:[s characterAtIndex:right]]) right--;
+        NSString *lc = [s substringWithRange:NSMakeRange(left, 1)];
+        NSString *rc = [s substringWithRange:NSMakeRange(right, 1)];
+        if (![lc.lowercaseString isEqualToString:rc.lowercaseString]) return NO;
+        left++; right--;
+    }
+    return YES;
+}
 
 #pragma mark - Find All Anagrams
 
