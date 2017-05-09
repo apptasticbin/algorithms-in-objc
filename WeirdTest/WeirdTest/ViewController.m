@@ -6,6 +6,8 @@
 //  Copyright © 2017 Bin Yu. All rights reserved.
 //
 
+#define BOOLSTR(val) (val ? @"YES" : @"NO")
+
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -16,7 +18,90 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self letterCombinations];
+    [self longestPalindromicSubstring];
+}
+
+- (void)longestPalindromicSubstring {
+    NSString *input = @"babad";
+    NSLog(@"Longest Palindrome Substring of %@: %@", input, [self longestPalindromicSubstringConstantSpace:input]);
+    
+    input = @"cbbd";
+    NSLog(@"Longest Palindrome Substring of %@: %@", input, [self longestPalindromicSubstringConstantSpace:input]);
+    
+    input = @"abbaeae";
+    NSLog(@"Longest Palindrome Substring of %@: %@", input, [self longestPalindromicSubstringDP:input]);
+}
+
+- (void)minimumWindowSubstring {
+    NSString *S = @"ADOBECODEBANC";
+    NSString *T = @"ABC";
+    
+    NSLog(@"Minimum window of %@ in %@: %@", T, S, [self minimumWindowSubstring:T inString:S]);
+}
+
+- (void)oneEditDistance {
+    NSString *input1 = @"geek";
+    NSString *input2 = @"geeks";
+    NSLog(@"One edit distance between %@ and %@: %@",
+          input1, input2, BOOLSTR([self oneEditDistanceBetweenString:input1 andString:input2]));
+    
+    input1 = @"geeks";
+    input2 = @"geeks";
+    NSLog(@"One edit distance between %@ and %@: %@",
+          input1, input2, BOOLSTR([self oneEditDistanceBetweenString:input1 andString:input2]));
+    
+    input1 = @"geeks";
+    input2 = @"geaks";
+    NSLog(@"One edit distance between %@ and %@: %@",
+          input1, input2, BOOLSTR([self oneEditDistanceBetweenString:input1 andString:input2]));
+    
+    input1 = @"peaks";
+    input2 = @"geeks";
+    NSLog(@"One edit distance between %@ and %@: %@",
+          input1, input2, BOOLSTR([self oneEditDistanceBetweenString:input1 andString:input2]));
+
+
+
+}
+
+- (void)editDistance {
+    NSString *input1 = @"sunday";
+    NSString *input2 = @"saturday";
+    NSLog(@"Edit distance between %@ and %@: %@",
+          input1, input2, @([self editDistanceBetweenString:input1 andString:input2]));
+    
+    input1 = @"geek";
+    input2 = @"gesek";
+    NSLog(@"Edit distance between %@ and %@: %@",
+          input1, input2, @([self editDistanceBetweenString:input1 andString:input2]));
+    
+    input1 = @"cat";
+    input2 = @"cut";
+    NSLog(@"Edit distance between %@ and %@: %@",
+          input1, input2, @([self editDistanceBetweenString:input1 andString:input2]));
+
+}
+
+- (void)commonStringBetweenStrings {
+    NSString *input1 = @"abcsdfc";
+    NSString *input2 = @"bcsr";
+    NSInteger k = 2;
+    NSLog(@"Common String Between %@ and %@ longger than %@: %@",
+          input1, input2, @(k),
+          BOOLSTR([self commonStringBetweenString:input1 andString:input2 longerThanOrEqualToK:k]));
+    
+    input1 = @"abcsdfc";
+    input2 = @"bcsr";
+    k = 5;
+    NSLog(@"Common String Between %@ and %@ longger than %@: %@",
+          input1, input2, @(k),
+          BOOLSTR([self commonStringBetweenString:input1 andString:input2 longerThanOrEqualToK:k]));
+
+}
+
+- (void)generateParentheses {
+    NSInteger pair = 3;
+    NSLog(@"Combinations for %@ pairs of parentheses: %@", @(pair), [self generateParentheses:pair]);
 }
 
 - (void)letterCombinations {
@@ -185,6 +270,276 @@
 }
 
 #pragma mark - Private
+
+#pragma mark - Longest Palindromic Substring
+
+- (NSString *)longestPalindromicSubstringConstantSpace:(NSString *)s {
+    if (!s) {
+        return nil;
+    }
+    
+    if (s.length < 2) {
+        return s;
+    }
+    
+    NSInteger start = 0;
+    NSInteger maxLen = 0;
+    
+    for (NSInteger i = 0; i < s.length-1; i++) {
+        [self maximumPalindromeIn:s from:i to:i start:&start maxLen:&maxLen];
+        [self maximumPalindromeIn:s from:i to:i+1 start:&start maxLen:&maxLen];
+    }
+    
+    return [s substringWithRange:NSMakeRange(start, maxLen)];
+}
+
+- (void)maximumPalindromeIn:(NSString *)s from:(NSInteger)i to:(NSInteger)j
+                            start:(NSInteger *)start maxLen:(NSInteger *)maxLen {
+    if (!s) {
+        return;
+    }
+    
+    while (i >= 0 && j < s.length) {
+        if ([s characterAtIndex:i] != [s characterAtIndex:j]) {
+            break;
+        }
+        i--; j++;
+    }
+    
+    if (*maxLen < j - i - 1) {
+        *maxLen = j - i - 1;
+        *start = i + 1;
+    }
+}
+
+- (NSString *)longestPalindromicSubstringDP:(NSString *)s {
+    if (!s || !s.length) {
+        return nil;
+    }
+    
+    NSString *result = @"";
+    BOOL dp[s.length][s.length];
+    memset(dp, 0, sizeof(dp));
+    
+    // i MUST contain j, because we need to make sure that dp[i+1][j-1] has been calculated
+    for (NSInteger i = s.length-1; i >= 0; i--) {
+        for (NSInteger j = i; j < s.length; j++) {
+            if ([s characterAtIndex:i] == [s characterAtIndex:j]) {
+                // j-i == 1 -> single character; j-i == 2 -> double characters
+                dp[i][j] = j-i < 3 || dp[i+1][j-1];
+            }
+            
+            
+            
+            if (dp[i][j] && j-i+1 > result.length) {
+                result = [s substringWithRange:NSMakeRange(i, j-i+1)];
+            }
+        }
+    }
+    
+    return result;
+}
+
+#pragma mark - Minimum Window Substring
+
+// Similar to "Find All Anagrams"
+// S = "ADOBECODEBANC"
+// T = "ABC"
+
+- (NSString *)minimumWindowSubstring:(NSString *)T inString:(NSString *)S {
+    if (!S || !T || !S.length || !T.length) {
+        return nil;
+    }
+    
+    NSMutableDictionary<NSString *, NSNumber *> *letters = [NSMutableDictionary dictionary];
+    
+    for (NSInteger i=0; i<T.length; i++) {
+        NSString *c = [T substringWithRange:NSMakeRange(i, 1)];
+        if (letters[c] == nil) {
+            letters[c] = @(0);
+        }
+        letters[c] = @(letters[c].integerValue + 1);
+    }
+    
+    NSString *result = nil;
+    NSInteger start = 0, end = 0, count = 0;
+    
+    while (end < S.length) {
+        NSString *ec = [S substringWithRange:NSMakeRange(end, 1)];
+        
+        if (!letters[ec]) {
+            letters[ec] = @(letters[ec].integerValue - 1);
+        }
+        
+        if (letters[ec].integerValue > 0) {
+            count++;
+        }
+        
+        end++;
+        letters[ec] = @(letters[ec].integerValue - 1);  // for non-exist letters, it changes to negative number
+        
+        while (count == T.length) {
+            if (!result || result.length > end-start) {
+                result = [S substringWithRange:NSMakeRange(start, end-start)];
+            }
+            NSString *sc = [S substringWithRange:NSMakeRange(start, 1)];
+            if (letters[sc].integerValue == 0) {
+                count--;
+            }
+            letters[sc] = @(letters[sc].integerValue + 1);
+            start++;
+        }
+    }
+    
+    return result;
+}
+
+#pragma mark - One Edit Distance
+
+// Can be solved in the same way as edit distance, but the time complexity is O(M*N)
+// Target is O(M+N)
+
+- (BOOL)oneEditDistanceBetweenString:(NSString *)s1 andString:(NSString *)s2 {
+    if (!s1 || !s2) {
+        return NO;
+    }
+    // NOTICE: [NSString length] is NSUInteger, not NSInteger. NSUInteger - NSUInteger = NSUInteger
+    NSInteger lengthDiff = s1.length - s2.length;
+    if (ABS(lengthDiff > 1)) {
+        return NO;
+    }
+    
+    NSInteger editDistance = 0;
+    NSInteger p1 = 0, p2 = 0;
+    
+    while (p1 < s1.length && p2 < s2.length) {
+        unichar c1 = [s1 characterAtIndex:p1];
+        unichar c2 = [s2 characterAtIndex:p2];
+        if (c1 == c2) {
+            p1++; p2++;
+        } else {
+            editDistance++;
+            if (editDistance > 1) {
+                return NO;
+            }
+            if (s1.length > s2.length) {
+                p1++;
+            } else if (s1.length < s2.length) {
+                p2++;
+            } else {
+                p1++; p2++;
+            }
+        }
+    }
+    
+    // check the last character if necessary
+    if (p1 < s1.length || p2 < s2.length) {
+        editDistance++;
+    }
+    
+    return editDistance == 1;
+}
+
+#pragma mark - Edit Distance
+
+// O(M*N)
+
+- (NSInteger)editDistanceBetweenString:(NSString *)s1 andString:(NSString *)s2 {
+    if (!s1 || !s2 || !s1.length || !s2.length) return -1;
+    NSInteger dp[s1.length+1][s2.length+1];
+    for (NSInteger i = 0; i <= s1.length; i++) {
+        dp[i][0] = i;
+    }
+    
+    for (NSInteger i = 0; i <= s2.length; i++) {
+        dp[0][i] = i;
+    }
+    
+    for (NSInteger start1 = 1; start1 <= s1.length; start1++) {
+        for (NSInteger start2 = 1; start2 <= s2.length; start2++) {
+            unichar c1 = [s1 characterAtIndex:start1-1];
+            unichar c2 = [s2 characterAtIndex:start2-1];
+            if (c1 == c2) {
+                dp[start1][start2] = dp[start1-1][start2-1];
+            } else {
+                /*
+                 insert in s1: dp[start1][start2-1]
+                 delete in s1: dp[start1-1][start2]
+                 replace s1 and s2: dp[start1-1][start2-1]
+                 */
+                dp[start1][start2] = 1 + MIN(MIN(dp[start1-1][start2], dp[start1][start2-1]),
+                                         dp[start1-1][start2-1]);
+            }
+        }
+    }
+    return dp[s1.length][s2.length];
+}
+
+#pragma mark - Common String Longer Than Or Equal to K
+
+- (BOOL)commonStringBetweenString:(NSString *)s1 andString:(NSString *)s2 longerThanOrEqualToK:(NSInteger)k {
+    if (!s1 || !s2 || !s1.length || !s2.length) {
+        return NO;
+    }
+    NSInteger dp[s1.length+1][s2.length+1];
+    for (NSInteger row = 0; row <= s1.length; row++) {
+        dp[row][0] = 0;
+    }
+    for (NSInteger col = 0; col <= s2.length; col++) {
+        dp[0][col] = 0;
+    }
+    
+    for (NSInteger start1 = 1; start1 <= s1.length; start1++) {
+        for (NSInteger start2 = 1; start2 <= s2.length; start2++) {
+            // dp[start1][start2]
+            unichar c1 = [s1 characterAtIndex:start1-1];
+            unichar c2 = [s2 characterAtIndex:start2-1];
+            if (c1 == c2) {
+                dp[start1][start2] = dp[start1-1][start2-1]+1;
+            } else {
+                dp[start1][start2] = 0;
+            }
+            if (dp[start1][start2] >= k) {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
+#pragma mark - Generate Parenthesis
+
+- (NSArray<NSString *> *)generateParentheses:(NSInteger)n {
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    if (!n) {
+        return results;
+    }
+    [self generateParenthesesHelperWithLeft:n right:n result:[NSMutableString string] results:results];
+    return results;
+}
+
+- (void)generateParenthesesHelperWithLeft:(NSInteger)left right:(NSInteger)right
+                                   result:(NSMutableString *)result
+                                  results:(NSMutableArray<NSString *> *)results {
+    if (left == 0 && right == 0) {
+        [results addObject:[result copy]];
+        return;
+    }
+    
+    if (left) {
+        [result appendString:@"("];
+        [self generateParenthesesHelperWithLeft:left-1 right:right result:result results:results];
+        [result deleteCharactersInRange:NSMakeRange(result.length-1, 1)];
+    }
+    
+    if (right && right > left) {
+        [result appendString:@")"];
+        [self generateParenthesesHelperWithLeft:left right:right-1 result:result results:results];
+        [result deleteCharactersInRange:NSMakeRange(result.length-1, 1)];
+    }
+        
+}
 
 #pragma mark - Letter Combinations of Phone Number
 

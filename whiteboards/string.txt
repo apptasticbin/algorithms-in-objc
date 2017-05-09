@@ -803,7 +803,7 @@ Note: Although the above answer is in lexicographical order, your answer could b
 
 ==============================================================================
 
-Question 78: Generate Parentheses
+Question 78: Generate Parentheses [DONE]
 
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
@@ -896,7 +896,7 @@ Given "abcd", return "dcbabcd".
 
 ==============================================================================
 
-Question 89: (One) Edit Distance
+Question 89: (One) Edit Distance [Write Needed]
 
 Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
 
@@ -912,23 +912,251 @@ c) Replace a character
 // NOTICE: DP solution is good for several edit distances (O(N^2)). 
 // But not the most effient way for "one" edit distances question.
 
+// Can be solved in the same way as edit distance, but the time complexity is O(M*N)
+// Target is O(M+N)
+
+- (BOOL)oneEditDistanceBetweenString:(NSString *)s1 andString:(NSString *)s2 {
+    if (!s1 || !s2) {
+        return NO;
+    }
+    // NOTICE: [NSString length] is NSUInteger, not NSInteger. NSUInteger - NSUInteger = NSUInteger
+    NSInteger lengthDiff = s1.length - s2.length;
+    if (ABS(lengthDiff > 1)) {
+        return NO;
+    }
+    
+    NSInteger editDistance = 0;
+    NSInteger p1 = 0, p2 = 0;
+    
+    while (p1 < s1.length && p2 < s2.length) {
+        unichar c1 = [s1 characterAtIndex:p1];
+        unichar c2 = [s2 characterAtIndex:p2];
+        if (c1 == c2) {
+            p1++; p2++;
+        } else {
+            editDistance++;
+            if (editDistance > 1) {
+                return NO;
+            }
+            if (s1.length > s2.length) {
+                p1++;
+            } else if (s1.length < s2.length) {
+                p2++;
+            } else {
+                p1++; p2++;
+            }
+        }
+    }
+    
+    // check the last character if necessary
+    if (p1 < s1.length || p2 < s2.length) {
+        editDistance++;
+    }
+    
+    return editDistance == 1;
+}
+
+// O(M*N)
+
+- (NSInteger)editDistanceBetweenString:(NSString *)s1 andString:(NSString *)s2 {
+    if (!s1 || !s2 || !s1.length || !s2.length) return -1;
+    NSInteger dp[s1.length+1][s2.length+1];
+    for (NSInteger i = 0; i <= s1.length; i++) {
+        dp[i][0] = i;
+    }
+    
+    for (NSInteger i = 0; i <= s2.length; i++) {
+        dp[0][i] = i;
+    }
+    
+    for (NSInteger start1 = 1; start1 <= s1.length; start1++) {
+        for (NSInteger start2 = 1; start2 <= s2.length; start2++) {
+            unichar c1 = [s1 characterAtIndex:start1-1];
+            unichar c2 = [s2 characterAtIndex:start2-1];
+            if (c1 == c2) {
+                dp[start1][start2] = dp[start1-1][start2-1];
+            } else {
+                /*
+                 insert in s1: dp[start1][start2-1]
+                 delete in s1: dp[start1-1][start2]
+                 replace s1 and s2: dp[start1-1][start2-1]
+                 */
+                dp[start1][start2] = 1 + MIN(MIN(dp[start1-1][start2], dp[start1][start2-1]),
+                                         dp[start1-1][start2-1]);
+            }
+        }
+    }
+    return dp[s1.length][s2.length];
+}
+
 ==============================================================================
 
 Question 101: minimum window containsing a string
 
 ==============================================================================
 
-Question 106: 给一个string “123456789”， 进行 arithmetic oepration combination. 比如: 123 + 456 + 78 -9 是一种组合， -1 + 2 -3 +4 -5 - 67 + 89 也是一 种(只用加 + 或 -), 打印出所有结果等于 100 的组合, 没有想出有什么最优解，直接backtracking 暴力，用一个sum 记录前面的结果， 不过到后来 string 处理有问题
+Question 106: 给一个string “123456789”， 进行 arithmetic oepration combination. 比如: 123 + 456 + 78 -9 是一种组合， -1 + 2 -3 +4 -5 - 67 + 89 也是一 种(只用加 + 或 -), 打印出所有结果等于 100 的组合, 没有想出有什么最优解，直接backtracking 暴力，用一个sum 记录前面的结果， 不过到后来 string 处理有问题 [Expression Add Operators]
 
 ==============================================================================
 
-Question 112: 求任意string里有多少个palindromic substring，这个string可以包含任意字符，单个的char也算合理的palindromic substring.
+Question 112: Count All Palindrome Sub-Strings in a String
+
+Given a string, the task is to count all palindrome substring in a given string. Length of palindrome substring is greater then or equal to 2.
+Examples:
+
+Input : str = "abaab"
+Output: 3
+Explanation : All palindrome substring are : "aba" , "aa" , "baab" 
+
+Input : str = "abbaeae"
+Output: 4
+Explanation : All palindrome substring are : "bb" , "abba" ,"aea","eae"
+
+// Actually we can count during find "longest palindromic substring". So similar solution.
+// Another solution: http://www.geeksforgeeks.org/count-palindrome-sub-strings-string/
 
 ==============================================================================
 
-Question 115: Minimum Window Substring
+Question: Longest Palindromic Substring [DP] [Write Needed]
+
+Given a string, find the longest substring which is palindrome. For example, if the given string is “forgeeksskeegfor”, the output should be “geeksskeeg”.
+
+// http://www.geeksforgeeks.org/longest-palindromic-substring-set-2/
+
+- (NSString *)longestPalindromicSubstringDP:(NSString *)s {
+    if (!s || !s.length) {
+        return nil;
+    }
+    
+    NSString *result = @"";
+    BOOL dp[s.length][s.length];
+    memset(dp, 0, sizeof(dp));
+    
+    // i MUST contain j, because we need to make sure that dp[i+1][j-1] has been calculated
+    for (NSInteger i = s.length-1; i >= 0; i--) {
+        for (NSInteger j = i; j < s.length; j++) {
+            if ([s characterAtIndex:i] == [s characterAtIndex:j]) {
+                // j-i == 1 -> single character; j-i == 2 -> double characters
+                dp[i][j] = j-i < 3 || dp[i+1][j-1];
+            }
+            
+            
+            
+            if (dp[i][j] && j-i+1 > result.length) {
+                result = [s substringWithRange:NSMakeRange(i, j-i+1)];
+            }
+        }
+    }
+    
+    return result;
+}
+
+- (NSString *)longestPalindromicSubstringConstantSpace:(NSString *)s {
+    if (!s) {
+        return nil;
+    }
+    
+    if (s.length < 2) {
+        return s;
+    }
+    
+    NSInteger start = 0;
+    NSInteger maxLen = 0;
+    
+    for (NSInteger i = 0; i < s.length-1; i++) {
+        [self maximumPalindromeIn:s from:i to:i start:&start maxLen:&maxLen];
+        [self maximumPalindromeIn:s from:i to:i+1 start:&start maxLen:&maxLen];
+    }
+    
+    return [s substringWithRange:NSMakeRange(start, maxLen)];
+}
+
+- (void)maximumPalindromeIn:(NSString *)s from:(NSInteger)i to:(NSInteger)j
+                            start:(NSInteger *)start maxLen:(NSInteger *)maxLen {
+    if (!s) {
+        return;
+    }
+    
+    while (i >= 0 && j < s.length) {
+        if ([s characterAtIndex:i] != [s characterAtIndex:j]) {
+            break;
+        }
+        i--; j++;
+    }
+    
+    if (*maxLen < j - i - 1) {
+        **maxLen = j - i - 1;
+        **start = i + 1;
+    }
+}
+
+
+==============================================================================
+
+Question 115: Minimum Window Substring [Write Needed]
+
+Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+For example,
+S = "ADOBECODEBANC"
+T = "ABC"
+Minimum window is "BANC".
+
+Note:
+If there is no such window in S that covers all characters in T, return the empty string "".
+If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
 
 https://leetcode.com/problems/minimum-window-substring/#/description
+https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-solve-most-substring-problems
+
+- (NSString *)minimumWindowSubstring:(NSString *)T inString:(NSString *)S {
+    if (!S || !T || !S.length || !T.length) {
+        return nil;
+    }
+    
+    NSMutableDictionary<NSString *, NSNumber *> *letters = [NSMutableDictionary dictionary];
+    
+    for (NSInteger i=0; i<T.length; i++) {
+        NSString *c = [T substringWithRange:NSMakeRange(i, 1)];
+        if (letters[c] == nil) {
+            letters[c] = @(0);
+        }
+        letters[c] = @(letters[c].integerValue + 1);
+    }
+    
+    NSString *result = nil;
+    NSInteger start = 0, end = 0, count = 0;
+    
+    while (end < S.length) {
+        NSString *ec = [S substringWithRange:NSMakeRange(end, 1)];
+        
+        if (!letters[ec]) {
+            letters[ec] = @(letters[ec].integerValue - 1);
+        }
+        
+        if (letters[ec].integerValue > 0) {
+            count++;
+        }
+        
+        end++;
+        letters[ec] = @(letters[ec].integerValue - 1);  // for non-exist letters, it changes to negative number
+        
+        while (count == T.length) {
+            if (!result || result.length > end-start) {
+                result = [S substringWithRange:NSMakeRange(start, end-start)];
+            }
+            NSString *sc = [S substringWithRange:NSMakeRange(start, 1)];
+            if (letters[sc].integerValue == 0) {
+                count--;
+            }
+            letters[sc] = @(letters[sc].integerValue + 1);
+            start++;
+        }
+    }
+    
+    return result;
+}
+
 
 ==============================================================================
 
