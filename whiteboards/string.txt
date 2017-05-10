@@ -850,7 +850,7 @@ For example, given n = 3, a solution set is:
 
 ==============================================================================
 
-Question 79: Common String Longer Than Or Equal to K
+Question 79: Common String Longer Than Or Equal to K [DONE]
 
 Given two strings ‘X’ and ‘Y’, find whether there is common substring length >= k.
 
@@ -896,7 +896,7 @@ Given "abcd", return "dcbabcd".
 
 ==============================================================================
 
-Question 89: (One) Edit Distance [Write Needed]
+Question 89: (One) Edit Distance [DONE]
 
 Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
 
@@ -1012,12 +1012,12 @@ Input : str = "abbaeae"
 Output: 4
 Explanation : All palindrome substring are : "bb" , "abba" ,"aea","eae"
 
-// Actually we can count during find "longest palindromic substring". So similar solution.
+// Actually we can "count" during find "longest palindromic substring". So similar solution.
 // Another solution: http://www.geeksforgeeks.org/count-palindrome-sub-strings-string/
 
 ==============================================================================
 
-Question: Longest Palindromic Substring [DP] [Write Needed]
+Question: Longest Palindromic Substring [DP] [DONE]
 
 Given a string, find the longest substring which is palindrome. For example, if the given string is “forgeeksskeegfor”, the output should be “geeksskeeg”.
 
@@ -1093,7 +1093,7 @@ Given a string, find the longest substring which is palindrome. For example, if 
 
 ==============================================================================
 
-Question 115: Minimum Window Substring [Write Needed]
+Question 115: Minimum Window Substring [DONE]
 
 Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
 
@@ -1131,7 +1131,7 @@ https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-sol
         NSString *ec = [S substringWithRange:NSMakeRange(end, 1)];
         
         if (!letters[ec]) {
-            letters[ec] = @(letters[ec].integerValue - 1);
+            letters[ec] = @(0);
         }
         
         if (letters[ec].integerValue > 0) {
@@ -1161,12 +1161,48 @@ https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-sol
 ==============================================================================
 
 Question 120: 给定一个数列，比如1234，将它match到字母上，1是A，2是B等等，那么1234可以是 ABCD
-但是还可以是12是L，所以1234也可以写作 LCD 或者 AWD
+但是还可以是12是L，所以1234也可以写作 LCD 或者 AWD (Decode ways) [DONE]
 
 ==============================================================================
 
-Question 123: Simplify Path
+Question 123: Simplify Path [DONE]
 
-https://leetcode.com/problems/simplify-path/#/description
+Given an absolute path for a file (Unix-style), simplify it.
+
+For example,
+path = "/home/", => "/home"
+path = "/a/./b/../../c/", => "/c"
+
+// https://leetcode.com/problems/simplify-path/#/description
+// https://discuss.leetcode.com/topic/8678/c-10-lines-solution
+
+- (NSString *)simplifyPath:(NSString *)path {
+    if (!path || !path.length) {
+        return nil;
+    }
+    
+    NSScanner *pathScanner = [NSScanner scannerWithString:path];
+    NSMutableArray<NSString *> *components = [NSMutableArray array];
+
+    while (!pathScanner.isAtEnd) {
+        NSString *component;
+        // skip '/'s
+        if ([pathScanner scanString:@"/" intoString:NULL]) {
+            continue;
+        } else if ([pathScanner scanUpToString:@"/" intoString:&component]) {
+            if (!component || [component isEqualToString:@"."]) {
+                continue;
+            } else if ([component isEqualToString:@".."]) {
+                [components removeLastObject];
+            } else {
+                [components addObject:component];
+            }
+        }
+    }
+    
+    // in order to make sure that the first '/' will be added
+    [components insertObject:@"" atIndex:0];
+    return [components componentsJoinedByString:@"/"];
+}
 
 ==============================================================================

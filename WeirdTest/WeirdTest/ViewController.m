@@ -18,7 +18,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self longestPalindromicSubstring];
+    [self simplifyPath];
+}
+
+- (void)simplifyPath {
+    NSString *input = @"/home/";
+    NSLog(@"Simplified path of %@: %@", input, [self simplifyPath:input]);
+    
+    input = @"/a/./b/../../c/";
+    NSLog(@"Simplified path of %@: %@", input, [self simplifyPath:input]);
+    
+    input = @"/";
+    NSLog(@"Simplified path of %@: %@", input, [self simplifyPath:input]);
+    
+    input = @"a";
+    NSLog(@"Simplified path of %@: %@", input, [self simplifyPath:input]);
+    
+    input = @".././a";
+    NSLog(@"Simplified path of %@: %@", input, [self simplifyPath:input]);
 }
 
 - (void)longestPalindromicSubstring {
@@ -270,6 +287,46 @@
 }
 
 #pragma mark - Private
+
+#pragma mark - Shortest Palindrome
+
+- (NSString *)shortestPalindrome:(NSString *)input {
+    if (!input || !input.length) {
+        return nil;
+    }
+    
+}
+
+#pragma mark - Simplify Path
+
+- (NSString *)simplifyPath:(NSString *)path {
+    if (!path || !path.length) {
+        return nil;
+    }
+    
+    NSScanner *pathScanner = [NSScanner scannerWithString:path];
+    NSMutableArray<NSString *> *components = [NSMutableArray array];
+
+    while (!pathScanner.isAtEnd) {
+        NSString *component;
+        // skip '/'s
+        if ([pathScanner scanString:@"/" intoString:NULL]) {
+            continue;
+        } else if ([pathScanner scanUpToString:@"/" intoString:&component]) {
+            if (!component || [component isEqualToString:@"."]) {
+                continue;
+            } else if ([component isEqualToString:@".."]) {
+                [components removeLastObject];
+            } else {
+                [components addObject:component];
+            }
+        }
+    }
+    
+    // in order to make sure that the first '/' will be added
+    [components insertObject:@"" atIndex:0];
+    return [components componentsJoinedByString:@"/"];
+}
 
 #pragma mark - Longest Palindromic Substring
 
