@@ -548,7 +548,7 @@ isMatch("aab", "c*a*b") → true
 
 ==============================================================================
 
-Question 66: Expression Add Operators [Hard]
+Question 66: Expression Add Operators [Hard] [DONE]
 
 Given a string that contains only digits 0-9 and a target value, return all possibilities to add binary operators (not unary) +, -, or * between the digits so they evaluate to the target value.
 
@@ -563,6 +563,7 @@ Examples:
 // https://leetcode.com/problems/expression-add-operators/?tab=Description
 // Divide & Conquer + backtracking
 // https://discuss.leetcode.com/topic/35751/recommend-for-beginners-clean-c-implementation-with-detailed-explanation
+// https://discuss.leetcode.com/topic/24523/java-standard-backtrace-ac-solutoin-short-and-clear
 
 - (NSArray<NSString *> *)addOperators:(NSString *)num target:(NSInteger)target {
     NSMutableArray<NSString *> *results = [NSMutableArray array];
@@ -884,7 +885,7 @@ Given two strings ‘X’ and ‘Y’, find whether there is common substring le
 
 ==============================================================================
 
-Question 82: Shortest Palindrome [Hard]
+Question 82: Shortest Palindrome [Hard] [DONE]
 
 Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
 
@@ -893,6 +894,84 @@ For example:
 Given "aacecaaa", return "aaacecaaa".
 
 Given "abcd", return "dcbabcd".
+
+// http://www.programcreek.com/2014/06/leetcode-shortest-palindrome-java/
+
+// only when the input string has a palindromic substring from "beginning", it then can be changed into 
+// palindromic string by adding characters in front of it. Otherwise we have to mirror the whole string to 
+// make it palindrome
+// One solutions uses the solution of "Longest Palindromic Substring"
+
+// scan from left to right, and recursion
+- (NSString *)shortestPalindrome:(NSString *)input {
+    if (!input || !input.length) {
+        return nil;
+    }
+    NSInteger left = 0, right = input.length-1;
+    while (right >= 0) {
+        if ([input characterAtIndex:left] == [input characterAtIndex:right]) {
+            left++;
+        }
+        right--;
+    }
+    if (left == input.length) {
+        return input;
+    }
+    NSString *suffix = [input substringFromIndex:left];
+    NSString *prefix = [self reverseString:suffix];
+    NSString *middle = [self shortestPalindrome:[input substringToIndex:left]];
+    return [NSString stringWithFormat:@"%@%@%@", prefix, middle, suffix];
+}
+
+- (NSString *)reverseString:(NSString *)input {
+    if (!input || !input.length) {
+        return input;
+    }
+    return [[[[input componentsSeparatedByString:@""]
+              reverseObjectEnumerator]
+             allObjects]
+            componentsJoinedByString:@""];
+}
+
+// Longest Palindromic Substring style
+- (NSString *)shortestPalindromeLPS:(NSString *)input {
+    if (!input || !input.length) {
+        return nil;
+    }
+    // we cut the input string, and ONLY check left half.
+    NSInteger mid = input.length / 2;
+    NSString *result = nil;
+    
+    // start from mid, in order to check from "shortest" to "longest"
+    for (NSInteger i = mid; i >= 0; i--) {
+        result = [self expendHelper:input left:i right:i];
+        if (result) return result;
+        result = [self expendHelper:input left:i-1 right:i];
+        if (result) return result;
+    }
+    return result;
+}
+
+- (NSString *)expendHelper:(NSString *)input left:(NSInteger)left right:(NSInteger)right {
+    if (!input || !input.length) {
+        return nil;
+    }
+    while (left >= 0 && right < input.length) {
+        if ([input characterAtIndex:left] != [input characterAtIndex:right]) {
+            break;
+        }
+        left--; right++;
+    }
+    if (left >= 0) {
+        return nil;
+    }
+    NSString *back = [input substringFromIndex:right];
+    NSMutableString *front = [NSMutableString string];
+    for (NSInteger i = back.length - 1; i >= 0; i--) {
+        [front appendFormat:@"%C", [input characterAtIndex:i]];
+    }
+    return [NSString stringWithFormat:@"%@%@", front, input];
+}
 
 ==============================================================================
 
@@ -999,7 +1078,7 @@ Question 106: 给一个string “123456789”， 进行 arithmetic oepration com
 
 ==============================================================================
 
-Question 112: Count All Palindrome Sub-Strings in a String
+Question 112: Count All Palindrome Sub-Strings in a String [DONE]
 
 Given a string, the task is to count all palindrome substring in a given string. Length of palindrome substring is greater then or equal to 2.
 Examples:
@@ -1014,6 +1093,38 @@ Explanation : All palindrome substring are : "bb" , "abba" ,"aea","eae"
 
 // Actually we can "count" during find "longest palindromic substring". So similar solution.
 // Another solution: http://www.geeksforgeeks.org/count-palindrome-sub-strings-string/
+
+- (NSInteger)countAllPalindromeSubstrings:(NSString *)input {
+    if (!input || input.length < 2) {
+        return 0;
+    }
+    
+    BOOL flags[input.length][input.length];
+    NSInteger counts[input.length][input.length];
+    
+    memset(flags, 0, sizeof(flags));
+    memset(counts, 0, sizeof(counts));
+    
+    for (NSInteger i = input.length - 1; i >= 0; i--) {
+        for (NSInteger j = i; j < input.length; j++) {
+            // j - i < 3 means "a", "aa" and "aba" are all valid for this checking.
+            flags[i][j] = ([input characterAtIndex:i] == [input characterAtIndex:j]) && (j - i < 3 || flags[i+1][j-1]);
+            
+            // make sure to exclude i == j. This is important to solve boundary issues, like counts[i+1][j]
+            if (i == j) {
+                continue;
+            }
+            if (flags[i][j]) {
+                // counts[i+1][j-1] means removing common palindromic substring
+                counts[i][j] = counts[i][j-1] + counts[i+1][j] + 1 - counts[i+1][j-1];
+            } else {
+                counts[i][j] = counts[i][j-1] + counts[i+1][j] - counts[i+1][j-1];
+            }
+        }
+    }
+    // from 0 to length-1
+    return counts[0][input.length - 1];
+}
 
 ==============================================================================
 

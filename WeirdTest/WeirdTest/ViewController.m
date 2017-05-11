@@ -18,7 +18,52 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self simplifyPath];
+    [self expressionAddOperators];
+}
+
+- (void)expressionAddOperators {
+    NSString *input = @"123";
+    NSInteger target = 6;
+    NSLog(@"Expression add operators for %@ and target %@: %@", input, @(target), [self expressionAddOperators:input target:target]);
+    
+    input = @"232";
+    target = 8;
+    NSLog(@"Expression add operators for %@ and target %@: %@", input, @(target), [self expressionAddOperators:input target:target]);
+
+    input = @"105";
+    target = 5;
+    NSLog(@"Expression add operators for %@ and target %@: %@", input, @(target), [self expressionAddOperators:input target:target]);
+    
+    input = @"00";
+    target = 0;
+    NSLog(@"Expression add operators for %@ and target %@: %@", input, @(target), [self expressionAddOperators:input target:target]);
+    
+    input = @"3456237490";
+    target = 9191;
+    NSLog(@"Expression add operators for %@ and target %@: %@", input, @(target), [self expressionAddOperators:input target:target]);
+}
+
+- (void)shortestPalindrome {
+    NSString *input = @"aacecaaa";
+    NSLog(@"Shortest palindrome of %@: %@", input, [self shortestPalindrome:input]);
+    
+    input = @"dcbabcd";
+    NSLog(@"Shortest palindrome of %@: %@", input, [self shortestPalindrome:input]);
+    
+    input = @"aaaaaaaaa";
+    NSLog(@"Shortest palindrome of %@: %@", input, [self shortestPalindrome:input]);
+    
+    input = @"";
+    NSLog(@"Shortest palindrome of %@: %@", input, [self shortestPalindrome:input]);
+}
+
+- (void)countAllPalindromeSubstrings {
+    NSString *input = @"abaab";
+    NSLog(@"Count all palindrome substring in %@: %@", input, @([self countAllPalindromeSubstrings:input]));
+    
+    input = @"abbaeae";
+    NSLog(@"Count all palindrome substring in %@: %@", input, @([self countAllPalindromeSubstrings:input]));
+
 }
 
 - (void)simplifyPath {
@@ -288,13 +333,174 @@
 
 #pragma mark - Private
 
+#pragma mark - Expression Add Operators
+
+/**
+ 1. overflow
+ 2. '0' multiplication
+ 3. continuously multiplication operations -> we need to remember the "previous" result!
+ */
+- (NSArray<NSString *> *)expressionAddOperators:(NSString *)digits target:(NSInteger)target {
+    if (!digits || !digits.length) {
+        return nil;
+    }
+    NSMutableArray<NSString *> *results = [NSMutableArray array];
+    [self expressionAddOperatorsHelper:digits target:target sum:0
+                                 start:0 previousMultiply:0
+                                result:@"" results:results];
+    return results;
+}
+
+- (void)expressionAddOperatorsHelper:(NSString *)digits target:(NSInteger)target sum:(NSInteger)sum
+                               start:(NSInteger)start previousMultiply:(NSInteger)multed
+                              result:(NSString *)result results:(NSMutableArray<NSString *> *)results {
+    if (start == digits.length) {
+        if (target == sum) {
+            [results addObject:[result copy]];
+        }
+        return;
+    }
+    
+    for (NSInteger i = start; i < digits.length; i++) {
+        // if the digit at 'start' index is '0', then we skip follow recursion EXCEPT the first '0'
+        if (i != start && [digits characterAtIndex:start] == '0') {
+            break;
+        }
+        
+        NSInteger num = [digits substringWithRange:NSMakeRange(start, i-start+1)].integerValue;
+        
+        if (start == 0) {
+            [self expressionAddOperatorsHelper:digits target:target sum:num
+                                         start:i+1 previousMultiply:num
+                                        result:@(num).stringValue
+                                       results:results];
+        } else {
+            // Add operation
+            [self expressionAddOperatorsHelper:digits target:target sum:sum+num
+                                         start:i+1 previousMultiply:num
+                                        result:[result stringByAppendingFormat:@"%@%@", @"+", @(num)]
+                                       results:results];
+            // Minus operation
+            [self expressionAddOperatorsHelper:digits target:target sum:sum-num
+                                         start:i+1 previousMultiply:-num
+                                        result:[result stringByAppendingFormat:@"%@%@", @"-", @(num)]
+                                       results:results];
+            
+            // Multiply operation
+            [self expressionAddOperatorsHelper:digits target:target sum:sum-multed+multed*num
+                                         start:i+1 previousMultiply:multed*num
+                                        result:[result stringByAppendingFormat:@"%@%@", @"*", @(num)]
+                                       results:results];
+        }
+    }
+}
+
+#pragma mark - Count All Palindrome Substrings
+
+// length >= 2
+- (NSInteger)countAllPalindromeSubstrings:(NSString *)input {
+    if (!input || input.length < 2) {
+        return 0;
+    }
+    
+    BOOL flags[input.length][input.length];
+    NSInteger counts[input.length][input.length];
+    
+    memset(flags, 0, sizeof(flags));
+    memset(counts, 0, sizeof(counts));
+    
+    for (NSInteger i = input.length - 1; i >= 0; i--) {
+        for (NSInteger j = i; j < input.length; j++) {
+            // j - i < 3 means "a", "aa" and "aba" are all valid for this checking.
+            flags[i][j] = ([input characterAtIndex:i] == [input characterAtIndex:j]) && (j - i < 3 || flags[i+1][j-1]);
+            
+            // make sure to exclude i == j. This is important to solve boundary issues, like counts[i+1][j]
+            if (i == j) {
+                continue;
+            }
+            if (flags[i][j]) {
+                // counts[i+1][j-1] means removing common palindromic substring
+                counts[i][j] = counts[i][j-1] + counts[i+1][j] + 1 - counts[i+1][j-1];
+            } else {
+                counts[i][j] = counts[i][j-1] + counts[i+1][j] - counts[i+1][j-1];
+            }
+        }
+    }
+    // from 0 to length-1
+    return counts[0][input.length - 1];
+}
+
 #pragma mark - Shortest Palindrome
 
+// scan from left to right, and recursion
 - (NSString *)shortestPalindrome:(NSString *)input {
     if (!input || !input.length) {
         return nil;
     }
+    NSInteger left = 0, right = input.length-1;
+    while (right >= 0) {
+        if ([input characterAtIndex:left] == [input characterAtIndex:right]) {
+            left++;
+        }
+        right--;
+    }
+    if (left == input.length) {
+        return input;
+    }
+    NSString *suffix = [input substringFromIndex:left];
+    NSString *prefix = [self reverseString:suffix];
+    NSString *middle = [self shortestPalindrome:[input substringToIndex:left]];
+    return [NSString stringWithFormat:@"%@%@%@", prefix, middle, suffix];
+}
+
+- (NSString *)reverseString:(NSString *)input {
+    if (!input || !input.length) {
+        return input;
+    }
+    return [[[[input componentsSeparatedByString:@""]
+              reverseObjectEnumerator]
+             allObjects]
+            componentsJoinedByString:@""];
+}
+
+// Longest Palindromic Substring style
+- (NSString *)shortestPalindromeLPS:(NSString *)input {
+    if (!input || !input.length) {
+        return nil;
+    }
+    // we cut the input string, and ONLY check left half.
+    NSInteger mid = input.length / 2;
+    NSString *result = nil;
     
+    // start from mid, in order to check from "shortest" to "longest"
+    for (NSInteger i = mid; i >= 0; i--) {
+        result = [self expendHelper:input left:i right:i];
+        if (result) return result;
+        result = [self expendHelper:input left:i-1 right:i];
+        if (result) return result;
+    }
+    return result;
+}
+
+- (NSString *)expendHelper:(NSString *)input left:(NSInteger)left right:(NSInteger)right {
+    if (!input || !input.length) {
+        return nil;
+    }
+    while (left >= 0 && right < input.length) {
+        if ([input characterAtIndex:left] != [input characterAtIndex:right]) {
+            break;
+        }
+        left--; right++;
+    }
+    if (left >= 0) {
+        return nil;
+    }
+    NSString *back = [input substringFromIndex:right];
+    NSMutableString *front = [NSMutableString string];
+    for (NSInteger i = back.length - 1; i >= 0; i--) {
+        [front appendFormat:@"%C", [input characterAtIndex:i]];
+    }
+    return [NSString stringWithFormat:@"%@%@", front, input];
 }
 
 #pragma mark - Simplify Path
