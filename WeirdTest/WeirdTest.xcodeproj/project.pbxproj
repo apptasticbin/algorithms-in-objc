@@ -14,6 +14,10 @@
 		790BB4321E8BB1CB0023B5F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 790BB4311E8BB1CB0023B5F1 /* Assets.xcassets */; };
 		790BB4351E8BB1CB0023B5F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790BB4331E8BB1CB0023B5F1 /* LaunchScreen.storyboard */; };
 		790BB4401E8BB1CB0023B5F1 /* WeirdTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 790BB43F1E8BB1CB0023B5F1 /* WeirdTestTests.m */; };
+		7922A9DE1EC6691F00D00E24 /* TrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9DD1EC6691F00D00E24 /* TrieNode.m */; };
+		7922A9E11EC6692C00D00E24 /* Trie.m in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9E01EC6692C00D00E24 /* Trie.m */; };
+		7922A9E51EC7A7D200D00E24 /* Interval.m in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9E41EC7A7D200D00E24 /* Interval.m */; };
+		7922A9E91EC7A85100D00E24 /* SummaryRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9E81EC7A85100D00E24 /* SummaryRanges.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,14 @@
 		790BB43B1E8BB1CB0023B5F1 /* WeirdTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeirdTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		790BB43F1E8BB1CB0023B5F1 /* WeirdTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeirdTestTests.m; sourceTree = "<group>"; };
 		790BB4411E8BB1CB0023B5F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7922A9DC1EC6691F00D00E24 /* TrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrieNode.h; path = Trie/TrieNode.h; sourceTree = "<group>"; };
+		7922A9DD1EC6691F00D00E24 /* TrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrieNode.m; path = Trie/TrieNode.m; sourceTree = "<group>"; };
+		7922A9DF1EC6692C00D00E24 /* Trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Trie.h; path = Trie/Trie.h; sourceTree = "<group>"; };
+		7922A9E01EC6692C00D00E24 /* Trie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Trie.m; path = Trie/Trie.m; sourceTree = "<group>"; };
+		7922A9E31EC7A7D200D00E24 /* Interval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interval.h; path = Interval/Interval.h; sourceTree = "<group>"; };
+		7922A9E41EC7A7D200D00E24 /* Interval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Interval.m; path = Interval/Interval.m; sourceTree = "<group>"; };
+		7922A9E71EC7A85100D00E24 /* SummaryRanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryRanges.h; path = Interval/SummaryRanges.h; sourceTree = "<group>"; };
+		7922A9E81EC7A85100D00E24 /* SummaryRanges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummaryRanges.m; path = Interval/SummaryRanges.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +93,8 @@
 		790BB4241E8BB1CB0023B5F1 /* WeirdTest */ = {
 			isa = PBXGroup;
 			children = (
+				7922A9E21EC7A7C100D00E24 /* Interval */,
+				7922A9DB1EC668DC00D00E24 /* Trie */,
 				790BB4281E8BB1CB0023B5F1 /* AppDelegate.h */,
 				790BB4291E8BB1CB0023B5F1 /* AppDelegate.m */,
 				790BB42B1E8BB1CB0023B5F1 /* ViewController.h */,
@@ -109,6 +123,28 @@
 				790BB4411E8BB1CB0023B5F1 /* Info.plist */,
 			);
 			path = WeirdTestTests;
+			sourceTree = "<group>";
+		};
+		7922A9DB1EC668DC00D00E24 /* Trie */ = {
+			isa = PBXGroup;
+			children = (
+				7922A9DC1EC6691F00D00E24 /* TrieNode.h */,
+				7922A9DD1EC6691F00D00E24 /* TrieNode.m */,
+				7922A9DF1EC6692C00D00E24 /* Trie.h */,
+				7922A9E01EC6692C00D00E24 /* Trie.m */,
+			);
+			name = Trie;
+			sourceTree = "<group>";
+		};
+		7922A9E21EC7A7C100D00E24 /* Interval */ = {
+			isa = PBXGroup;
+			children = (
+				7922A9E31EC7A7D200D00E24 /* Interval.h */,
+				7922A9E41EC7A7D200D00E24 /* Interval.m */,
+				7922A9E71EC7A85100D00E24 /* SummaryRanges.h */,
+				7922A9E81EC7A85100D00E24 /* SummaryRanges.m */,
+			);
+			name = Interval;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +251,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7922A9E11EC6692C00D00E24 /* Trie.m in Sources */,
 				790BB42D1E8BB1CB0023B5F1 /* ViewController.m in Sources */,
+				7922A9E91EC7A85100D00E24 /* SummaryRanges.m in Sources */,
+				7922A9E51EC7A7D200D00E24 /* Interval.m in Sources */,
 				790BB42A1E8BB1CB0023B5F1 /* AppDelegate.m in Sources */,
 				790BB4271E8BB1CB0023B5F1 /* main.m in Sources */,
+				7922A9DE1EC6691F00D00E24 /* TrieNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +456,7 @@
 				790BB4461E8BB1CB0023B5F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		790BB4471E8BB1CB0023B5F1 /* Build configuration list for PBXNativeTarget "WeirdTestTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +465,7 @@
 				790BB4491E8BB1CB0023B5F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

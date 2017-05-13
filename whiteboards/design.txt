@@ -1,4 +1,4 @@
-Question 22: Add and Search Word - Data structure design
+Question 22: Add and Search Word - Data structure design [DONE]
 
 Design a data structure that supports the following two operations:
 
@@ -125,18 +125,24 @@ Note: You may assume that all words are consist of lowercase letters a-z.
 }
 
 - (BOOL)search:(NSString *)word root:(TrieNode *)root {
-    /*if (word.length == 0 && root.isWord) return YES;
-    unichar c = [word characterAtIndex:0];
-    if (c != '.' && [root hasChild:c]) {
-        [self search:[word substringFromIndex:i+1] root:[root getChild:c]];
-    } else if (c == '.') {
-        for (NSUInteger i=0; i<26; i++) {
-            c = 'a'+i;
-            BOOL found = [self search:[word substringFromIndex:i+1] root:[root getChild:c]];
-            if (found) return YES;
-        }
+    /*
+    if (!root) {
+        return NO;
     }
-    return NO;*/
+    if (start == word.length) {
+        return root.isWord;
+    }
+     unichar c = [word characterAtIndex:start];
+     if (c != '.') {
+         return [self search:word root:[root getChild:c] start:start+1];
+     } else {
+         for (NSUInteger i=0; i<26; i++) {
+             c = 'a'+i;
+             BOOL found = [self search:word root:[root getChild:c] start:start+1];
+             if (found) return YES;
+         }
+     }
+    return NO; */
 	
 	TrieNode *cur = root;
 	for (NSInteger i = 0; i < word.length; i++) {
@@ -150,7 +156,7 @@ Note: You may assume that all words are consist of lowercase letters a-z.
 	        }
 		}
 	}
-	return run != nil && [run isWord];
+	return cur != nil && [cur isWord];
 }
 
 @end
@@ -185,7 +191,7 @@ Note: You may assume that all words are consist of lowercase letters a-z.
 
 ==============================================================================
 
-Question 26: Flatten Nested List Iterator
+Question 26: Flatten Nested List Iterator [DONE]
 
 Given a nested list of integers, implement an iterator to flatten it.
 Each element is either an integer, or a list -- whose elements may also be integers or other lists.
@@ -203,6 +209,7 @@ By calling next repeatedly until hasNext returns false, the order of elements re
 // Ask interviewer: if no next, what to return?
 // For this question, we can use Queue or Stack to solve. My solution is Queue solution.
 // For Stack solution: http://www.jiuzhang.com/solutions/flatten-nested-list-iterator/
+// Stack solution is simple and elegant
 
 @interface NestedInteger : NSObject
 
@@ -275,7 +282,7 @@ By calling next repeatedly until hasNext returns false, the order of elements re
 
 ==============================================================================
 
-Question 55: Binary Search Tree Iterator
+Question 55: Binary Search Tree Iterator [DONE]
 
 Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
 
@@ -397,23 +404,22 @@ Follow up: What if there are lots of merges and the number of disjoint intervals
 
 - (void)addNum:(NSInteger)val {
     NSComparator cmp = ^NSComparisonResult(Interval *interval1, Interval *interval2) {
-        return interval1.start < interval2.start;
+        return [@(interval1.start) compare:@(interval2.start)];
     };
     
-    NSUInteger idx = [self.intervals indexOfObject:[Interval intervalWithStart:val end:val]
+    NSUInteger idx = [self.intervals indexOfObject:[Interval intervalWithStart:num end:num]
                                      inSortedRange:NSMakeRange(0, self.intervals.count)
-                                           options:NSBinarySearchingInsertionIndex
+                                           options:NSBinarySearchingInsertionIndex | NSBinarySearchingFirstEqual  // lower bound
                                    usingComparator:cmp];
     // for example, if val => 4, and intervals => {1, 3}, {5, 6}, we need to check if
     // the inserting value belongs to previous interval or not.
     // if YES; then merge this value to previous interval
     // if NO; just insert it.
-    if (idx > 0 && self.intervals[idx-1].end+1 >= val) idx--;
+    if (idx > 0 && self.intervals[idx-1].end+1 >= num) idx--;
     // merge connected intervals
-    NSInteger start = val, end = val;
+    NSInteger start = num, end = num;
     while (idx < self.intervals.count &&
-           val+1 >= self.intervals[idx].start &&
-           val-1 <= self.intervals[idx].end) {
+           self.intervals[idx].start <= end+1) {
         start = MIN(start, self.intervals[idx].start);
         end = MAX(end, self.intervals[idx].end);
         [self.intervals removeObjectAtIndex:idx];

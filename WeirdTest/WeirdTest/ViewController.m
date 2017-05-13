@@ -9,6 +9,8 @@
 #define BOOLSTR(val) (val ? @"YES" : @"NO")
 
 #import "ViewController.h"
+#import "Trie.h"
+#import "SummaryRanges.h"
 
 @interface ViewController ()
 
@@ -18,7 +20,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self expressionAddOperators];
+    [self summaryRanges];
+}
+
+- (void)summaryRanges {
+    SummaryRanges *summaryRanges = [SummaryRanges new];
+    NSInteger nums[5] = {1, 3, 7, 2, 6};
+    for (NSInteger i = 0; i < 5; i++) {
+        [summaryRanges addNum:nums[i]];
+        NSLog(@"Summary Ranges: %@", [summaryRanges getIntervals]);
+    }
+}
+
+- (void)addAndSearchWord {
+    Trie *trie = [Trie trie];
+    [trie addWord:@"bad"];
+    [trie addWord:@"dad"];
+    [trie addWord:@"mod"];
+    NSLog(@"Search %@: %@", @"pad", BOOLSTR([trie search:@"pad"]));
+    NSLog(@"Search %@: %@", @"bad", BOOLSTR([trie search:@"bad"]));
+    NSLog(@"Search %@: %@", @".ad", BOOLSTR([trie search:@".ad"]));
+    NSLog(@"Search %@: %@", @"b..", BOOLSTR([trie search:@"b.."]));
 }
 
 - (void)expressionAddOperators {
