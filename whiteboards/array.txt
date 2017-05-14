@@ -1603,7 +1603,7 @@ Follow up:
 
 ==============================================================================
 
-Question 72: Median of Two Sorted Arrays [Hard]
+Question 72: Median of Two Sorted Arrays [Hard] [DONE]
 
 There are two sorted arrays nums1 and nums2 of size m and n respectively.
 
@@ -1631,7 +1631,7 @@ The median is (2 + 3)/2 = 2.5
 // http://www.geeksforgeeks.org/median-of-two-sorted-arrays/
 // http://www.geeksforgeeks.org/median-of-two-sorted-arrays-of-different-sizes/
 
-- (NSFloat)findMedianSortedArrays:(NSArray<NSNumber *> *)nums1 nums2:(NSArray<NSNumber *> *)nums2 {
+- (NSNumber *)findMedianSortedArrays:(NSArray<NSNumber *> *)nums1 nums2:(NSArray<NSNumber *> *)nums2 {
 	// TODO
 }
 

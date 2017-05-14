@@ -1,4 +1,4 @@
-Question 20: Divide Two Integers
+Question 20: Divide Two Integers [DONE]
 
 Divide two integers without using multiplication, division and mod operator.
 If it is overflow, return MAX_INT.
@@ -38,7 +38,7 @@ If it is overflow, return MAX_INT.
 
 ==============================================================================
 
-Question 39: Read N Characters Given Read4
+Question 39: Read N Characters Given Read4 [DONE]
 
 The API: int read4(char *buf) reads 4 characters at a time from a file.
 The return value is the actual number of characters read. 

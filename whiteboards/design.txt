@@ -346,7 +346,7 @@ Note: next() and hasNext() should run in average O(1) time and uses O(h) memory,
 
 ==============================================================================
 
-Question 57: Data Stream as Disjoint Intervals [HARD]
+Question 57: Data Stream as Disjoint Intervals [HARD] [DONE]
 
 Given a data stream input of non-negative integers a1, a2, ..., an, ..., summarize the numbers seen so far as a list of disjoint intervals.
 
@@ -435,7 +435,7 @@ Follow up: What if there are lots of merges and the number of disjoint intervals
 
 ==============================================================================
 
-Question 74: Min / Max Stack / Queue
+Question 74: Min / Max Stack / Queue [DONE]
 
 Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
