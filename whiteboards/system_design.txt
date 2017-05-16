@@ -1,0 +1,68 @@
+Asked me to architect an app that pulls photos from a server and displays them in a feed.  
+
+Design a simple photo stream app
+
+How would you build a photo sharing app with a billion users?
+
+Pretend you're given a simple iOS app with a table view and a text field which looks like a search bar. It has methods to call to a remote server to get potential auto complete words. Describe how you would actually implement the iOS side. (Cancellable dispatch after)
+
+### 系统设计评分标准 ###
+
+- Work Solution
+- Special Case
+- Analysis
+- Tradeoff
+- Knowledge Base
+
+### 系统设计问题4S分析法 ###
+
+- Scenario
+
+1. 和面试官讨论，搞清楚需要设计哪些功能， 并分析出设计的系统大概需要的支持 (Concurrent Users / QPS / Momory / Storage)
+2. Ask / Features / QPS / DAU / Interfaces
+
+- Service
+
+1. 将大型系统分为小的服务: 重放需求， 归并需求，划分结构模块
+2. Split / Application / Module
+
+- Storage
+
+1. 数据如何存储与访问: 为每个service选择存储结构， Schema细化表结构
+2. Schema / Data / SQL / NoSQL / File System
+
+- Scale
+
+1. 找到一个Work Solution， 而不是Perfect Solution。解决缺陷，处理可能遇到的问题
+2. Sharding / Optimize / Special Case
+3. 解决设计缺陷，更多功能设计， 特殊用例， 维护的健壮性和扩展性
+
+Example: Tweeter's news feed
+
+Pull Model and Push Model
+
+Pull Model: 获取每个好友前N条，然后K路归并合并在一起。每个好友的N次数据库请求很慢
+
+Push Model: 每个用户有一个List存储News Feed。用户发tweet后，这个tweet推送到每个用户的list里。 (Fanout)
+
+Lady Gaga有65.5M follower。 Push需要很长时间。这里要讨论Pull 和 Push 分别的 Tradeoff。Pull+Push 也是可能的
+
+Facebook: Pull; INstagram: Push+Pull Twitter: Pull
+
+注意社交网络的惊群效应 (Thundering Herd)
+
+Ask before design
+问清楚再动手设计，不要一上来就冲着一个巨牛的方案设计，切记不要做关键词大师
+
+No more no less
+不要总想着设计最牛的系统，要设计够用的系统
+
+Work Solution First
+先设计一个基本能工作的系统，然后再逐步优化
+Done is better than perfect! -- Mark Zuckerberg
+
+Analysis is important than solution
+系统设计没有标准答案，通过分析过程展示知识储备，权衡各种设计方式的利弊
+
+
+

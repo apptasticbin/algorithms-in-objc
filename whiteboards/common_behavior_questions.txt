@@ -10,3 +10,40 @@
 3. how to solve conflicts with workmates.
 
 你觉得做project你最enjoy哪个部分，最tricky的是哪个部分，每个project大概做多久呀之类的
+
+This interview will be with a leadership engineer or technical team manager and will consist of a combination of two aspects: a conversation and coding. During the conversation the interviewer will pose questions about your technical background, career experience, what you’re looking for at Facebook, and why you may fit in better at Facebook vs. other companies. Ask questions! You should be getting to know us just as much we get to know you.
+
+Some topics might include:
+
+• Explain some of the work you've been doing in the past few years.
+
+• What are you most passionate about? Talk about a project you've done whereyou were at your best.
+
+• Explain a recent exceptionally difficult challenge. How did you overcome it? What did you learn?
+
+• Why are you interested in Facebook? How do you foresee your impact here?
+
+
+### Resume Walk Through ###
+
+1. Quick show of success
+2. Key stories: what have you done in previous companies; just hint; let the interviewer ask for details
+3. Hobbies: hobby projects, or technical hobbies; make them relevant to the job
+
+Think about some projects to talk about.
+Think about non-technical questions, like what were the biggest challenges, what where the architecture, etc.
+
+Prepare to discuss at least 2-3 projects in detail
+1. technical stuff
+2. soft skills
+
+Focus on what "you" did in the projects, not only "we or they".
+
+Think about some weaknees and bad things; Don't hide the bad things you have done. To be honest and soft.
+
+### How Companies Evaluate Technical Interviews ###
+
+- Interviewer will think about "what do I think about you as a software engineer".
+- Maybe you are not familiar with some APIs, and interviewer will think you are not using it everyday. But it doesn't mean "failure".
+- Key is to "shout your thought out". Show what you are thinking. If got stuck, show what you are thinking. Give the interviewer the headline of your thought process.
+- Try to give interviewer as much as you can.

@@ -12,6 +12,16 @@
 #import "Trie.h"
 #import "SummaryRanges.h"
 
+@interface CancelToken : NSObject
+
+@property (nonatomic, assign, getter=isCancelled) BOOL cancelled;
+
+@end
+
+@implementation CancelToken
+
+@end
+
 @interface ViewController ()
 
 @end
@@ -20,7 +30,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self regularExpressionMatching];
+    [self cancellableDispatchAfter];
+}
+
+- (void)cancellableDispatchAfter {
+    [self cancelable_dispatch_after:dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC * 2)
+                              queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                              block:^{
+                                  NSLog(@"Not cancelled after 2 seconds");
+                              }];
+    
+    CancelToken *cancelToken = [self cancelable_dispatch_after:dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC * 2)
+                                                         queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                                                         block:^{
+                                                             NSLog(@"Shouldn't be shown here!");
+                                                         }];
+    cancelToken.cancelled = YES;
 }
 
 - (void)regularExpressionMatching {
@@ -376,6 +401,22 @@
 }
 
 #pragma mark - Private
+
+#pragma mark - Cancellable Dispatch After
+
+- (CancelToken *)cancelable_dispatch_after:(dispatch_time_t)after
+                                     queue:(dispatch_queue_t)queue
+                                     block:(dispatch_block_t)block {
+    CancelToken *cancelToken = [CancelToken new];
+    
+    dispatch_after(after, queue, ^{
+        if (!cancelToken.isCancelled && block) {
+            block();
+        }
+    });
+    
+    return cancelToken;
+}
 
 #pragma mark - Regular Expression Matching
 

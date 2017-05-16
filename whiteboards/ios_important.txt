@@ -1,0 +1,96 @@
+1. Block and strong reference cycling [DONE]
+
+@property (copy) void (^block)(void);
+
+- (void)methodA {
+    self.block = ^{
+        [self methodB];
+    };
+}
+
+2. Method Swizzling [DONE]
+3. Dynamic Binding / objc_msgSend [DONE]
+4. Equality [DONE]
+5. Hit Test [DONE]
+6. Target-action [DONE]
+7. GCD APIs (dispatch_sync[async], dispatch_after, dispatch_barrier_sync[async], dispatch_group, dispatch_apply); Using dispatch queue for synchronization
+[DONE]
+dispatch_group_t dispatch_group_create();
+
+void dispatch_group_async(dispatch_group_t group,
+                          dispatch_queue_t queue,
+                          dispatch_block_t block);
+
+void dispatch_group_enter(dispatch_group_t group);
+void dispatch_group_leave(dispatch_group_t group);
+
+// block current thread and wait
+long dispatch_group_wait(dispatch_group_t group,
+                         dispatch_time_t timeout);
+
+// alternative to blocking the current thread to wait 
+// for a dispatch group to finish.
+// not blocking current thread
+void dispatch_group_notify(dispatch_group_t group,
+                           dispatch_queue_t queue,
+                           dispatch_block_t block);
+
+8. KVC [DONE]
+9. KVO [DONE]
+10. Animation
+11. NSNotificationCenter and NSNotificationQueue [DONE] 
+12. Auto releasing pools -> stack of Auto releasing pool [DONE]
+13. NSOperation and NSOperationQueue [DONE]
+14. __autoreleasing [DONE]
+15. __bridge [DONE]
+16. typedef and NS_ENUM and enum : NSInteger [DONE]
+17. Instance variable '->' [DONE]
+18. Deep copy and archive [DONE]
+19. Delegate [DONE]
+20. NSIndexPath and clone trees [DONE]
+21. Response chain [DONE]
+22. +load and +initialize [DONE]
+23. Serial / Concurrent synchronization / asynchronization queue [DONE]
+
+_syncQueue = dispatch_queue_create(“com.queue”, NULL);
+
+- (NSString *)someString {
+    __block NSString *localSomeString;
+    dispatch_sync(_syncQueue, ^{
+        localSomeString = _someString;
+    });
+    return localSomeString;
+}
+
+- (void)setSomeString:(NSString *)someString {
+    dispatch_(a)sync(_syncQueue, ^{
+        _someString = someString;
+    });
+}
+
+GCD barrier can solve the “racing condition” on concurrent dispatch queue.
+
+_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+- (NSString *)someString {
+    __block NSString *localSomeString;
+    dispatch_sync(_syncQueue, ^{
+        localSomeString = _someString;
+    });
+    return localSomeString;
+}
+
+- (void)setSomeString:(NSString *)someString {
+    dispatch_barrier_async(_syncQueue, ^{
+        _someString = someString;
+    });
+}
+
+24. Singleton and dispatch_once [ONCE]
+25. Toll-Free Bridging (__bridge, __bridge_retain, __bridge_transfer) [DONE]
+26. NSTimer [DONE]
+27. Application Life Cycle [DONE]
+28. NSURLSession [DONE]
+29. Core Data Stack [DONE]
+
+
