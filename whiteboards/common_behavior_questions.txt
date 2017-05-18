@@ -1,28 +1,104 @@
-1 First, ask some questions about Facebook, do you use Facebook? 2 Why you like it?
+1 First, ask some questions about Facebook, do you use Facebook? 
+Yes, I started using Facebook many years ago.
+
+2 Why you like it?
+I like using it, because it is a quick way to connect my friends. I can store my greatest memories in Facebook,
+and I can share them to others by videos or beautiful group of pictures. Also the group is also a great feature
+to keep in touch with my cloest friends, and even sell something with it.
+
 3 Which part of it should be improved?
-4 What challenge you face in your pre project and how you result it? 5 Why facebook
+Sometimes the news feed get mass-up with videos and native ads, and I can not find what I want.
+Also the group feature needs improvement for selling stuffs. 
+
+4 What challenge you face in your pre project and how you result it?
+Technically the biggest challenge I ever had is the RCSe project in Nokia. I was young in software development,
+and I was totally new in Windows Phone system. I quickly learned C# and Windows Phone development, and took the 
+major UI development tasks for the whole project. Also I did a little system level implementation, like push notification service, but not so much.
+The result for this project was pretty ok, because our team and I made it. But to be honest, many problem also existed in this project.
+
+5 Why facebook
+1) Facebook is my dream company, Tech-driven and data-driven. I'm feeling excited in what Facebook has done for connecting people, 
+and also will do, such as VR / AR, etc. I want to contribute in Facebook.
+
+2) Facebook has great engineering culture. I have heard a lot from my friend who is working in Facebook. People can choose their project or team,
+and free to take responsibility. Also knowledge sharing in Facebook is great. Flat management, no much hierachy.
+
+3) Facebook has great and talented people. I want to work with them.
+
+4) I want to challenge myself, and Facebook is a great company worth me to challenge.
+
 6 My current project and how I scale our applications.
+Tori.fi is an E-Commerce service. We try to provide best experience for users to sell / buy second-hand items, like phone, shoes, or even cars.
+When I joint this company, they only had mobile-site throughput on mobile devices. I joint this company, collaborate with global team,
+developed local features and released both iOS and Android apps for our company. 
+
 7 包括以前的成就，怎么说服别人做design的修改，说服不通怎么办.
+A / B testing and data-driven can prove many things. I think it is better to test and discuss based on data, not just by argument.
+
 8 FB specifically (vs. other companies).
 
+Why Facebook?
+
 1. why fb
-2. most chanllenge work. visit 1point3acres.com for more. 
+2. most chanllenge work.
 3. how to solve conflicts with workmates.
+Use data to prove. Discuss and point out the problem softly and straightly. 
 
 你觉得做project你最enjoy哪个部分，最tricky的是哪个部分，每个project大概做多久呀之类的
+I enjoyed most parts, like UI development, structure design, performance improvement, and also data analysing.
+
+The most tricky part I think is working with UI, because UI is always very fancy and customized. Also many API level bugs happen 
+on UI. For example, margin issue, transparent issue, calculate layout, etc.
+
+你遇到的最大挑战是什么；你最值得骄傲的成就是什么；你怎么解决和别人的冲突。
+Technically RCSe is the biggest challenge. Tori is very challenging for cooperating and further development.
+I'm very proud of my current work, because with my effort, I helped company to win in the mobile platform, and earned money from
+the features I implemented, like native ads, and other features.
+
+你什么最骄傲的项目做的是什么
+The Pokemon Go Radar is the project I'm most proud of. No documentation, only by Reddit cracking team and some public projects
+in GitHub. Used protobuf, and made it communicate with real game server and worked perfectly.
+
+你有没有做项目逾期了怎么解决的
+I tried to avoid this happen. If it happened and it was my fault, I will try to catch up the schedule.
+If it is caused by something we can not control, I will carefully explain to manager what happened, and what's next step.
+
+你的老板是怎么评价你的
+Hard-working, responsible, has forward-looking
+
+你和同事意见不一致你是怎么说服他的
+
+如果面试官表示你的项目不够Challenging，你应该如何应对？
+It happends maybe to everyone. Sometimes you found a great company, but they don't have much requirements and also their
+work is not very challenge, this is normal. That's why as a developer, even work is not challenging, I still try to find 
+challenge tasks myself for my hobby projects. And also this is why I want to join Facebook, because I also want challenging tasks 
+from work.
 
 This interview will be with a leadership engineer or technical team manager and will consist of a combination of two aspects: a conversation and coding. During the conversation the interviewer will pose questions about your technical background, career experience, what you’re looking for at Facebook, and why you may fit in better at Facebook vs. other companies. Ask questions! You should be getting to know us just as much we get to know you.
 
 Some topics might include:
 
-• Explain some of the work you've been doing in the past few years.
+•Explain some of the work you've been doing in the past few years.
 
-• What are you most passionate about? Talk about a project you've done whereyou were at your best.
+•What are you most passionate about? Talk about a project you've done whereyou were at your best.
+I'm passionate about making great ideas into real projects. Just like PokeRadar.
 
-• Explain a recent exceptionally difficult challenge. How did you overcome it? What did you learn?
+•Explain a recent exceptionally difficult challenge. How did you overcome it? What did you learn?
+Our app fully crashed on iOS 9 emulator, but not on device. Everyone couldn't find the reason, and no one want to dig into it.
+So I took the responsibility and found that it was caused by my mistake. One method I implemented in a class category had the same
+name as the new API for force touching. I learned that how important using the prefix for category methods.
 
-• Why are you interested in Facebook? How do you foresee your impact here?
+•Why are you interested in Facebook? How do you foresee your impact here?
+Facebook is great, and Facebook has unique way of implementing iOS app, like component-kit, ASDK, etc.
+I will bring new ideas and my way of thinking to Facebook. Also my previous experience may help Facebook 
+to improve its product, for example, the improving the selling feature of facebook group.
 
+Facebook has great open culture. Great knowledge sharing. 
+
+*What's your weaknees?
+Sometimes I check too much details and think too much design, and make me not very efficient at the beginning of the project. 
+For some projects, it is better to first make a working solution, then improve it, but not do rocket science. But I'm tring to overcome 
+this weaknees.
 
 ### Resume Walk Through ###
 

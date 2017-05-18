@@ -47,7 +47,7 @@ Push Model: 每个用户有一个List存储News Feed。用户发tweet后，这�
 
 Lady Gaga有65.5M follower。 Push需要很长时间。这里要讨论Pull 和 Push 分别的 Tradeoff。Pull+Push 也是可能的
 
-Facebook: Pull; INstagram: Push+Pull Twitter: Pull
+Facebook: Pull; Instagram: Push+Pull Twitter: Pull
 
 注意社交网络的惊群效应 (Thundering Herd)
 
