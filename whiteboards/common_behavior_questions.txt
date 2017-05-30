@@ -4,7 +4,7 @@ Yes, I started using Facebook many years ago.
 2 Why you like it?
 I like using it, because it is a quick way to connect my friends. I can store my greatest memories in Facebook,
 and I can share them to others by videos or beautiful group of pictures. Also the group is also a great feature
-to keep in touch with my cloest friends, and even sell something with it.
+to keep in touch with my cloest friends, and even sell something with it. And the new camera and filters.
 
 3 Which part of it should be improved?
 Sometimes the news feed get mass-up with videos and native ads, and I can not find what I want.
@@ -93,12 +93,27 @@ Facebook is great, and Facebook has unique way of implementing iOS app, like com
 I will bring new ideas and my way of thinking to Facebook. Also my previous experience may help Facebook 
 to improve its product, for example, the improving the selling feature of facebook group.
 
-Facebook has great open culture. Great knowledge sharing. 
+Facebook has great open culture. Great knowledge sharing. I will learn a lot and stimulate my potential, and contribute to this 
+great company. 
 
 *What's your weaknees?
 Sometimes I check too much details and think too much design, and make me not very efficient at the beginning of the project. 
 For some projects, it is better to first make a working solution, then improve it, but not do rocket science. But I'm tring to overcome 
 this weaknees.
+
+*Biggest Failure?
+In Nokia, I was young and lacking of design experience. Our project has many design problem is the ending phase.
+I designed many major parts of that project, and I made many mistakes.
+
+*Questions for Facebook:
+- For Matt: did you ask your team members to follow the coding style you mentioned in your book?
+- How does iOS developers usually work in Facebook?
+- How does the knowledge sharing work in Facebook internally?
+- For Interviewer: could you share me about what you working on in Facebook.
+- Does iOS developer use "Nuclide" for daily work?
+- Is Reactive Native used in all Facebook projects?
+- How does Facebook control the code quality? How to do code review in Facebook? How strict?
+- How did you beceom an interviewer in Facebook?
 
 ### Resume Walk Through ###
 

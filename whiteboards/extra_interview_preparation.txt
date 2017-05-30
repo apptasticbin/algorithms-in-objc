@@ -1,0 +1,85 @@
+Extra Interview Preparation
+
+http://www.1point3acres.com/bbs/thread-207610-1-1.html
+
+1. Write a method to compare two binary trees. [DONE]
+
+2. You have a simple tree structure Ⓐ and its clone ⓐ. Given an original tree's node Ⓑ, find and return the cloned tree's node ⓑ that is the clone of node Ⓑ.
+Each node in the tree has a pointer to it's parent as well as an array of it's children. [DONE]
+
+3. K Cloest Points [DONE]
+
+4. Return the head node of the singly linked list with each pair of nodes swapped. If there is a last odd node leave it in place. [DONE]
+Example:
+Input: 1 -> 2 -> 3 -> 4 -> 5
+Output: 2 -> 1 -> 4 -> 3 -> 5  
+
+5. How to detect a common superview. [DONE]
+
+6. Binary tree to list, inorder [DONE]
+
+7. The same list, back to inorder binary tree [DONE]
+
+8. Move Zeros [DONE]
+
+9. Given nested arrays, write an enumerator class such that "next()" returns the elements in sequential order, e.g.:
+[1,[4,3],6,[5,[1,0]]] -> 1, 4, 3, 6, 5, 1, 0
+also implement "allObjects" for this class [DONE]
+
+10. How would you copy a custom object like a "Node" from a search tree in Objective C? [DONE]
+
+11. Given an array, remove the duplicates and return a unique array keeping the first occurrence of the duplicates and the order. [Done]
+[@2, @1, @3, @1, @2] --> [@2, @1, @3]
+
+12. Verify that a binary search tree is indeed a binary search tree. [DONE]
+
+13. Convert a string into an integer without using the in-built frameworks. [DONE]
+
+14. Given an array of strings, remove any duplicates and return a new array containing the first occurrence of each string. [DONE]
+
+15. Read4 (希望以后面fb的诸位，千万小心入口buff需要变动位置，函数外创建类，类里头存上次buff读入的byte数，然后做移动。)
+int Read(int Size, char * buffer) using int Read4(char * buffer) [DONE]
+
+16. 二叉树的copy和中序遍历 [DONE]
+
+17. Lowest Common Ancestor [DONE]
+
+18. LUC [DONE]
+
+19. 2Sum, 3Sum, 4Sum [DONE]
+
+20. Remove duplicate from sorted array [DONE]
+
+21. Binary Tree Level Order Traversal [DONE]
+
+22. Remove Invalid Parentheses [DONE]
+
+23. Valid BST Tree [DONE]
+
+24. subarray sum ＝ k [DONE]
+
+25. Moving Average from Data Stream (http://blog.csdn.net/jmspan/article/details/51289338)
+
+26. strStr [DONE]
+
+27. add binary
+
+28. Valid Palindrom [DONE]
+
+29. Add and Search word [DONE]
+
+30. Sorting Colors II [DONE]
+
+31. Previous (Next) permutation [DONE]
+
+32. Paint House II
+
+33. Verify Preorder Sequence [DONE]
+
+34. Word Search II [DONE]
+
+35. Combine Sum [DONE]
+
+36. Decode Ways [DONE]
+
+37. Run Length Encoding
